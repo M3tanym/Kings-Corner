@@ -1,0 +1,58 @@
+a {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.background-image {
+  background-image: url(../images/background.jpg);
+  position: fixed;
+
+  left: 0;
+  right: 0;
+  z-index: -1;
+
+  display: block;
+  height: 100vh;
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #cfd8dc;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #455a64;
+  border-radius: 5px;
+}
+
+.horizontalScrollDiv
+{
+  overflow: hidden;
+
+  div {
+    flex-wrap: nowrap;
+  }
+
+  &:hover {
+    overflow-x: auto;
+  }
+}
+
+.verticalScrollDiv
+{
+  overflow: hidden;
+
+  &:hover {
+    overflow-y: auto;
+  }
+}
