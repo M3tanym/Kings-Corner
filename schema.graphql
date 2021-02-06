@@ -6,6 +6,9 @@ type User {
     loginInformation: LoginInformation
     avatar: Url
     friends: [User!]!
+    invites: [User!]!
+    tokens: Int
+    items: [Item!]!
 }
 
 type LoginInformation {
@@ -19,29 +22,49 @@ type Name {
     lastName: String
 }
 
+type Item {
+
+}
+
 type Match {
     id: ID!
     players: [User!]!
+    boardState: BoardState
+}
+
+type BoardState {
     currentTurn: User!
+    state: String!
+}
+
+input Invite {
+    from: ID!
+    to: ID!
+}
+
+input Move {
+    matchID: ID!
+    from: String!
+    to: String!
 }
 
 scalar Url
 scalar Date
 
 type Query {
-  user(id: ID!): User
-  users: [User!]!
-  match(id: ID!): Match
-  friends(userID: ID!): [User!]
-  matches(userID: ID!): [Match!]
+    user(id: ID!): User
+    users: [User!]!
+    match(id: ID!): Match
+    friends(userID: ID!): [User!]
+    matches(userID: ID!): [Match!]
 }
 
 type Mutation {
-  createUser(email: String!, password: String!): User
-  addUserPhoneNumber(phoneNumber: String!): User
-  addUserName(name: String!): User
-  addFriendToUser(id: ID!): User
-  createMatch(playerOneID: ID!): Match
-  addPlayerToMatch(matchID: ID!, playerID: ID!): Match
-  changeMatchTurn(matchID: ID!, newTurn: ID!): Match
+    createUser(email: String!, password: String!): User
+    addUserPhoneNumber(phoneNumber: String!): User
+    addUserName(name: String!): User
+    addFriendToUser(id: ID!): User
+    createMatch(playerOneID: ID!): Match
+    addPlayerToMatch(matchID: ID!, playerID: ID!): Match
+    makeMove(matchID: ID!, player: ID!, move: Move): Match
 }
