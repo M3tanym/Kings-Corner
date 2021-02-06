@@ -7,6 +7,12 @@
 node_modules
 package-lock.json
 
+# Tim's files
+
+/venv
+/env
+__pycache__
+
 # Output Files
 
 build
