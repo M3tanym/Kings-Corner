@@ -1,0 +1,47 @@
+type User {
+    id: ID!
+    name: Name
+    email: String!
+    phoneNumber: String
+    loginInformation: LoginInformation
+    avatar: Url
+    friends: [User!]!
+}
+
+type LoginInformation {
+    username: String!
+    password: String!
+}
+
+type Name {
+    fullName: String
+    firstName: String
+    lastName: String
+}
+
+type Match {
+    id: ID!
+    players: [User!]!
+    currentTurn: User!
+}
+
+scalar Url
+scalar Date
+
+type Query {
+  user(id: ID!): User
+  users: [User!]!
+  match(id: ID!): Match
+  friends(userID: ID!): [User!]
+  matches(userID: ID!): [Match!]
+}
+
+type Mutation {
+  createUser(email: String!, password: String!): User
+  addUserPhoneNumber(phoneNumber: String!): User
+  addUserName(name: String!): User
+  addFriendToUser(id: ID!): User
+  createMatch(playerOneID: ID!): Match
+  addPlayerToMatch(matchID: ID!, playerID: ID!): Match
+  changeMatchTurn(matchID: ID!, newTurn: ID!): Match
+}
