@@ -6,8 +6,8 @@ from fastapi import FastAPI
 from fastapi_users.db import MongoDBUserDatabase
 from starlette.requests import Request
 
-from backend.app.auth import auth_backends, jwt_authentication
-from backend.app.models import UserDB, User, UserCreate, UserUpdate
+from app.auth import auth_backends, jwt_authentication
+from app.models import UserDB, User, UserCreate, UserUpdate
 
 DATABASE_URL = "mongodb://209.159.204.189:27017"
 client = motor.motor_asyncio.AsyncIOMotorClient(
