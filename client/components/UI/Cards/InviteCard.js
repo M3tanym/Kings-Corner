@@ -1,9 +1,8 @@
 import React from 'react';
 
-import {Avatar, Box, Button, Grid, IconButton, Typography} from '@material-ui/core';
+import {Avatar, Box, Button, Grid, IconButton, Paper, Typography} from '@material-ui/core';
 
 import {makeStyles} from '@material-ui/core/styles';
-import {grey} from '@material-ui/core/colors';
 
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
@@ -13,11 +12,6 @@ const useStyles = makeStyles(theme => ({
 		paddingBottom: theme.spacing(2),
 		paddingLeft: theme.spacing(4),
 		paddingRight: theme.spacing(4),
-
-		borderWidth: 2,
-		borderStyle: "solid",
-		borderColor: grey[300],
-		borderRadius: 5,
 	}
 }));
 
@@ -25,7 +19,7 @@ const InviteCard = props =>
 {
 	const classes = useStyles();
 	return (
-		<Box width={320} height={200} className={classes.cardBox}>
+		<Paper width={320} height={200} className={classes.cardBox}>
 			<Grid container direction={"column"}>
 				<Grid item>
 					<Grid container
@@ -68,7 +62,7 @@ const InviteCard = props =>
 					</Grid>
 				</Grid>
 			</Grid>
-		</Box>
+		</Paper>
 	);
 }
 

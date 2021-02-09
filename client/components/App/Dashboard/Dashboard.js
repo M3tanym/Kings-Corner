@@ -13,25 +13,9 @@ import Image from "../../../static/images/carousel1.jpg";
 const DashBoard = props =>
 {
 	return (
-		<Grid container spacing={5}>
-			<Grid item>
-				<InProgressMatches />
-			</Grid>
-			<Grid item>
-				<Grid container spacing={4} direction={"column"}>
-					<Grid item>
-						<CreateInvitationWithFriends />
-					</Grid>
-					<Grid item>
-						<PendingInvites />
-					</Grid>
-					<Grid item>
-						<FinishedMatches />
-					</Grid>
-				</Grid>
-			</Grid>
-		</Grid>
-
+		<Box>
+			<InProgressMatches />
+		</Box>
 	);
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Avatar, Box, Grid, Typography} from '@material-ui/core';
+import {Avatar, Box, Grid, Paper, Typography} from '@material-ui/core';
 
 import {makeStyles} from '@material-ui/core/styles';
 import {grey} from '@material-ui/core/colors';
@@ -14,11 +14,6 @@ const useStyles = makeStyles(theme => ({
 		paddingBottom: theme.spacing(2),
 		paddingLeft: theme.spacing(4),
 		paddingRight: theme.spacing(4),
-
-		borderWidth: 2,
-		borderStyle: "solid",
-		borderColor: grey[300],
-		borderRadius: 5,
 	}
 }));
 
@@ -26,7 +21,7 @@ const InProgressLineCard = props =>
 {
 	const classes = useStyles();
 	return (
-		<Box width={1100} height={90} className={classes.cardBox} onClick={() => props.history.push("/app/matches/" + props.id)}>
+		<Paper width={1100} height={90} className={classes.cardBox} onClick={() => props.history.push("/app/matches/" + props.id)}>
 			<Grid container spacing={2}
 				  justify={"space-between"} alignItems={"center"} alignContent={"center"}
 			>
@@ -50,7 +45,7 @@ const InProgressLineCard = props =>
 					<NavigateNextOutlinedIcon />
 				</Grid>
 			</Grid>
-		</Box>
+		</Paper>
 	);
 }
 

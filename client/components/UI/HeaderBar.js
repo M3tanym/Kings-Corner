@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-import {Avatar, Box, Divider, Grid, IconButton, InputBase, Typography} from "@material-ui/core";
+import {Avatar, Box, Grid, IconButton, InputBase, Typography} from "@material-ui/core";
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -10,45 +10,46 @@ import ArrowDropDownOutlinedIcon from '@material-ui/icons/ArrowDropDownOutlined'
 
 import Logo from "../UI/Logo";
 import Image from "../../static/images/background.jpg";
+import {grey} from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
 	avatar: {
-		width: theme.spacing(6),
-		height: theme.spacing(6),
+		width: theme.spacing(4),
+		height: theme.spacing(4),
 	},
 }));
 
 const HeaderBar = props =>
 {
 	return(
-		<Grid container style={{width: "100%", height: "100%"}}
-			  alignContent={"center"} alignItems={"center"}
-		>
-			<Grid item container style={{width: 200}}
+		<Box display={"flex"} flexWrap={"nowrap"}>
+			<LogoHeader />
+			<Search />
+			<Notifications />
+			<Profile />
+		</Box>
+	)
+}
+
+const LogoHeader = props =>
+{
+	return(
+		<Box p={2} width={300}>
+			<Grid item container
 				  justify={"center"} alignItems={"center"} alignContent={"center"}
 			>
-				<Logo height={60}/>
+				<Grid item>
+					<Logo height={60}/>
+				</Grid>
 			</Grid>
-			<Divider orientation="vertical" flexItem style={{height: "100%"}}/>
-			<Grid item>
-				<Search />
-			</Grid>
-			<Divider orientation="vertical" flexItem style={{height: "100%"}}/>
-			<Grid item>
-				<Notifications />
-			</Grid>
-			<Divider orientation="vertical" flexItem style={{height: "100%"}}/>
-			<Grid item>
-				<Profile />
-			</Grid>
-		</Grid>
+		</Box>
 	)
 }
 
 const Search = props =>
 {
 	return(
-		<Box p={3} width={800}>
+		<Box p={2} minWidth={250} flexGrow={1} bgcolor={grey[100]}>
 			<Grid container spacing={2}
 				  alignItems={"center"} alignContent={"center"}
 			>
@@ -66,15 +67,19 @@ const Search = props =>
 const Notifications = props =>
 {
 	return(
-		<Grid container style={{width: 100, paddingTop: 5}}
-			  justify={"center"} alignContent={"center"} alignItems={"center"}
-		>
-			<Grid item>
-				<IconButton>
-					<NotificationsOutlinedIcon />
-				</IconButton>
+		<Box p={2} width={80}>
+			<Grid container
+				  justify={"center"} alignContent={"center"} alignItems={"center"}
+			>
+				<Grid item>
+					<IconButton>
+						<NotificationsOutlinedIcon />
+					</IconButton>
+				</Grid>
 			</Grid>
-		</Grid>
+		</Box>
+
+
 	)
 }
 
@@ -85,39 +90,30 @@ const Profile = props =>
 	const [openMenu, setOpenMenu] = useState(false);
 
 	return(
-		<Grid container direction={"column"} style={{width: 300}}>
-			<Grid item>
-				<Box p={2} >
-					<Grid container spacing={2}
-						  justify={"flex-end"} alignContent={"center"} alignItems={"center"}
-					>
+		<Box p={2} width={280}>
+			<Grid container spacing={2}
+				  justify={"flex-end"} alignContent={"center"} alignItems={"center"}
+			>
+				<Grid item>
+					<Avatar alt={"Profile"} src={Image} className={classes.avatar}/>
+				</Grid>
+				<Grid item>
+					<Grid container direction={"column"}>
 						<Grid item>
-							<Avatar alt={"Profile"} src={Image} className={classes.avatar}/>
+							<Typography variant={"subtitle2"}>Max Rosoff</Typography>
 						</Grid>
 						<Grid item>
-							<Grid container direction={"column"}>
-								<Grid item>
-									<Typography variant={"subtitle2"}>Max Rosoff</Typography>
-								</Grid>
-								<Grid item>
-									<Typography variant={"body2"}>Some other thing</Typography>
-								</Grid>
-							</Grid>
-						</Grid>
-						<Grid item style={{paddingLeft: 20}}>
-							<IconButton onClick={() => setOpenMenu(!openMenu)}>
-								<ArrowDropDownOutlinedIcon />
-							</IconButton>
+							<Typography variant={"body2"}>Some other thing</Typography>
 						</Grid>
 					</Grid>
-				</Box>
+				</Grid>
+				<Grid item style={{paddingLeft: 20}}>
+					<IconButton onClick={() => setOpenMenu(!openMenu)}>
+						<ArrowDropDownOutlinedIcon />
+					</IconButton>
+				</Grid>
 			</Grid>
-			{openMenu ?
-				<Grid item>
-				</Grid> : null
-			}
-		</Grid>
-
+		</Box>
 	);
 }
 
