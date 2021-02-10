@@ -2,8 +2,9 @@ a {
   text-decoration: none;
   color: unset;
 
-  &:hover {
+  &:hover:not(.no-line) {
     cursor: pointer;
+    text-decoration: underline;
   }
 }
 

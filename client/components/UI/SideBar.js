@@ -66,24 +66,35 @@ const NavMenuItem = props =>
 {
 	const Icon = props.icon;
 
+	const NavButton = props =>
+	{
+		return(
+			<Button
+				fullWidth
+				disabled={props.disabled}
+				style={{height: 50, borderRadius: 8, textTransform: 'none'}}
+			>
+				<Grid container spacing={4} style={{paddingLeft: 35}}
+					  alignItems={"center"} alignContent={"center"}
+				>
+					<Icon color={props.active ? "primary" : undefined}/>
+					<Grid item>
+						<Typography>{props.children}</Typography>
+					</Grid>
+				</Grid>
+			</Button>
+		)
+	}
+
 	return(
 		<Box mt={2}>
-			<Link to={props.children.toLowerCase()}>
-				<Button
-					fullWidth
-					disabled={props.disabled}
-					style={{height: 50, borderRadius: 8, textTransform: 'none'}}
-				>
-					<Grid container spacing={4} style={{paddingLeft: 35}}
-						  alignItems={"center"} alignContent={"center"}
-					>
-						<Icon color={props.active ? "primary" : undefined}/>
-						<Grid item>
-							<Typography>{props.children}</Typography>
-						</Grid>
-					</Grid>
-				</Button>
-			</Link>
+			{
+				props.disabled ?
+					<NavButton {...props} /> :
+					<Link to={props.children.toLowerCase()} className={"no-line"}>
+						<NavButton {...props} />
+					</Link>
+			}
 		</Box>
 	)
 }

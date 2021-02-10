@@ -63,8 +63,7 @@ const SignInArea = props =>
 		//{
 		authData.setLoggedIn(true);
 		//	authData.setUserData(r.data);
-		console.log(location);
-		let { from } = location.state || { from: { pathname: "/" } };
+		let { from } = location.state || { from: { pathname: "/app" } };
 		history.replace(from);
 		//});
 	};
