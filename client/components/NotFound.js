@@ -1,13 +1,14 @@
 import React from "react";
 
-import {Grid, Link, Typography} from "@material-ui/core";
+import {Grid, Typography} from "@material-ui/core";
+
+import {Link} from "react-router-dom";
 
 import Logo from './UI/Logo';
 
 const NotFound = props =>
 {
 	return(
-
 		<Grid container spacing={6}
 			  direction={"column"} justify={"center"} alignItems={"center"} alignContent={"center"}
 		>

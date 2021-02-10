@@ -77,7 +77,7 @@ const AppRoutes = props =>
 					<DashBoard {...props} />
 				</AppLayout>
 			</Route>
-			<Route path={`${path}/matches`}>
+			<Route exact path={`${path}/matches`}>
 				<AppLayout>
 					<Matches {...props} />
 				</AppLayout>

@@ -1,12 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
 import 'react-chessground/dist/styles/chessground.css'
 import Chessground from "react-chessground";
 import {Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@material-ui/core";
 
 const ChessBoard = (props) => {
-  const [open, setOpen] = React.useState(false);
-  const [toSq, setToSq] = React.useState('');
-  const [fromSq, setFromSq] = React.useState('');
+  const [open, setOpen] = useState(false);
+  const [toSq, setToSq] = useState('');
+  const [fromSq, setFromSq] = useState('');
 
   if (!props.board) {
     return null;
