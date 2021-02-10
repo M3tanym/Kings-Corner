@@ -230,9 +230,11 @@ const Matches = props =>
 							</AvatarGroup>
 							<ListItemText primary={"Match Name"} secondary="Your Turn" />
 							<ListItemSecondaryAction>
-								<IconButton edge="end" aria-label="delete">
-									<NavigateNextOutlinedIcon />
-								</IconButton>
+								<Link to={"/app/matches/" + index}>
+									<IconButton>
+										<NavigateNextOutlinedIcon />
+									</IconButton>
+								</Link>
 							</ListItemSecondaryAction>
 						</ListItem>
 					)}

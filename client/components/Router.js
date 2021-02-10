@@ -1,6 +1,6 @@
 import React, {createContext, useContext} from 'react';
 
-import {BrowserRouter, Switch, Route, useHistory, Redirect, useRouteMatch} from 'react-router-dom';
+import {BrowserRouter, Switch, Route, Redirect, useRouteMatch} from 'react-router-dom';
 
 import Home from "./Index/Home";
 
@@ -56,7 +56,7 @@ const Routes = props =>
 			<ProtectedRoute path={"/app"}>
 				<AppRoutes {...props}/>
 			</ProtectedRoute>
-			<Route exact path={"*"}>
+			<Route path={"*"}>
 				<NotFound {...props}/>
 			</Route>
 		</Switch>
@@ -96,6 +96,9 @@ const AppRoutes = props =>
 				<AppLayout>
 					<Matches {...props} />
 				</AppLayout>
+			</Route>
+			<Route path={`${path}/*`}>
+				<NotFound {...props}/>
 			</Route>
 		</Switch>
 	)

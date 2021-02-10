@@ -1,15 +1,17 @@
 import React from 'react';
 
-import {Avatar, Box, Grid, Paper, Typography} from '@material-ui/core';
+import {Avatar, Box, Grid, IconButton, Paper, Typography} from '@material-ui/core';
 
 import NavigateNextOutlinedIcon from '@material-ui/icons/NavigateNextOutlined';
 import {AvatarGroup} from '@material-ui/lab';
 
+import {Link} from "react-router-dom";
+
 const InProgressCard = props =>
 {
 	return (
-		<Paper onClick={() => props.history.push("/app/matches/" + props.id)}>
-			<Box width={350} height={100} p={3}>
+		<Paper>
+			<Box height={250} p={3}>
 				<Grid container spacing={2}
 					  justify={"space-between"} alignItems={"center"} alignContent={"center"}
 				>
@@ -30,7 +32,11 @@ const InProgressCard = props =>
 						</Grid>
 					</Grid>
 					<Grid item style={{marginLeft: "auto"}}>
-						<NavigateNextOutlinedIcon />
+						<Link to={"/app/matches/" + props.id}>
+							<IconButton>
+								<NavigateNextOutlinedIcon />
+							</IconButton>
+						</Link>
 					</Grid>
 				</Grid>
 			</Box>
