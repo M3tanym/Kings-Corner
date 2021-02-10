@@ -1,125 +1,69 @@
 import React from "react";
 
-import {Avatar, Box, Grid, Typography} from "@material-ui/core";
+import {Box, Grid, Paper} from "@material-ui/core";
 
-import AddIcon from '@material-ui/icons/Add';
+import {Cell, Legend, Pie, PieChart, Tooltip} from "recharts";
 
 import InProgressCard from '../../UI/Cards/InProgressCard';
-import InviteCard from '../../UI/Cards/InviteCard';
-import FinishedMatchCard from '../../UI/Cards/FinishedMatchCard';
-
-import Image from "../../../static/images/carousel1.jpg";
 
 const DashBoard = props =>
 {
 	return (
-		<Box>
-			<InProgressMatches />
+		<Box width={"100%"} height={"100%"} className={"verticalScrollDiv"}>
+			<Grid container spacing={4}>
+				<Grid item>
+					<WinRate />
+				</Grid>
+				<InProgressMatches />
+			</Grid>
 		</Box>
+
 	);
+}
+
+const WinRate = props =>
+{
+	const data = [
+		{
+			name: "Wins",
+			value: 55,
+			color: "#512DA8"
+		},
+		{
+			name: "Losses",
+			value: 40,
+			color: "#4DB6AC"
+		},
+		{
+			name: "Stalemates",
+			value: 5,
+			color: "#404040"
+		}
+	];
+
+
+	return(
+		<Paper style={{padding: 15}}>
+			<PieChart width={250} height={250}>
+				<Pie data={data} dataKey={"value"} nameKey={"name"} innerRadius={70}>
+					{data.map((item, index) =>
+						<Cell key={index} fill={item.color}/>
+					)}
+				</Pie>
+				<Tooltip />
+				<Legend height={35} verticalAlign={"bottom"}/>
+			</PieChart>
+		</Paper>
+	)
 }
 
 const InProgressMatches = props =>
 {
-	const matches = ["A", "A", "A", "A", "A"];
+	const matches = ["A", "A", "A", "A", "A", "A", "A", "A", "A", "A"];
 
-	return(
-		<Grid container spacing={2} direction={"column"}>
-			<Grid item>
-				<Typography variant={"h6"}>In Progress</Typography>
-			</Grid>
-			<Grid item>
-				<Box width={375} height={600} className={"verticalScrollDiv"}>
-					<Grid container spacing={3} style={{height: "inherit"}}>
-						{matches.map((match, index) =>
-							<Grid item key={index}>
-								<InProgressCard />
-							</Grid>
-						)}
-					</Grid>
-				</Box>
-			</Grid>
-		</Grid>
-	)
-}
-
-const CreateInvitationWithFriends = props =>
-{
-	const friends = ["A", "A", "A", "A", "A"];
-
-	return(
-		<Grid container spacing={2} direction={"column"}>
-			<Grid item>
-				<Typography variant={"h6"}>Invite A Friend</Typography>
-			</Grid>
-			<Grid item>
-				<Box width={700} height={55} className={"horizontalScrollDiv"}>
-					<Grid container style={{height: "inherit"}}>
-						{friends.map((match, index) =>
-							<Grid item key={index}>
-								<Box mr={1}>
-									<Avatar src={Image}/>
-								</Box>
-							</Grid>
-						)}
-						<Grid item>
-							<Avatar>
-								<AddIcon />
-							</Avatar>
-						</Grid>
-					</Grid>
-				</Box>
-			</Grid>
-		</Grid>
-	)
-}
-
-const PendingInvites = props =>
-{
-	const invites = ["A", "A", "A", "A", "A"];
-
-	return(
-		<Grid container spacing={2} direction={"column"}>
-			<Grid item>
-				<Typography variant={"h6"}>Pending Invites</Typography>
-			</Grid>
-			<Grid item>
-				<Box width={700} height={225} className={"horizontalScrollDiv"}>
-					<Grid container spacing={3} style={{height: "inherit"}}>
-						{invites.map((match, index) =>
-							<Grid item key={index}>
-								<InviteCard />
-							</Grid>
-						)}
-					</Grid>
-				</Box>
-			</Grid>
-		</Grid>
-	);
-}
-
-const FinishedMatches = props =>
-{
-	const finishedGames = ["A", "A", "A", "A", "A"];
-
-	return(
-		<Grid container spacing={2} direction={"column"}>
-			<Grid item>
-				<Typography variant={"h6"}>Recent Matches</Typography>
-			</Grid>
-			<Grid item>
-				<Box width={700} height={250} className={"verticalScrollDiv"}>
-					<Grid container spacing={3} style={{height: "inherit"}}>
-						{finishedGames.map((match, index) =>
-							<Grid item key={index}>
-								<Box>
-									<FinishedMatchCard />
-								</Box>
-							</Grid>
-						)}
-					</Grid>
-				</Box>
-			</Grid>
+	return matches.map((match, index) =>
+		<Grid item key={index}>
+			<InProgressCard />
 		</Grid>
 	);
 }

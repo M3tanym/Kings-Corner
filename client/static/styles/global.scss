@@ -39,10 +39,6 @@ a {
 {
   overflow: hidden;
 
-  div {
-    flex-wrap: nowrap;
-  }
-
   &:hover {
     overflow-x: auto;
   }

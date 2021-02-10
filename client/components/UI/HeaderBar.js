@@ -8,14 +8,14 @@ import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import NotificationsOutlinedIcon from '@material-ui/icons/NotificationsOutlined';
 import ArrowDropDownOutlinedIcon from '@material-ui/icons/ArrowDropDownOutlined';
 
-import Logo from "../UI/Logo";
-import Image from "../../static/images/background.jpg";
 import {grey} from "@material-ui/core/colors";
+
+import Logo from "../UI/Logo";
 
 const useStyles = makeStyles((theme) => ({
 	avatar: {
-		width: theme.spacing(4),
-		height: theme.spacing(4),
+		width: theme.spacing(5),
+		height: theme.spacing(5),
 	},
 }));
 
@@ -34,7 +34,7 @@ const HeaderBar = props =>
 const LogoHeader = props =>
 {
 	return(
-		<Box p={2} width={300}>
+		<Box p={2} minWidth={300}>
 			<Grid item container
 				  justify={"center"} alignItems={"center"} alignContent={"center"}
 			>
@@ -50,7 +50,7 @@ const Search = props =>
 {
 	return(
 		<Box p={2} minWidth={250} flexGrow={1} bgcolor={grey[100]}>
-			<Grid container spacing={2}
+			<Grid container spacing={2} style={{height: "inherit"}}
 				  alignItems={"center"} alignContent={"center"}
 			>
 				<Grid item>
@@ -67,7 +67,7 @@ const Search = props =>
 const Notifications = props =>
 {
 	return(
-		<Box p={2} width={80}>
+		<Box p={2} minWidth={80}>
 			<Grid container
 				  justify={"center"} alignContent={"center"} alignItems={"center"}
 			>
@@ -90,24 +90,17 @@ const Profile = props =>
 	const [openMenu, setOpenMenu] = useState(false);
 
 	return(
-		<Box p={2} width={280}>
+		<Box p={2} minWidth={220}>
 			<Grid container spacing={2}
 				  justify={"flex-end"} alignContent={"center"} alignItems={"center"}
 			>
 				<Grid item>
-					<Avatar alt={"Profile"} src={Image} className={classes.avatar}/>
+					<Avatar alt={"Profile"} className={classes.avatar}/>
 				</Grid>
 				<Grid item>
-					<Grid container direction={"column"}>
-						<Grid item>
-							<Typography variant={"subtitle2"}>Max Rosoff</Typography>
-						</Grid>
-						<Grid item>
-							<Typography variant={"body2"}>Some other thing</Typography>
-						</Grid>
-					</Grid>
+					<Typography variant={"subtitle2"}>Max Rosoff</Typography>
 				</Grid>
-				<Grid item style={{paddingLeft: 20}}>
+				<Grid item>
 					<IconButton onClick={() => setOpenMenu(!openMenu)}>
 						<ArrowDropDownOutlinedIcon />
 					</IconButton>

@@ -15,9 +15,13 @@ const App = () =>
 {
     let theme = createMuiTheme({
         palette: {
-            type: 'light',
-            primary: { main: green[500] },
-            secondary: { main: blueGrey[500] }
+            type: "light",
+            primary: {
+                main: '#512da8',
+            },
+            secondary: {
+                main: '#4db6ac',
+            },
         },
     })
     theme = responsiveFontSizes(theme);

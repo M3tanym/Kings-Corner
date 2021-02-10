@@ -1,7 +1,7 @@
 import React from "react";
 
 import {Box, Grid} from '@material-ui/core';
-import InProgressLineCard from '../../UI/Cards/InProgressLineCard';
+import InProgressLineCard from '../../UI/Cards/InProgressCard';
 
 const Matches = props =>
 {

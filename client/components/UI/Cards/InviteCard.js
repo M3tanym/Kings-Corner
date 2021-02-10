@@ -12,6 +12,9 @@ const useStyles = makeStyles(theme => ({
 		paddingBottom: theme.spacing(2),
 		paddingLeft: theme.spacing(4),
 		paddingRight: theme.spacing(4),
+
+		width: 320,
+		height: 200
 	}
 }));
 
@@ -19,7 +22,7 @@ const InviteCard = props =>
 {
 	const classes = useStyles();
 	return (
-		<Paper width={320} height={200} className={classes.cardBox}>
+		<Paper className={classes.cardBox}>
 			<Grid container direction={"column"}>
 				<Grid item>
 					<Grid container

@@ -3,7 +3,6 @@ import React from 'react';
 import {Avatar, Box, Divider, Grid, IconButton, Paper, Typography} from '@material-ui/core';
 
 import {makeStyles} from '@material-ui/core/styles';
-import {grey} from '@material-ui/core/colors';
 
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import ScheduleOutlinedIcon from '@material-ui/icons/ScheduleOutlined';
@@ -15,6 +14,9 @@ const useStyles = makeStyles(theme => ({
 		paddingBottom: theme.spacing(2),
 		paddingLeft: theme.spacing(4),
 		paddingRight: theme.spacing(4),
+
+		width: 310,
+		height: 250
 	}
 }));
 
@@ -22,7 +24,7 @@ const FinishedMatchCard = props =>
 {
 	const classes = useStyles();
 	return (
-		<Paper width={308} height={250} className={classes.cardBox}>
+		<Paper className={classes.cardBox}>
 			<Grid container direction={"column"}>
 				<Grid item>
 					<Grid container

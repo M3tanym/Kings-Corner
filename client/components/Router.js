@@ -79,9 +79,14 @@ const AppRoutes = props =>
 					<DashBoard {...props} />
 				</AppLayout>
 			</Route>
-			<Route path={`${path}/profile`}>
+			<Route path={`${path}/matches`}>
 				<AppLayout {...props}>
-					<Profile {...props} />
+					<Matches {...props} />
+				</AppLayout>
+			</Route>
+			<Route path={`${path}/matches/:matchID`}>
+				<AppLayout {...props}>
+					<Match {...props} />
 				</AppLayout>
 			</Route>
 			<Route path={`${path}/collection`}>
@@ -89,14 +94,9 @@ const AppRoutes = props =>
 					<Collection {...props} />
 				</AppLayout>
 			</Route>
-			<Route path={`${path}/matches`}>
+			<Route path={`${path}/shop`}>
 				<AppLayout {...props}>
 					<Matches {...props} />
-				</AppLayout>
-			</Route>
-			<Route path={`${path}/:matchID`}>
-				<AppLayout {...props}>
-					<Match {...props} />
 				</AppLayout>
 			</Route>
 		</Switch>
