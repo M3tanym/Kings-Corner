@@ -1,7 +1,9 @@
 import React, {useContext, useState} from "react";
 
-import {Box, Divider, Grid, Link, TextField, Typography} from "@material-ui/core";
+import {Box, Divider, Grid, TextField, Typography} from "@material-ui/core";
 import {grey} from "@material-ui/core/colors";
+
+import {Link, useHistory, useLocation} from "react-router-dom";
 
 import {OAuthButton, SignInButton} from "../UI/Buttons";
 import Logo from "../UI/Logo";
@@ -51,14 +53,19 @@ const SignInArea = props =>
 
 	let authData = useContext(AuthContext);
 
+	let history = useHistory();
+	let location = useLocation();
+
 	const login = () =>
 	{
 		//post("home", {username: username, password: password})
 		//.then(r =>
 		//{
-			authData.setLoggedIn(true);
+		authData.setLoggedIn(true);
 		//	authData.setUserData(r.data);
-			props.history.push("/app");
+		console.log(location);
+		let { from } = location.state || { from: { pathname: "/" } };
+		history.replace(from);
 		//});
 	};
 
@@ -119,7 +126,9 @@ const LoginFields = props =>
 				</Grid>
 			</Grid>
 			<Grid item style={{marginLeft: "auto"}}>
-				<Link variant={"body2"} onClick={() => props.history.push("/forgot-password")}>Forgot password?</Link>
+				<Link to={"/forgot-password"}>
+					<Typography variant={"body2"} color={"primary"}>Forgot password?</Typography>
+				</Link>
 			</Grid>
 		</Grid>
 	);
@@ -156,14 +165,14 @@ const OAuthArea = props =>
 					onFailure={err => props.produceSnackBar(err.details)}
 					onSuccess={loginResponse => {
 						post("login", {idTokenString: loginResponse.tokenObj.id_token})
-						.then(r => {
-							if (r.data.loginSuccess) {
-								props.setUserData(response.data);
-								props.setPage('dash');
-							} else {
-								props.produceSnackBar('Sign-In error!');
-							}
-						});
+							.then(r => {
+								if (r.data.loginSuccess) {
+									props.setUserData(response.data);
+									props.setPage('dash');
+								} else {
+									props.produceSnackBar('Sign-In error!');
+								}
+							});
 					}}
 					render={props =>
 						<OAuthButton onClick={props.onClick} disabled={props.disabled} icon={<GoogleIcon />}>
@@ -178,14 +187,14 @@ const OAuthArea = props =>
 					onFailure={err => props.produceSnackBar(err.details)}
 					onSuccess={loginResponse => {
 						post("/api/login", {idTokenString: loginResponse.tokenObj.id_token})
-						.then(r => {
-							if (r.data.loginSuccess) {
-								props.setUserData(response.data);
-								props.setPage('dash');
-							} else {
-								props.produceSnackBar('Sign-In error!');
-							}
-						});
+							.then(r => {
+								if (r.data.loginSuccess) {
+									props.setUserData(response.data);
+									props.setPage('dash');
+								} else {
+									props.produceSnackBar('Sign-In error!');
+								}
+							});
 					}}
 					render={props =>
 						<OAuthButton onClick={props.onClick} disabled={props.disabled} icon={<GoogleIcon />}>
@@ -236,7 +245,9 @@ const CreateAccountArea = props =>
 				<Typography variant={"body2"}>New?</Typography>
 			</Grid>
 			<Grid item>
-				<Link variant={"body2"} onClick={() => props.history.push("/create-account")}>Create Account</Link>
+				<Link to={"/create-account"}>
+					<Typography variant={"body2"} color={"primary"}>Create Account</Typography>
+				</Link>
 			</Grid>
 		</Grid>
 	)

@@ -13,6 +13,8 @@ import {
 	Typography, useTheme
 } from "@material-ui/core";
 
+import {Link, useRouteMatch} from "react-router-dom";
+
 import {
 	CartesianGrid,
 	Cell,
@@ -58,7 +60,6 @@ const DashBoard = props =>
 				</Grid>
 			</Box>
 		</Box>
-
 	);
 }
 
@@ -92,15 +93,15 @@ const WinRate = props =>
 			</Typography>
 			<Divider />
 			<Box style={{padding: 15}}>
-				<ResponsiveContainer width={"100%"} height={250}>
+				<ResponsiveContainer width={"100%"} height={200}>
 					<PieChart>
-						<Pie data={data} dataKey={"value"} nameKey={"name"} innerRadius={70}>
+						<Pie data={data} dataKey={"value"} nameKey={"name"} innerRadius={50}>
 							{data.map((item, index) =>
 								<Cell key={index} fill={item.color}/>
 							)}
 						</Pie>
 						<Tooltip />
-						<Legend height={35} verticalAlign={"bottom"}/>
+						<Legend height={30} verticalAlign={"bottom"}/>
 					</PieChart>
 				</ResponsiveContainer>
 			</Box>
@@ -150,7 +151,7 @@ const YourRank = props =>
 			</Typography>
 			<Divider />
 			<Box style={{paddingTop: 20, paddingRight: 30, paddingBottom: 10}}>
-				<ResponsiveContainer width={"100%"} height={250} >
+				<ResponsiveContainer width={"100%"} height={200} >
 					<LineChart data={data}>
 						<CartesianGrid strokeDasharray="3 3" />
 						<XAxis dataKey="date" />
@@ -172,7 +173,7 @@ const TopPlayers = props =>
 				Top Players
 			</Typography>
 			<Divider />
-			<List style={{height: 250, padding: 15}}>
+			<List style={{height: 200, padding: 15}} dense>
 				<ListItem>
 					<ListItemAvatar>
 						<Avatar />
@@ -202,35 +203,41 @@ const Matches = props =>
 
 	return(
 		<Paper style={{height: "100%"}}>
-			<Grid container>
+			<Grid container
+				  justify={"space-between"} alignContent={"center"} alignItems={"center"}
+			>
 				<Grid item>
 					<Typography variant={"h6"} style={{paddingTop: 18, paddingBottom: 12, paddingLeft: 25}}>
 						Matches
 					</Typography>
 				</Grid>
-				<Grid item style={{marginLeft: "auto"}}>
-					<IconButton edge="end" aria-label="delete">
-						<NavigateNextOutlinedIcon />
-					</IconButton>
+				<Grid item style={{paddingRight: 10}}>
+					<Link to={`/app/matches`}>
+						<IconButton>
+							<NavigateNextOutlinedIcon />
+						</IconButton>
+					</Link>
 				</Grid>
 			</Grid>
 			<Divider />
-			<List style={{minHeight: 250, padding: 15}}>
-				{matches.map((match, index) =>
-					<ListItem onClick={() => props.history.push("/app/matches/" + index)} key={index}>
-						<AvatarGroup max={2}>
-							<Avatar />
-							<Avatar />
-						</AvatarGroup>
-						<ListItemText primary={"Match Name"} secondary="Your Turn" />
-						<ListItemSecondaryAction>
-							<IconButton edge="end" aria-label="delete">
-								<NavigateNextOutlinedIcon />
-							</IconButton>
-						</ListItemSecondaryAction>
-					</ListItem>
-				)}
-			</List>
+			<Box p={1}>
+				<List>
+					{matches.map((match, index) =>
+						<ListItem onClick={() => props.history.push("/app/matches/" + index)} key={index}>
+							<AvatarGroup max={2} style={{paddingRight: 20}}>
+								<Avatar />
+								<Avatar />
+							</AvatarGroup>
+							<ListItemText primary={"Match Name"} secondary="Your Turn" />
+							<ListItemSecondaryAction>
+								<IconButton edge="end" aria-label="delete">
+									<NavigateNextOutlinedIcon />
+								</IconButton>
+							</ListItemSecondaryAction>
+						</ListItem>
+					)}
+				</List>
+			</Box>
 		</Paper>
 	)
 }

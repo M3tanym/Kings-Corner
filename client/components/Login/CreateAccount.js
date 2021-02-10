@@ -53,10 +53,10 @@ const SignInArea = props =>
 	const createAccount = () =>
 	{
 		post("login", {username: username, password: password})
-		.then(res =>
-		{
+			.then(res =>
+			{
 
-		})
+			})
 	};
 
 	return (
@@ -157,7 +157,9 @@ const BackToSignInArea = props =>
 				<Typography variant={"body2"}>Already have an account?</Typography>
 			</Grid>
 			<Grid item>
-				<Link variant={"body2"} onClick={() => props.history.push("/login")}>Sign In</Link>
+				<Link to={"/login"}>
+					<Typography variant={"body2"} color={"primary"}>Sign In</Typography>
+				</Link>
 			</Grid>
 		</Grid>
 	)

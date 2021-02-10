@@ -1,6 +1,6 @@
 import React from "react";
 
-import {useLocation} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 
 import {Box, Button, Grid, Typography} from "@material-ui/core";
 
@@ -50,7 +50,6 @@ const SideBar = props =>
 						icon={item.icon}
 						active={location === item.text.toLowerCase()}
 						disabled={item.disabled}
-						{...props}
 					>
 						{item.text}
 					</NavMenuItem>
@@ -69,21 +68,22 @@ const NavMenuItem = props =>
 
 	return(
 		<Box mt={2}>
-			<Button
-				fullWidth
-				disabled={props.disabled}
-				style={{height: 50, borderRadius: 8, textTransform: 'none'}}
-				onClick={() => props.history.push(props.children.toLowerCase())}
-			>
-				<Grid container spacing={4} style={{paddingLeft: 35}}
-					  alignItems={"center"} alignContent={"center"}
+			<Link to={props.children.toLowerCase()}>
+				<Button
+					fullWidth
+					disabled={props.disabled}
+					style={{height: 50, borderRadius: 8, textTransform: 'none'}}
 				>
-					<Icon color={props.active ? "primary" : undefined}/>
-					<Grid item>
-						<Typography>{props.children}</Typography>
+					<Grid container spacing={4} style={{paddingLeft: 35}}
+						  alignItems={"center"} alignContent={"center"}
+					>
+						<Icon color={props.active ? "primary" : undefined}/>
+						<Grid item>
+							<Typography>{props.children}</Typography>
+						</Grid>
 					</Grid>
-				</Grid>
-			</Button>
+				</Button>
+			</Link>
 		</Box>
 	)
 }

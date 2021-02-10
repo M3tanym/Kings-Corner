@@ -33,33 +33,31 @@ const Router = props =>
 
 const Routes = props =>
 {
-	const history = useHistory();
-
 	return(
 		<Switch>
 			<Route exact path={"/"}>
-				<Home history={history}/>
+				<Home />
 			</Route>
 			<Route path={"/login"}>
 				<LoginLayout>
-					<Login history={history} {...props}/>
+					<Login {...props}/>
 				</LoginLayout>
 			</Route>
 			<Route path={"/create-account"}>
 				<LoginLayout>
-					<CreateAccount history={history} {...props}/>
+					<CreateAccount {...props}/>
 				</LoginLayout>
 			</Route>
 			<Route path={"/forgot-password"}>
 				<LoginLayout>
-					<ForgotPassword history={history} {...props}/>
+					<ForgotPassword {...props}/>
 				</LoginLayout>
 			</Route>
 			<ProtectedRoute path={"/app"}>
-				<AppRoutes history={history} {...props}/>
+				<AppRoutes {...props}/>
 			</ProtectedRoute>
 			<Route exact path={"*"}>
-				<NotFound history={history} {...props}/>
+				<NotFound {...props}/>
 			</Route>
 		</Switch>
 	)
@@ -75,27 +73,27 @@ const AppRoutes = props =>
 				<Redirect to={{ pathname: `${path}/dashboard`, state: { from: props.location }}}/>
 			</Route>
 			<Route path={`${path}/dashboard`}>
-				<AppLayout {...props}>
+				<AppLayout>
 					<DashBoard {...props} />
 				</AppLayout>
 			</Route>
 			<Route path={`${path}/matches`}>
-				<AppLayout {...props}>
+				<AppLayout>
 					<Matches {...props} />
 				</AppLayout>
 			</Route>
 			<Route path={`${path}/matches/:matchID`}>
-				<AppLayout {...props}>
+				<AppLayout>
 					<Match {...props} />
 				</AppLayout>
 			</Route>
 			<Route path={`${path}/collection`}>
-				<AppLayout {...props}>
+				<AppLayout>
 					<Collection {...props} />
 				</AppLayout>
 			</Route>
 			<Route path={`${path}/shop`}>
-				<AppLayout {...props}>
+				<AppLayout>
 					<Matches {...props} />
 				</AppLayout>
 			</Route>
