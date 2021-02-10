@@ -17,10 +17,10 @@ const App = () =>
         palette: {
             type: "light",
             primary: {
-                main: '#512da8',
+                main: '#653D23',
             },
             secondary: {
-                main: '#4db6ac',
+                main: '#E2AF6E',
             },
         },
     })

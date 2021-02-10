@@ -112,7 +112,10 @@ const ImageCarousel = props =>
 				>
 					{images.map((_, i) =>
 						<Grid item key={i}>
-							<CarouselIndicator active={carouselActiveIndex === i}/>
+							<CarouselIndicator
+								active={carouselActiveIndex === i}
+								onClick={() => setCarouselActiveIndex(i)}
+							/>
 						</Grid>
 					)}
 				</Grid>
@@ -134,6 +137,7 @@ const CarouselIndicator = props =>
 			animate={props.active ? "active" : "other"}
 			variants={variants}
 			style={{height: 10, borderRadius: 10}}
+			onClick={props.onClick}
 		/>
 	);
 }

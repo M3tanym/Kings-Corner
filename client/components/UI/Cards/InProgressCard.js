@@ -22,10 +22,10 @@ const InProgressCard = props =>
 					<Grid item>
 						<Grid container direction={"column"}>
 							<Grid item>
-								<Typography variant={"h6"}>Match Name</Typography>
+								<Typography variant={"body1"}>Match Name</Typography>
 							</Grid>
 							<Grid item>
-								<Typography>Your Turn</Typography>
+								<Typography variant={"body2"}>Your Turn</Typography>
 							</Grid>
 						</Grid>
 					</Grid>

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {Button, Hidden, Grid} from "@material-ui/core";
-import {grey} from "@material-ui/core/colors";
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -13,11 +12,11 @@ const useStyles = makeStyles(theme =>
 			borderRadius: 200,
 			fontSize: 22,
 			color: "white",
-			backgroundColor: grey[600],
+			backgroundColor: theme.palette.primary.main,
 			boxShadow: 'none',
 			textTransform: 'none',
 			'&:hover': {
-				backgroundColor: grey[700],
+				backgroundColor: theme.palette.primary.main,
 				boxShadow: 'none',
 			}
 		},

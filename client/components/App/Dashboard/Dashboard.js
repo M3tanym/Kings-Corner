@@ -1,21 +1,62 @@
 import React from "react";
 
-import {Box, Grid, Paper} from "@material-ui/core";
+import {
+	Avatar,
+	Box,
+	Divider,
+	Grid, IconButton,
+	List,
+	ListItem,
+	ListItemAvatar, ListItemSecondaryAction,
+	ListItemText,
+	Paper,
+	Typography, useTheme
+} from "@material-ui/core";
 
-import {Cell, Legend, Pie, PieChart, Tooltip} from "recharts";
+import {
+	CartesianGrid,
+	Cell,
+	Legend,
+	Line,
+	LineChart,
+	Pie,
+	PieChart,
+	ResponsiveContainer,
+	Tooltip,
+	XAxis,
+	YAxis
+} from "recharts";
 
-import InProgressCard from '../../UI/Cards/InProgressCard';
+import {AvatarGroup} from "@material-ui/lab";
+import NavigateNextOutlinedIcon from "@material-ui/icons/NavigateNextOutlined";
 
 const DashBoard = props =>
 {
 	return (
-		<Box width={"100%"} height={"100%"} className={"verticalScrollDiv"}>
-			<Grid container spacing={4}>
-				<Grid item>
-					<WinRate />
+		<Box width={"100%"} height={"100%"} display={"flex"} flexDirection={"column"} flexWrap={"noWrap"}>
+			<Box>
+				<Grid container spacing={4}>
+					<Grid item xs style={{minWidth: 250}}>
+						<WinRate />
+					</Grid>
+					<Grid item xs={6} style={{minWidth: 500}}>
+						<YourRank />
+					</Grid>
+					<Grid item xs style={{minWidth: 300}}>
+						<TopPlayers />
+					</Grid>
 				</Grid>
-				<InProgressMatches />
-			</Grid>
+			</Box>
+			<Box flexGrow={1} mt={4}>
+				<Grid container spacing={4} style={{height: "100%"}}>
+					<Grid item xs={4} style={{minWidth: 300}}>
+						<Matches />
+					</Grid>
+					<Grid item xs style={{minWidth: 300}}>
+						<BattlePass />
+					</Grid>
+				</Grid>
+			</Box>
 		</Box>
 
 	);
@@ -23,16 +64,18 @@ const DashBoard = props =>
 
 const WinRate = props =>
 {
+	const theme = useTheme();
+
 	const data = [
 		{
 			name: "Wins",
 			value: 55,
-			color: "#512DA8"
+			color: theme.palette.primary.main
 		},
 		{
 			name: "Losses",
 			value: 40,
-			color: "#4DB6AC"
+			color: theme.palette.secondary.main
 		},
 		{
 			name: "Stalemates",
@@ -43,29 +86,168 @@ const WinRate = props =>
 
 
 	return(
-		<Paper style={{padding: 15}}>
-			<PieChart width={250} height={250}>
-				<Pie data={data} dataKey={"value"} nameKey={"name"} innerRadius={70}>
-					{data.map((item, index) =>
-						<Cell key={index} fill={item.color}/>
-					)}
-				</Pie>
-				<Tooltip />
-				<Legend height={35} verticalAlign={"bottom"}/>
-			</PieChart>
+		<Paper>
+			<Typography variant={"h6"} style={{paddingTop: 18, paddingBottom: 12, paddingLeft: 25}}>
+				Win Rate
+			</Typography>
+			<Divider />
+			<Box style={{padding: 15}}>
+				<ResponsiveContainer width={"100%"} height={250}>
+					<PieChart>
+						<Pie data={data} dataKey={"value"} nameKey={"name"} innerRadius={70}>
+							{data.map((item, index) =>
+								<Cell key={index} fill={item.color}/>
+							)}
+						</Pie>
+						<Tooltip />
+						<Legend height={35} verticalAlign={"bottom"}/>
+					</PieChart>
+				</ResponsiveContainer>
+			</Box>
+		</Paper>
+	);
+}
+
+const YourRank = props =>
+{
+	const theme = useTheme();
+
+	const data = [
+		{
+			"date": "Page A",
+			"rank": 4000
+		},
+		{
+			"date": "Page B",
+			"rank": 3000
+		},
+		{
+			"date": "Page C",
+			"rank": 2000
+		},
+		{
+			"date": "Page D",
+			"rank": 2780
+		},
+		{
+			"date": "Page E",
+			"rank": 1890
+		},
+		{
+			"date": "Page F",
+			"rank": 2390,
+		},
+		{
+			"date": "Page G",
+			"rank": 3490
+		}
+	]
+
+	return(
+		<Paper>
+			<Typography variant={"h6"} style={{paddingTop: 18, paddingBottom: 12, paddingLeft: 25}}>
+				Rank Over Time
+			</Typography>
+			<Divider />
+			<Box style={{paddingTop: 20, paddingRight: 30, paddingBottom: 10}}>
+				<ResponsiveContainer width={"100%"} height={250} >
+					<LineChart data={data}>
+						<CartesianGrid strokeDasharray="3 3" />
+						<XAxis dataKey="date" />
+						<YAxis />
+						<Tooltip />
+						<Line dataKey="rank" stroke={theme.palette.primary.main} strokeWidth={3}/>
+					</LineChart>
+				</ResponsiveContainer>
+			</Box>
+		</Paper>
+	);
+}
+
+const TopPlayers = props =>
+{
+	return(
+		<Paper style={{height: "100%"}}>
+			<Typography variant={"h6"} style={{paddingTop: 18, paddingBottom: 12, paddingLeft: 25}}>
+				Top Players
+			</Typography>
+			<Divider />
+			<List style={{height: 250, padding: 15}}>
+				<ListItem>
+					<ListItemAvatar>
+						<Avatar />
+					</ListItemAvatar>
+					<ListItemText primary="Ben" secondary="1234 Rating" />
+				</ListItem>
+				<ListItem>
+					<ListItemAvatar>
+						<Avatar />
+					</ListItemAvatar>
+					<ListItemText primary="Tim" secondary="1000 Rating" />
+				</ListItem>
+				<ListItem>
+					<ListItemAvatar>
+						<Avatar />
+					</ListItemAvatar>
+					<ListItemText primary="Max" secondary="750 Rating" />
+				</ListItem>
+			</List>
+		</Paper>
+	);
+}
+
+const Matches = props =>
+{
+	const matches = ["A", "A", "A"];
+
+	return(
+		<Paper style={{height: "100%"}}>
+			<Grid container>
+				<Grid item>
+					<Typography variant={"h6"} style={{paddingTop: 18, paddingBottom: 12, paddingLeft: 25}}>
+						Matches
+					</Typography>
+				</Grid>
+				<Grid item style={{marginLeft: "auto"}}>
+					<IconButton edge="end" aria-label="delete">
+						<NavigateNextOutlinedIcon />
+					</IconButton>
+				</Grid>
+			</Grid>
+			<Divider />
+			<List style={{minHeight: 250, padding: 15}}>
+				{matches.map((match, index) =>
+					<ListItem onClick={() => props.history.push("/app/matches/" + index)} key={index}>
+						<AvatarGroup max={2}>
+							<Avatar />
+							<Avatar />
+						</AvatarGroup>
+						<ListItemText primary={"Match Name"} secondary="Your Turn" />
+						<ListItemSecondaryAction>
+							<IconButton edge="end" aria-label="delete">
+								<NavigateNextOutlinedIcon />
+							</IconButton>
+						</ListItemSecondaryAction>
+					</ListItem>
+				)}
+			</List>
 		</Paper>
 	)
 }
 
-const InProgressMatches = props =>
+const BattlePass = props =>
 {
-	const matches = ["A", "A", "A", "A", "A", "A", "A", "A", "A", "A"];
+	return(
+		<Paper style={{height: "100%"}}>
+			<Typography variant={"h6"} style={{paddingTop: 18, paddingBottom: 12, paddingLeft: 25}}>
+				Battle Pass
+			</Typography>
+			<Divider />
+			<Box minHeight={250} className={"horizontalScrollDiv"}>
 
-	return matches.map((match, index) =>
-		<Grid item key={index}>
-			<InProgressCard />
-		</Grid>
-	);
+			</Box>
+		</Paper>
+	)
 }
 
 export default DashBoard;

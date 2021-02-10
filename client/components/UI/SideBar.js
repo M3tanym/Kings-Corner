@@ -6,6 +6,7 @@ import {Box, Button, Grid, Typography} from "@material-ui/core";
 
 import AddIcon from '@material-ui/icons/Add';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import StorefrontIcon from '@material-ui/icons/Storefront';
 
@@ -16,6 +17,7 @@ const SideBar = props =>
 
 	let menuEntries = [
 		{ text: "Dashboard", icon: DashboardIcon },
+		{ text: "Matches", icon: SportsEsportsIcon },
 		{ text: "Collection", icon: ShoppingBasketIcon, disabled: true },
 		{ text: "Shop", icon: StorefrontIcon, disabled: true },
 	];

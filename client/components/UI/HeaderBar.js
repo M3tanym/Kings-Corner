@@ -34,12 +34,12 @@ const HeaderBar = props =>
 const LogoHeader = props =>
 {
 	return(
-		<Box p={2} minWidth={300}>
+		<Box p={2} minWidth={280}>
 			<Grid item container
 				  justify={"center"} alignItems={"center"} alignContent={"center"}
 			>
 				<Grid item>
-					<Logo height={60}/>
+					<Logo height={30}/>
 				</Grid>
 			</Grid>
 		</Box>
@@ -92,7 +92,7 @@ const Profile = props =>
 	return(
 		<Box p={2} minWidth={220}>
 			<Grid container spacing={2}
-				  justify={"flex-end"} alignContent={"center"} alignItems={"center"}
+				  alignContent={"center"} alignItems={"center"}
 			>
 				<Grid item>
 					<Avatar alt={"Profile"} className={classes.avatar}/>
