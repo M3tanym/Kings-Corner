@@ -1,6 +1,6 @@
 import React, {useContext, useState} from "react";
 
-import {Box, Divider, Grid, TextField, Typography} from "@material-ui/core";
+import {Box, CircularProgress, Divider, Grid, TextField, Typography} from "@material-ui/core";
 import {grey} from "@material-ui/core/colors";
 
 import {Link, useHistory, useLocation} from "react-router-dom";
@@ -12,6 +12,9 @@ import {GoogleLogin} from 'react-google-login';
 const GoogleClientID = '779071993156-iec5nqbmgqr4t3524psqlbep08aasvrs.apps.googleusercontent.com';
 
 import {AuthContext} from "../Router";
+import {gql, useMutation} from '@apollo/client';
+
+import {useSnackbar} from "notistack";
 
 const Login = props =>
 {
@@ -56,17 +59,29 @@ const SignInArea = props =>
 	let history = useHistory();
 	let location = useLocation();
 
-	const login = () =>
-	{
-		//post("home", {username: username, password: password})
-		//.then(r =>
-		//{
-		authData.setLoggedIn(true);
-		//	authData.setUserData(r.data);
-		let { from } = location.state || { from: { pathname: "/app" } };
-		history.replace(from);
-		//});
-	};
+	const { enqueueSnackbar } = useSnackbar();
+
+	const Login = gql`
+		mutation Login($username: String!, $password: String!) {
+			login(username: $username, password: $password) {
+				avatar
+			}
+		}
+	`;
+
+	const [doMutation, { loading }] = useMutation(Login);
+
+	const login = () => doMutation({
+		variables: { username, password },
+		onCompleted: data => {
+			authData.setLoggedIn(true);
+			authData.setUserData(data.user);
+
+			let { from } = location.state || { from: { pathname: "/app" } };
+			history.replace(from);
+		},
+		onError: (err) => enqueueSnackbar(err)
+	})
 
 	return (
 		<Grid container spacing={4}
@@ -80,9 +95,12 @@ const SignInArea = props =>
 				/>
 			</Grid>
 			<Grid item>
-				<SignInButton onClick={() => login()}>
-					Sign in
-				</SignInButton>
+				{
+					loading ? <CircularProgress /> :
+						<SignInButton onClick={login}>
+							Sign in
+						</SignInButton>
+				}
 			</Grid>
 		</Grid>
 	)

@@ -39,7 +39,7 @@ const LogoHeader = props =>
 				  justify={"center"} alignItems={"center"} alignContent={"center"}
 			>
 				<Grid item>
-					<Logo height={30}/>
+					<Logo height={50}/>
 				</Grid>
 			</Grid>
 		</Box>

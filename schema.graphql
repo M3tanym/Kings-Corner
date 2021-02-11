@@ -52,7 +52,7 @@ scalar Url
 scalar Date
 
 type Query {
-    user(id: ID!): User
+    user(id: ID, email: String, username: String, phoneNumber: String): User
     users: [User!]!
     match(id: ID!): Match
     friends(userID: ID!): [User!]
@@ -61,6 +61,7 @@ type Query {
 
 type Mutation {
     createUser(email: String!, password: String!): User
+    login(email: String, username: String, password: String!): User
     addUserPhoneNumber(phoneNumber: String!): User
     addUserName(name: String!): User
     addFriendToUser(id: ID!): User

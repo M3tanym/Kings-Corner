@@ -10,9 +10,9 @@ import CreateAccount from "./Login/CreateAccount";
 import ForgotPassword from "./Login/ForgotPassword";
 
 import AppLayout from "./App/AppLayout";
-import DashBoard from "./App/Dashboard/Dashboard";
-import Profile from "./App/Profile/Profile";
-import Collection from "./App/Collection/Collection";
+import DashBoard from "./App/Dashboard";
+import Profile from "./App/Profile";
+import Collection from "./App/Collection";
 import Matches from "./App/Matches/Matches";
 import Match from './App/Matches/Match';
 
@@ -70,21 +70,6 @@ const Routes = props =>
 	)
 }
 
-const FilterRoutes = props => {
-	let { path } = useRouteMatch()
-
-	return(
-		<Switch>
-			<Route exact path={path}>
-					{props.children}
-			</Route>
-			<Route path={`*`}>
-				<Redirect to={{ pathname: props.route, state: { from: props.location }}}/>
-			</Route>
-		</Switch>
-			);
-}
-
 const AppRoutes = props =>
 {
 	let { path } = useRouteMatch();
@@ -93,11 +78,40 @@ const AppRoutes = props =>
 			<Route exact path={path}>
 				<Redirect to={{ pathname: `${path}/dashboard`, state: { from: props.location }}}/>
 			</Route>
-			<Route path={`${path}/dashboard`}>
+			<FilterRoutes route={"/me"}{...props}>
+				<AppLayout>
+					<Profile />
+				</AppLayout>
+			</FilterRoutes>
+			<FilterRoutes route={"/dashboard"} {...props}>
 				<AppLayout>
 					<DashBoard {...props} />
 				</AppLayout>
+			</FilterRoutes>
+			<FilterRoutes route={"/collection"} {...props}>
+				<AppLayout>
+					<Collection {...props} />
+				</AppLayout>
+			</FilterRoutes>
+			<FilterRoutes route={"/shop"} {...props}>
+				<AppLayout>
+					<Profile />
+				</AppLayout>
+			</FilterRoutes>
+			<MatchRoutes />
+			<Route path={"*"}>
+				<NotFound {...props}/>
 			</Route>
+		</Switch>
+	)
+}
+
+const MatchRoutes = props =>
+{
+	const { path } = useRouteMatch()
+
+	return(
+		<Switch>
 			<Route exact path={`${path}/matches`}>
 				<AppLayout>
 					<Matches {...props} />
@@ -108,21 +122,24 @@ const AppRoutes = props =>
 					<Match {...props} />
 				</AppLayout>
 			</Route>
-			<Route path={`${path}/collection`}>
-				<AppLayout>
-					<Collection {...props} />
-				</AppLayout>
-			</Route>
-			<Route path={`${path}/shop`}>
-				<AppLayout>
-					<Matches {...props} />
-				</AppLayout>
-			</Route>
-			<Route>
-				<NotFound {...props}/>
-			</Route>
 		</Switch>
 	)
+}
+
+const FilterRoutes = props => {
+
+	const { path } = useRouteMatch()
+
+	return(
+		<Switch>
+			<Route exact path={path}>
+				{props.children}
+			</Route>
+			<Route path={`*`}>
+				<Redirect to={{ pathname: props.route, state: { from: props.location }}}/>
+			</Route>
+		</Switch>
+	);
 }
 
 const ProtectedRoute = props => {
@@ -144,51 +161,9 @@ const AuthNeeded = props =>
 		userData: null,
 		setUserData: (value) => authData.userData = value,
 		loggedIn: false,
-		setLoggedIn: (value) => authData.loggedIn = value,
-		webSocket: null,
-		setWebSocket: (value) => authData.webSocket = value
+		setLoggedIn: (value) => authData.loggedIn = value
 	}
 
-	/*useEffect(() =>
-{
-if (!userData) return null;
-
-let token = userData.token;
-let username = userData.profile.username;
-let credentials = 'username=' + username + '&token=' + token;
-let proto = (location.protocol === 'https:') ? 'wss' : 'ws';
-let port = (location.hostname === 'localhost') ? ':8000' : '';
-let url = proto + '://' + window.location.hostname + port + '/ws?' + credentials;
-
-webSocket.current = new WebSocket(url);
-webSocket.current.onopen = () => console.log('WebSocket Connected');
-webSocket.current.onmessage = wsReceive;
-webSocket.current.onclose = () => console.log('WebSocket Closed');
-webSocket.current.onerror = (error) => console.error(error);
-
-return () => webSocket.current.close();
-	}, [userData]);
-
-const webSocketSend = (message) => webSocket.current.send(message);
-
-const wsReceive = (message) =>
-{
-switch(message.data.type)
-		{
-case 'board':
-break;
-
-case 'create':
-break;
-
-case 'nickname':
-break;
-
-default:
-break;
-		}
-	}
-*/
 	return (
 		<AuthContext.Provider value={authData}>
 			{props.children}
