@@ -5,9 +5,15 @@ import uvicorn as uvicorn
 from fastapi import FastAPI
 from fastapi_users.db import MongoDBUserDatabase
 from starlette.requests import Request
+from starlette.graphql import GraphQLApp
 
 from auth import auth_backends, jwt_authentication
 from models import UserDB, User, UserCreate, UserUpdate
+from fastapi_users import FastAPIUsers
+
+from graphene import Schema
+import schema
+
 
 DATABASE_URL = "mongodb://209.159.204.189:27017"
 client = motor.motor_asyncio.AsyncIOMotorClient(
@@ -16,10 +22,9 @@ client = motor.motor_asyncio.AsyncIOMotorClient(
 db = client["kingscorner"]
 collection = db["users"]
 
-app = FastAPI(title="Kings Corner", version=0.1)
+app = FastAPI(title="Kings Corner", version='0.1')
 user_db = MongoDBUserDatabase(UserDB, collection)
 
-from fastapi_users import FastAPIUsers
 
 fastapi_users = FastAPIUsers(
     user_db,
@@ -51,6 +56,12 @@ app.include_router(
     prefix="/users",
     tags=["users"],
 )
+
+# temporary demo
+# noinspection PyTypeChecker
+s = Schema(query=schema.Query)
+
+app.add_route("/graphql", GraphQLApp(schema=s))
 
 if __name__ == "__main__":
     uvicorn.run("app:app", host="0.0.0.0", port=8000, log_level="info")
