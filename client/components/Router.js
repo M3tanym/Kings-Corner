@@ -83,9 +83,7 @@ const AppRoutes = props =>
 					<DashBoard />
 				</AppLayout>
 			</FilterRoutes>
-			<Route path={`${path}/matches`}>
-				<MatchRoutes path={`${path}/matches`}/>
-			</Route>
+			<MatchRoutes path={`${path}/matches`}/>
 			<FilterRoutes path={`${path}/collection`}>
 				<AppLayout>
 					<Collection />
@@ -106,18 +104,20 @@ const AppRoutes = props =>
 const MatchRoutes = props =>
 {
 	return(
-		<Switch>
-			<Route exact path={props.path}>
-				<AppLayout>
-					<Matches {...props} />
-				</AppLayout>
-			</Route>
-			<Route path={`${props.path}/:matchID`}>
-				<AppLayout>
-					<Match {...props} />
-				</AppLayout>
-			</Route>
-		</Switch>
+		<Route path={props.path}>
+			<Switch>
+				<Route exact path={props.path}>
+					<AppLayout>
+						<Matches {...props} />
+					</AppLayout>
+				</Route>
+				<Route path={`${props.path}/:matchID`}>
+					<AppLayout>
+						<Match {...props} />
+					</AppLayout>
+				</Route>
+			</Switch>
+		</Route>
 	)
 }
 
