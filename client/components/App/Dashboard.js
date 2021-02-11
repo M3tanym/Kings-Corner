@@ -13,7 +13,7 @@ import {
 	Typography, useTheme
 } from "@material-ui/core";
 
-import {Link, useRouteMatch} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 import {
 	CartesianGrid,
@@ -260,7 +260,7 @@ const BattlePass = props =>
 					</Typography>
 				</Grid>
 				<Grid item style={{paddingRight: 10}}>
-					<Link to={`/app/matches`}>
+					<Link to={`/app/battle-pass`}>
 						<IconButton>
 							<NavigateNextOutlinedIcon />
 						</IconButton>

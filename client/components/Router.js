@@ -10,12 +10,15 @@ import CreateAccount from "./Login/CreateAccount";
 import ForgotPassword from "./Login/ForgotPassword";
 
 import AppLayout from "./App/AppLayout";
+
 import DashBoard from "./App/Dashboard";
-import Profile from "./App/Profile";
-import Collection from "./App/Collection";
 import Matches from "./App/Matches/Matches";
 import Match from './App/Matches/Match';
+import BattlePass from "./App/BattlePass";
+import Collection from "./App/Collection";
+import Shop from "./App/Shop";
 
+import Profile from "./App/Profile";
 import NotFound from "./NotFound";
 
 export const AuthContext = createContext();
@@ -84,6 +87,11 @@ const AppRoutes = props =>
 				</AppLayout>
 			</FilterRoutes>
 			<MatchRoutes path={`${path}/matches`}/>
+			<FilterRoutes path={`${path}/battle-pass`}>
+				<AppLayout>
+					<BattlePass />
+				</AppLayout>
+			</FilterRoutes>
 			<FilterRoutes path={`${path}/collection`}>
 				<AppLayout>
 					<Collection />
@@ -91,7 +99,7 @@ const AppRoutes = props =>
 			</FilterRoutes>
 			<FilterRoutes path={`${path}/shop`}>
 				<AppLayout>
-					<Profile />
+					<Shop />
 				</AppLayout>
 			</FilterRoutes>
 			<Route path={"*"}>
