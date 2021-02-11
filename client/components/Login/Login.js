@@ -71,6 +71,7 @@ const SignInArea = props =>
 
 	const [doMutation, { loading }] = useMutation(Login);
 
+	/*
 	const login = () => doMutation({
 		variables: { username, password },
 		onCompleted: data => {
@@ -82,6 +83,12 @@ const SignInArea = props =>
 		},
 		onError: (err) => enqueueSnackbar(err)
 	})
+	 */
+
+	const login = () => {
+		let { from } = location.state || { from: { pathname: "/app" } };
+		history.replace(from);
+	}
 
 	return (
 		<Grid container spacing={4}

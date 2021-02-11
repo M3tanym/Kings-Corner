@@ -11,6 +11,10 @@ type User {
     items: [Item!]!
 }
 
+type AuthPayload {
+    token: String!
+}
+
 type LoginInformation {
     username: String!
     password: String!
@@ -60,8 +64,8 @@ type Query {
 }
 
 type Mutation {
-    createUser(email: String!, password: String!): User
-    login(email: String, username: String, password: String!): User
+    createUser(email: String!, password: String!): AuthPayload
+    login(email: String, username: String, password: String!): AuthPayload
     addUserPhoneNumber(phoneNumber: String!): User
     addUserName(name: String!): User
     addFriendToUser(id: ID!): User

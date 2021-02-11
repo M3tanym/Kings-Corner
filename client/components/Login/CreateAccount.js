@@ -1,6 +1,6 @@
 import React, {useContext, useState} from "react";
 
-import {Grid, InputAdornment, TextField, Typography} from "@material-ui/core";
+import {CircularProgress, Grid, InputAdornment, TextField, Typography} from "@material-ui/core";
 
 import EmailIcon from '@material-ui/icons/Email';
 import LockIcon from '@material-ui/icons/Lock';
@@ -91,9 +91,12 @@ const SignInArea = props =>
 				/>
 			</Grid>
 			<Grid item>
-				<SignInButton onClick={createUser}>
-					Create Account
-				</SignInButton>
+				{
+					loading ? <CircularProgress /> :
+						<SignInButton onClick={createUser}>
+							Sign in
+						</SignInButton>
+				}
 			</Grid>
 		</Grid>
 	)
