@@ -1,29 +1,30 @@
 type User {
+
     id: ID!
-    name: Name
-    email: String!
-    phoneNumber: String
-    loginInformation: LoginInformation
+    token: String!
+
+    # General User Information
+
+    name: String
     avatar: Url
+
+    # Login Information
+
+    email: String!
+    username: String!
+    phoneNumber: String
+    password: String!
+
+    # Game Information
+
     friends: [User!]!
     invites: [User!]!
+    matches: [Match!]!
+
+    # Shop Information
+
     tokens: Int
     items: [Item!]!
-}
-
-type AuthPayload {
-    token: String!
-}
-
-type LoginInformation {
-    username: String!
-    password: String!
-}
-
-type Name {
-    fullName: String
-    firstName: String
-    lastName: String
 }
 
 type Item {
@@ -64,8 +65,8 @@ type Query {
 }
 
 type Mutation {
-    createUser(email: String!, password: String!): AuthPayload
-    login(email: String, username: String, password: String!): AuthPayload
+    createUser(email: String!, password: String!): User
+    login(email: String, username: String, password: String!): User
     addUserPhoneNumber(phoneNumber: String!): User
     addUserName(name: String!): User
     addFriendToUser(id: ID!): User

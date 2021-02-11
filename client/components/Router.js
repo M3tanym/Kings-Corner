@@ -25,7 +25,7 @@ const Router = props =>
 	return (
 		<AuthNeeded>
 			<BrowserRouter>
-				<Routes {...props}/>
+				<Routes />
 			</BrowserRouter>
 		</AuthNeeded>
 	);
@@ -40,31 +40,31 @@ const Routes = props =>
 				<Home />
 			</Route>
 			<Route path={"/login"}>
-				<FilterRoutes route={"/login"}{...props}>
+				<FilterRoutes path={"/login"}>
 					<LoginLayout>
-						<Login {...props}/>
+						<Login />
 					</LoginLayout>
 				</FilterRoutes>
 			</Route>
 			<Route path={"/create-account"}>
-				<FilterRoutes route={"/create-account"}{...props}>
+				<FilterRoutes path={"/create-account"}>
 					<LoginLayout>
-						<CreateAccount {...props}/>
+						<CreateAccount />
 					</LoginLayout>
 				</FilterRoutes>
 			</Route>
 			<Route path={"/forgot-password"}>
-				<FilterRoutes route={"/login"}{...props}>
+				<FilterRoutes path={"/login"}>
 					<LoginLayout>
-						<ForgotPassword {...props}/>
+						<ForgotPassword />
 					</LoginLayout>
 				</FilterRoutes>
 			</Route>
 			<ProtectedRoute path={"/app"}>
-				<AppRoutes {...props}/>
+				<AppRoutes />
 			</ProtectedRoute>
 			<Route path={"*"}>
-				<NotFound {...props}/>
+				<NotFound />
 			</Route>
 		</Switch>
 	)
@@ -73,34 +73,45 @@ const Routes = props =>
 const AppRoutes = props =>
 {
 	let { path } = useRouteMatch();
+
 	return(
 		<Switch>
 			<Route exact path={path}>
 				<Redirect to={{ pathname: `${path}/dashboard`, state: { from: props.location }}}/>
 			</Route>
-			<FilterRoutes route={"/me"}{...props}>
-				<AppLayout>
-					<Profile />
-				</AppLayout>
-			</FilterRoutes>
-			<FilterRoutes route={"/dashboard"} {...props}>
-				<AppLayout>
-					<DashBoard {...props} />
-				</AppLayout>
-			</FilterRoutes>
-			<FilterRoutes route={"/collection"} {...props}>
-				<AppLayout>
-					<Collection {...props} />
-				</AppLayout>
-			</FilterRoutes>
-			<FilterRoutes route={"/shop"} {...props}>
-				<AppLayout>
-					<Profile />
-				</AppLayout>
-			</FilterRoutes>
-			<MatchRoutes />
+			<Route path={`${path}/me`}>
+				<FilterRoutes path={`${path}/me`}>
+					<AppLayout>
+						<Profile />
+					</AppLayout>
+				</FilterRoutes>
+			</Route>
+			<Route path={`${path}/dashboard`}>
+				<FilterRoutes path={`${path}/dashboard`}>
+					<AppLayout>
+						<DashBoard />
+					</AppLayout>
+				</FilterRoutes>
+			</Route>
+			<Route path={`${path}/matches`}>
+				<MatchRoutes path={`${path}/matches`}/>
+			</Route>
+			<Route path={`${path}/collection`}>
+				<FilterRoutes path={`${path}/collection`}>
+					<AppLayout>
+						<Collection />
+					</AppLayout>
+				</FilterRoutes>
+			</Route>
+			<Route path={`${path}/shop`}>
+				<FilterRoutes path={`${path}/shop`}>
+					<AppLayout>
+						<Profile />
+					</AppLayout>
+				</FilterRoutes>
+			</Route>
 			<Route path={"*"}>
-				<NotFound {...props}/>
+				<NotFound />
 			</Route>
 		</Switch>
 	)
@@ -108,16 +119,14 @@ const AppRoutes = props =>
 
 const MatchRoutes = props =>
 {
-	const { path } = useRouteMatch()
-
 	return(
 		<Switch>
-			<Route exact path={`${path}/matches`}>
+			<Route exact path={props.path}>
 				<AppLayout>
 					<Matches {...props} />
 				</AppLayout>
 			</Route>
-			<Route path={`${path}/matches/:matchID`}>
+			<Route path={`${props.path}/:matchID`}>
 				<AppLayout>
 					<Match {...props} />
 				</AppLayout>
@@ -128,15 +137,13 @@ const MatchRoutes = props =>
 
 const FilterRoutes = props => {
 
-	const { path } = useRouteMatch()
-
 	return(
 		<Switch>
-			<Route exact path={path}>
+			<Route exact path={props.path}>
 				{props.children}
 			</Route>
-			<Route path={`*`}>
-				<Redirect to={{ pathname: props.route, state: { from: props.location }}}/>
+			<Route path={"*"}>
+				<Redirect to={{ pathname: props.path, state: { from: props.location }}}/>
 			</Route>
 		</Switch>
 	);
@@ -148,7 +155,7 @@ const ProtectedRoute = props => {
 	return (
 		<Route {...props}>
 			{
-				authData.loggedIn ? props.children :
+				authData.token ? props.children :
 					<Redirect to={{ pathname: "/login", state: { from: props.location }}}/>
 			}
 		</Route>
@@ -157,12 +164,7 @@ const ProtectedRoute = props => {
 
 const AuthNeeded = props =>
 {
-	const authData = {
-		userData: null,
-		setUserData: (value) => authData.userData = value,
-		loggedIn: false,
-		setLoggedIn: (value) => authData.loggedIn = value
-	}
+	const authData = { token: undefined }
 
 	return (
 		<AuthContext.Provider value={authData}>

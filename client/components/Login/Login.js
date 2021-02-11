@@ -64,7 +64,7 @@ const SignInArea = props =>
 	const Login = gql`
 		mutation Login($username: String!, $password: String!) {
 			login(username: $username, password: $password) {
-				avatar
+				token
 			}
 		}
 	`;
@@ -75,8 +75,7 @@ const SignInArea = props =>
 	const login = () => doMutation({
 		variables: { username, password },
 		onCompleted: data => {
-			authData.setLoggedIn(true);
-			authData.setUserData(data.user);
+			authData.token = data.user.token;
 
 			let { from } = location.state || { from: { pathname: "/app" } };
 			history.replace(from);
@@ -86,7 +85,7 @@ const SignInArea = props =>
 	 */
 
 	const login = () => {
-		authData.setLoggedIn(true);
+		authData.token = "Hello World";
 		let { from } = location.state || { from: { pathname: "/app" } };
 		history.replace(from);
 	}
