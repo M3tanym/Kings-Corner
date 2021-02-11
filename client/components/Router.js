@@ -33,25 +33,32 @@ const Router = props =>
 
 const Routes = props =>
 {
+
 	return(
 		<Switch>
 			<Route exact path={"/"}>
 				<Home />
 			</Route>
 			<Route path={"/login"}>
-				<LoginLayout>
-					<Login {...props}/>
-				</LoginLayout>
+				<FilterRoutes route={"/login"}{...props}>
+					<LoginLayout>
+						<Login {...props}/>
+					</LoginLayout>
+				</FilterRoutes>
 			</Route>
 			<Route path={"/create-account"}>
-				<LoginLayout>
-					<CreateAccount {...props}/>
-				</LoginLayout>
+				<FilterRoutes route={"/create-account"}{...props}>
+					<LoginLayout>
+						<CreateAccount {...props}/>
+					</LoginLayout>
+				</FilterRoutes>
 			</Route>
 			<Route path={"/forgot-password"}>
-				<LoginLayout>
-					<ForgotPassword {...props}/>
-				</LoginLayout>
+				<FilterRoutes route={"/login"}{...props}>
+					<LoginLayout>
+						<ForgotPassword {...props}/>
+					</LoginLayout>
+				</FilterRoutes>
 			</Route>
 			<ProtectedRoute path={"/app"}>
 				<AppRoutes {...props}/>
@@ -63,10 +70,24 @@ const Routes = props =>
 	)
 }
 
+const FilterRoutes = props => {
+	let { path } = useRouteMatch()
+
+	return(
+		<Switch>
+			<Route exact path={path}>
+					{props.children}
+			</Route>
+			<Route path={`*`}>
+				<Redirect to={{ pathname: props.route, state: { from: props.location }}}/>
+			</Route>
+		</Switch>
+			);
+}
+
 const AppRoutes = props =>
 {
 	let { path } = useRouteMatch();
-
 	return(
 		<Switch>
 			<Route exact path={path}>
@@ -100,7 +121,7 @@ const AppRoutes = props =>
 					<Matches {...props} />
 				</AppLayout>
 			</Route>
-			<Route path={`${path}/*`}>
+			<Route>
 				<NotFound {...props}/>
 			</Route>
 		</Switch>
@@ -110,7 +131,6 @@ const AppRoutes = props =>
 const ProtectedRoute = props => {
 
 	let authData = useContext(AuthContext);
-
 	return (
 		<Route {...props}>
 			{
