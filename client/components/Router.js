@@ -39,27 +39,21 @@ const Routes = props =>
 			<Route exact path={"/"}>
 				<Home />
 			</Route>
-			<Route path={"/login"}>
-				<FilterRoutes path={"/login"}>
-					<LoginLayout>
-						<Login />
-					</LoginLayout>
-				</FilterRoutes>
-			</Route>
-			<Route path={"/create-account"}>
-				<FilterRoutes path={"/create-account"}>
-					<LoginLayout>
-						<CreateAccount />
-					</LoginLayout>
-				</FilterRoutes>
-			</Route>
-			<Route path={"/forgot-password"}>
-				<FilterRoutes path={"/login"}>
-					<LoginLayout>
-						<ForgotPassword />
-					</LoginLayout>
-				</FilterRoutes>
-			</Route>
+			<FilterRoutes path={"/login"}>
+				<LoginLayout>
+					<Login />
+				</LoginLayout>
+			</FilterRoutes>
+			<FilterRoutes path={"/create-account"}>
+				<LoginLayout>
+					<CreateAccount />
+				</LoginLayout>
+			</FilterRoutes>
+			<FilterRoutes path={"/forgot-password"}>
+				<LoginLayout>
+					<ForgotPassword />
+				</LoginLayout>
+			</FilterRoutes>
 			<ProtectedRoute path={"/app"}>
 				<AppRoutes />
 			</ProtectedRoute>
@@ -79,37 +73,29 @@ const AppRoutes = props =>
 			<Route exact path={path}>
 				<Redirect to={{ pathname: `${path}/dashboard`, state: { from: props.location }}}/>
 			</Route>
-			<Route path={`${path}/me`}>
-				<FilterRoutes path={`${path}/me`}>
-					<AppLayout>
-						<Profile />
-					</AppLayout>
-				</FilterRoutes>
-			</Route>
-			<Route path={`${path}/dashboard`}>
-				<FilterRoutes path={`${path}/dashboard`}>
-					<AppLayout>
-						<DashBoard />
-					</AppLayout>
-				</FilterRoutes>
-			</Route>
+			<FilterRoutes path={`${path}/me`}>
+				<AppLayout>
+					<Profile />
+				</AppLayout>
+			</FilterRoutes>
+			<FilterRoutes path={`${path}/dashboard`}>
+				<AppLayout>
+					<DashBoard />
+				</AppLayout>
+			</FilterRoutes>
 			<Route path={`${path}/matches`}>
 				<MatchRoutes path={`${path}/matches`}/>
 			</Route>
-			<Route path={`${path}/collection`}>
-				<FilterRoutes path={`${path}/collection`}>
-					<AppLayout>
-						<Collection />
-					</AppLayout>
-				</FilterRoutes>
-			</Route>
-			<Route path={`${path}/shop`}>
-				<FilterRoutes path={`${path}/shop`}>
-					<AppLayout>
-						<Profile />
-					</AppLayout>
-				</FilterRoutes>
-			</Route>
+			<FilterRoutes path={`${path}/collection`}>
+				<AppLayout>
+					<Collection />
+				</AppLayout>
+			</FilterRoutes>
+			<FilterRoutes path={`${path}/shop`}>
+				<AppLayout>
+					<Profile />
+				</AppLayout>
+			</FilterRoutes>
 			<Route path={"*"}>
 				<NotFound />
 			</Route>
@@ -138,14 +124,16 @@ const MatchRoutes = props =>
 const FilterRoutes = props => {
 
 	return(
-		<Switch>
-			<Route exact path={props.path}>
-				{props.children}
-			</Route>
-			<Route path={"*"}>
-				<Redirect to={{ pathname: props.path, state: { from: props.location }}}/>
-			</Route>
-		</Switch>
+		<Route path={props.path}>
+			<Switch>
+				<Route exact path={props.path}>
+					{props.children}
+				</Route>
+				<Route path={"*"}>
+					<Redirect to={{ pathname: props.path, state: { from: props.location }}}/>
+				</Route>
+			</Switch>
+		</Route>
 	);
 }
 
