@@ -4,21 +4,26 @@ import {CircularProgress, Grid, InputAdornment, TextField, Typography} from "@ma
 
 import EmailIcon from '@material-ui/icons/Email';
 import LockIcon from '@material-ui/icons/Lock';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
-import {Link} from "react-router-dom";
+import {Link, useHistory, useLocation} from "react-router-dom";
 
 import {SignInButton} from "../UI/Buttons";
 import Logo from "../UI/Logo";
 
-import MaskedInput from 'react-text-mask';
 import {useSnackbar} from "notistack";
 import {gql, useMutation} from "@apollo/client";
 import {AuthContext} from "../Router";
 
 const CreateAccount = props =>
 {
-	return(
+	const [pageOne, setPageOne] = useState(true);
 
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+
+	return(
 		<Grid container spacing={4}
 			  direction={"column"} justify={"center"} alignItems={"center"} alignContent={"center"}
 		>
@@ -39,29 +44,67 @@ const CreateAccount = props =>
 					</Grid>
 				</Grid>
 				<Grid item style={{width: "90%"}}>
-					<SignInArea {...props}/>
+					{
+						pageOne ?
+							<SignInAreaPageOne
+								email={email}
+								setEmail={setEmail}
+								password={password}
+								setPassword={setPassword}
+								setPageOne={setPageOne}
+							/> :
+							<SignInAreaPageTwo
+								email={email}
+								password={password}
+							/>
+					}
 				</Grid>
 			</Grid>
 			<Grid item>
-				<BackToSignInArea {...props}/>
+				<BackToSignInArea />
 			</Grid>
 		</Grid>
 	)
 };
 
-const SignInArea = props =>
+const SignInAreaPageOne = props =>
 {
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
+	return (
+		<Grid container spacing={6}
+			  direction={"column"} justify={"center"} alignItems={"center"} alignContent={"center"}
+		>
+			<Grid item style={{width: "100%"}}>
+				<PageOneFields
+					email={props.email} setEmail={props.setEmail}
+					password={props.password} setPassword={props.setPassword}
+					nextField={() => props.setPageOne(false)}
+				/>
+			</Grid>
+			<Grid item>
+				<SignInButton onClick={() => props.setPageOne(false)}>
+					Next
+					<NavigateNextIcon />
+				</SignInButton>
+			</Grid>
+		</Grid>
+	)
+}
+
+const SignInAreaPageTwo = props =>
+{
+	const [inGameName, setInGameName] = useState("");
 
 	let authData = useContext(AuthContext);
+
+	let history = useHistory();
+	let location = useLocation();
 
 	const { enqueueSnackbar } = useSnackbar();
 
 	const CreateUser = gql`
-		mutation CreateUser($email: String!, $password: String!) {
-			createUser(email: $email, password: $password) {
-				avatar
+		mutation CreateUser($email: String!, $password: String!, $inGameName: String!) {
+			createUser(email: $email, password: $password, inGameName: $inGameName) {
+				token
 			}
 		}
 	`;
@@ -69,9 +112,9 @@ const SignInArea = props =>
 	const [doMutation, { loading }] = useMutation(CreateUser);
 
 	const createUser = () => doMutation({
-		variables: { email, password },
+		variables: { email: props.email, password: props.password },
 		onCompleted: data => {
-			authData.setUserData(data.user);
+			authData.token = data.user.token;
 
 			let { from } = location.state || { from: { pathname: "/app" } };
 			history.replace(from);
@@ -84,17 +127,27 @@ const SignInArea = props =>
 			  direction={"column"} justify={"center"} alignItems={"center"} alignContent={"center"}
 		>
 			<Grid item style={{width: "100%"}}>
-				<LoginFields
-					email={email} setEmail={setEmail}
-					password={password} setPassword={setPassword}
-					createAccount={createUser} {...props}
+				<TextField
+					fullWidth
+					label={"In Game Name"} value={inGameName} onChange={(e) => setInGameName(e.target.value)}
+					onKeyDown={(e) =>
+					{
+						if(e.key === 'Enter') createUser();
+					}}
+					InputProps={{
+						startAdornment: (
+							<InputAdornment position="start">
+								<AccountCircleIcon />
+							</InputAdornment>
+						),
+					}}
 				/>
 			</Grid>
 			<Grid item>
 				{
 					loading ? <CircularProgress /> :
 						<SignInButton onClick={createUser}>
-							Sign in
+							Create Account
 						</SignInButton>
 				}
 			</Grid>
@@ -102,7 +155,7 @@ const SignInArea = props =>
 	)
 }
 
-const LoginFields = props =>
+const PageOneFields = props =>
 {
 	const moveDown = (currentElement) =>
 	{
@@ -140,7 +193,7 @@ const LoginFields = props =>
 						label={"Password"} value={props.password} onChange={(e) => props.setPassword(e.target.value)}
 						onKeyDown={(e) =>
 						{
-							if(e.key === 'Enter') props.createAccount();
+							if(e.key === 'Enter') props.nextField();
 						}}
 						InputProps={{
 							startAdornment: (
@@ -153,20 +206,6 @@ const LoginFields = props =>
 				</Grid>
 			</Grid>
 		</Grid>
-	);
-}
-
-const PhoneNumberInput = props =>
-{
-	const { inputRef, ...other } = props;
-	return (
-		<MaskedInput
-			{...other}
-			ref={ref => inputRef(ref ? ref.inputElement : null)}
-			mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
-			placeholderChar={'\u2000'}
-			showMask
-		/>
 	);
 }
 

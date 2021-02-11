@@ -6,6 +6,7 @@ import DoneAllIcon from '@material-ui/icons/DoneAll';
 import ClearIcon from '@material-ui/icons/Clear';
 
 import Image from "../../static/images/carousel/carousel1.jpg"
+import MaskedInput from "react-text-mask";
 
 const Profile = props =>
 {
@@ -76,7 +77,19 @@ const MatchHistory = props =>
 		</Paper>
 	)
 }
-
+const PhoneNumberInput = props =>
+{
+	const { inputRef, ...other } = props;
+	return (
+		<MaskedInput
+			{...other}
+			ref={ref => inputRef(ref ? ref.inputElement : null)}
+			mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+			placeholderChar={'\u2000'}
+			showMask
+		/>
+	);
+}
 const Match = props =>
 {
 	return(

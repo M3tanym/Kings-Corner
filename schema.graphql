@@ -11,7 +11,7 @@ type User {
     # Login Information
 
     email: String!
-    username: String!
+    inGameName: String!
     phoneNumber: String
     password: String!
 
@@ -65,7 +65,7 @@ type Query {
 }
 
 type Mutation {
-    createUser(email: String!, password: String!): User
+    createUser(email: String!, password: String!, inGameName: String!): User
     login(email: String, username: String, password: String!): User
     addUserPhoneNumber(phoneNumber: String!): User
     addUserName(name: String!): User
