@@ -86,6 +86,7 @@ const SignInArea = props =>
 	 */
 
 	const login = () => {
+		authData.setLoggedIn(true);
 		let { from } = location.state || { from: { pathname: "/app" } };
 		history.replace(from);
 	}
