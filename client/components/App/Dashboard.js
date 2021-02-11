@@ -9,7 +9,7 @@ import {
 	ListItem,
 	ListItemAvatar, ListItemSecondaryAction,
 	ListItemText,
-	Paper,
+	Paper, Step, StepLabel, Stepper,
 	Typography, useTheme
 } from "@material-ui/core";
 
@@ -51,7 +51,7 @@ const DashBoard = props =>
 			</Box>
 			<Box flexGrow={1} mt={4}>
 				<Grid container spacing={4} style={{height: "100%"}}>
-					<Grid item xs={4} style={{minWidth: 300}}>
+					<Grid item xs={4} style={{minWidth: 400}}>
 						<Matches />
 					</Grid>
 					<Grid item xs style={{minWidth: 300}}>
@@ -246,14 +246,45 @@ const Matches = props =>
 
 const BattlePass = props =>
 {
+	const items = ["A", "A", "A", "A", "A", "A", "A", "A", "A", "A"];
+	const stepCount = 2;
+
 	return(
 		<Paper style={{height: "100%"}}>
-			<Typography variant={"h6"} style={{paddingTop: 18, paddingBottom: 12, paddingLeft: 25}}>
-				Battle Pass
-			</Typography>
+			<Grid container
+				  justify={"space-between"} alignContent={"center"} alignItems={"center"}
+			>
+				<Grid item>
+					<Typography variant={"h6"} style={{paddingTop: 18, paddingBottom: 12, paddingLeft: 25}}>
+						Battle Pass
+					</Typography>
+				</Grid>
+				<Grid item style={{paddingRight: 10}}>
+					<Link to={`/app/matches`}>
+						<IconButton>
+							<NavigateNextOutlinedIcon />
+						</IconButton>
+					</Link>
+				</Grid>
+			</Grid>
 			<Divider />
-			<Box minHeight={250} className={"horizontalScrollDiv"}>
-
+			<Box p={2} flexGrow={1}>
+				<Box flexGrow={1} height={"100%"} maxWidth={1000} display={"flex"} flexDirection={"column"} className={"horizontalScrollDiv"}>
+					<Box display={"flex"} alignContent={"center"} alignItems={"center"}>
+						{items.map((item, index) =>
+							<Box m={3} minWidth={150} height={150} border={2} borderColor={"#222222"}/>
+						)}
+					</Box>
+					<Box pl={6} pr={6}>
+						<Stepper activeStep={stepCount} style={{width: 1891}}>
+							{items.map((label, index) =>
+								<Step key={index}>
+									<StepLabel />
+								</Step>
+							)}
+						</Stepper>
+					</Box>
+				</Box>
 			</Box>
 		</Paper>
 	)

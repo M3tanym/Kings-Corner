@@ -7,7 +7,8 @@ import {Box, Button, Grid, Typography} from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
-import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
+import RedeemIcon from '@material-ui/icons/Redeem';
+import LocalMallIcon from '@material-ui/icons/LocalMall';
 import StorefrontIcon from '@material-ui/icons/Storefront';
 
 const SideBar = props =>
@@ -17,7 +18,8 @@ const SideBar = props =>
 	let menuEntries = [
 		{ text: "Dashboard", icon: DashboardIcon },
 		{ text: "Matches", icon: SportsEsportsIcon },
-		{ text: "Collection", icon: ShoppingBasketIcon, disabled: true },
+		{ text: "Battle Pass", icon: RedeemIcon, disabled: true },
+		{ text: "Collection", icon: LocalMallIcon, disabled: true },
 		{ text: "Shop", icon: StorefrontIcon, disabled: true },
 	];
 
@@ -86,7 +88,7 @@ const NavMenuItem = props =>
 	}
 
 	return(
-		<Box mt={2}>
+		<Box mt={1}>
 			{
 				props.disabled ?
 					<NavButton {...props} /> :
