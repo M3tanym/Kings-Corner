@@ -223,7 +223,7 @@ const Matches = props =>
 			<Box p={1}>
 				<List>
 					{matches.map((match, index) =>
-						<ListItem onClick={() => props.history.push("/app/matches/" + index)} key={index}>
+						<ListItem key={index}>
 							<AvatarGroup max={2} style={{paddingRight: 20}}>
 								<Avatar />
 								<Avatar />

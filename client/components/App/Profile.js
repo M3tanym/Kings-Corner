@@ -5,7 +5,7 @@ import {Box, Card, Grid, Paper, Typography} from "@material-ui/core";
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 import ClearIcon from '@material-ui/icons/Clear';
 
-import Image from "../../../static/images/carousel/carousel1.jpg"
+import Image from "../../static/images/carousel/carousel1.jpg"
 
 const Profile = props =>
 {

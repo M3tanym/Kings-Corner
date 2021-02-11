@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 
 import {Grid, InputAdornment, TextField, Typography} from "@material-ui/core";
 
@@ -11,6 +11,9 @@ import {SignInButton} from "../UI/Buttons";
 import Logo from "../UI/Logo";
 
 import MaskedInput from 'react-text-mask';
+import {useSnackbar} from "notistack";
+import {gql, useMutation} from "@apollo/client";
+import {AuthContext} from "../Router";
 
 const CreateAccount = props =>
 {
@@ -51,14 +54,30 @@ const SignInArea = props =>
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
-	const createAccount = () =>
-	{
-		post("login", {username: username, password: password})
-			.then(res =>
-			{
+	let authData = useContext(AuthContext);
 
-			})
-	};
+	const { enqueueSnackbar } = useSnackbar();
+
+	const CreateUser = gql`
+		mutation CreateUser($email: String!, $password: String!) {
+			createUser(email: $email, password: $password) {
+				avatar
+			}
+		}
+	`;
+
+	const [doMutation, { loading }] = useMutation(CreateUser);
+
+	const createUser = () => doMutation({
+		variables: { email, password },
+		onCompleted: data => {
+			authData.setUserData(data.user);
+
+			let { from } = location.state || { from: { pathname: "/app" } };
+			history.replace(from);
+		},
+		onError: (err) => enqueueSnackbar(err)
+	})
 
 	return (
 		<Grid container spacing={6}
@@ -68,11 +87,11 @@ const SignInArea = props =>
 				<LoginFields
 					email={email} setEmail={setEmail}
 					password={password} setPassword={setPassword}
-					createAccount={createAccount} {...props}
+					createAccount={createUser} {...props}
 				/>
 			</Grid>
 			<Grid item>
-				<SignInButton onClick={() => createAccount()}>
+				<SignInButton onClick={createUser}>
 					Create Account
 				</SignInButton>
 			</Grid>

@@ -9,7 +9,18 @@ module.exports = {
 	entry: ['@babel/polyfill', './index.js'],
 	devServer: {
 		contentBase: path.resolve(__dirname, output),
-		port: 3000, open: false, hot: true, historyApiFallback: true, proxy: { "/api/*": "http://localhost:8000" },
+		port: 3000, open: false, hot: true, historyApiFallback: {
+			rewrites: [
+				{
+				  from: /^\/.+\..+$/,
+				  to: function(context) {
+				  	let f = context.parsedUrl.pathname.split('/');
+					return '/' + f[f.length - 1];
+				  }
+				}
+		  	]
+		},
+		proxy: { "/api/*": "http://localhost:8000" },
 		stats: { colors: true, chunks: false, children: false},
 		before() {
 			spawn('electron', ['.'], { shell: true, env: process.env, stdio: 'inherit' })
