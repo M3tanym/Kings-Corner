@@ -72,6 +72,9 @@ const AppRoutes = props =>
 			<Route exact path={path}>
 				<Redirect to={{ pathname: `${path}/dashboard`, state: { from: props.location }}}/>
 			</Route>
+			<Route path={`${path}/me`}>
+				<Profile />
+			</Route>
 			<Route path={`${path}/dashboard`}>
 				<AppLayout>
 					<DashBoard {...props} />

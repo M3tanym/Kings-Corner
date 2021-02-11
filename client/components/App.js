@@ -1,13 +1,12 @@
 import React from "react";
 
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
 
 import {CssBaseline} from "@material-ui/core";
-import {blueGrey, green} from "@material-ui/core/colors";
 
 import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
 
-import { SnackbarProvider, useSnackbar } from 'notistack';
+import { SnackbarProvider } from 'notistack';
 
 import Router from "./Router";
 
@@ -27,7 +26,7 @@ const App = () =>
     theme = responsiveFontSizes(theme);
 
     const client = new ApolloClient({
-        uri: 'https://48p1r2roz4.sse.codesandbox.io',
+        uri: 'http://localhost:8000/graphql',
         cache: new InMemoryCache()
     });
 
@@ -35,18 +34,12 @@ const App = () =>
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <SnackbarProvider maxSnack={3} preventDuplicate>
-                <LoadApp client={client}/>
+                <ApolloProvider client={client}>
+                    <Router />
+                </ApolloProvider>
             </SnackbarProvider>
         </ThemeProvider>
     );
-};
-
-const LoadApp = props =>
-{
-    const { enqueueSnackbar } = useSnackbar();
-    const produceSnackBar = (message, variant="error") => enqueueSnackbar(message, { variant: variant });
-
-    return <Router produceSnackBar={produceSnackBar} {...props}/>;
 };
 
 export default App;

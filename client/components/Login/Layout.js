@@ -7,10 +7,10 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { motion } from "framer-motion"
 
-import Carousel1 from "../../static/images/carousel1.jpg";
-import Carousel2 from "../../static/images/carousel2.jpg";
-import Carousel3 from "../../static/images/carousel3.jpg";
-import Carousel4 from "../../static/images/carousel4.jpg";
+import Carousel1 from "../../static/images/carousel/carousel1.jpg";
+import Carousel2 from "../../static/images/carousel/carousel2.jpg";
+import Carousel3 from "../../static/images/carousel/carousel3.jpg";
+import Carousel4 from "../../static/images/carousel/carousel4.jpg";
 
 const useStyles = makeStyles(theme =>
 ({

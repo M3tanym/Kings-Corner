@@ -12,8 +12,7 @@ import StorefrontIcon from '@material-ui/icons/Storefront';
 
 const SideBar = props =>
 {
-	let locations = useLocation().pathname.split("/");
-	let location = locations[locations.length - 1];
+	let location = useLocation().pathname;
 
 	let menuEntries = [
 		{ text: "Dashboard", icon: DashboardIcon },
@@ -48,7 +47,7 @@ const SideBar = props =>
 					<NavMenuItem
 						key={index}
 						icon={item.icon}
-						active={location === item.text.toLowerCase()}
+						active={location.includes(item.text.toLowerCase())}
 						disabled={item.disabled}
 					>
 						{item.text}

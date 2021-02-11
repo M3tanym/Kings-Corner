@@ -12,6 +12,7 @@ import {GoogleLogin} from 'react-google-login';
 const GoogleClientID = '779071993156-iec5nqbmgqr4t3524psqlbep08aasvrs.apps.googleusercontent.com';
 
 import {AuthContext} from "../Router";
+import { gql, useLazyQuery } from '@apollo/client';
 
 const Login = props =>
 {
@@ -58,14 +59,29 @@ const SignInArea = props =>
 
 	const login = () =>
 	{
-		//post("home", {username: username, password: password})
-		//.then(r =>
-		//{
-		authData.setLoggedIn(true);
-		//	authData.setUserData(r.data);
-		let { from } = location.state || { from: { pathname: "/app" } };
-		history.replace(from);
-		//});
+		const Login = gql`
+			mutation Login($username: String!) {
+				login(username: $username) {
+					token
+				}
+			}
+		`;
+
+		const [login, { loading, error, data }] = useLazyQuery(Login, {variables: { username }});
+
+		if (loading) return <p>Loading...</p>;
+		if (error) return <p>Error :(</p>;
+
+		const user = data.user.loginInformation;
+
+		if(user.password === password)
+		{
+			authData.setLoggedIn(true);
+			authData.setUserData(data.user);
+
+			let { from } = location.state || { from: { pathname: "/app" } };
+			history.replace(from);
+		}
 	};
 
 	return (

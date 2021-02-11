@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import styles from "./static/styles/global.scss";
+import globalStyles from "./static/styles/global.scss";
+import chessboardStyles from "./static/styles/chessboard.scss";
 
 import App from "./components/App";
 
