@@ -49,7 +49,7 @@ const SideBar = props =>
 					<NavMenuItem
 						key={index}
 						icon={item.icon}
-						active={location.includes(item.text.toLowerCase())}
+						active={location.includes(item.text.replace(" ", "-").toLowerCase())}
 						disabled={item.disabled}
 					>
 						{item.text}
@@ -92,7 +92,7 @@ const NavMenuItem = props =>
 			{
 				props.disabled ?
 					<NavButton {...props} /> :
-					<Link to={props.children.toLowerCase()} className={"no-line"}>
+					<Link to={`/app/${props.children.replace(" ", "-").toLowerCase()}`} className={"no-line"}>
 						<NavButton {...props} />
 					</Link>
 			}
