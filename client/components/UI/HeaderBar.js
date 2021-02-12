@@ -50,13 +50,11 @@ const Search = props =>
 {
 	return(
 		<Box p={2} minWidth={250} flexGrow={1} bgcolor={grey[100]}>
-			<Grid container spacing={2} style={{height: "inherit"}}
+			<Grid container spacing={2} style={{height: "100%"}}
 				  alignItems={"center"} alignContent={"center"}
 			>
-				<Grid item>
-					<SearchOutlinedIcon />
-				</Grid>
-				<Grid item>
+				<SearchOutlinedIcon style={{marginLeft: 20}}/>
+				<Grid item style={{marginLeft: 10}}>
 					<InputBase />
 				</Grid>
 			</Grid>
@@ -71,11 +69,9 @@ const Notifications = props =>
 			<Grid container
 				  justify={"center"} alignContent={"center"} alignItems={"center"}
 			>
-				<Grid item>
-					<IconButton>
-						<NotificationsOutlinedIcon />
-					</IconButton>
-				</Grid>
+				<IconButton>
+					<NotificationsOutlinedIcon />
+				</IconButton>
 			</Grid>
 		</Box>
 

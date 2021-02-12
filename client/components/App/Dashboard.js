@@ -101,7 +101,7 @@ const WinRate = props =>
 							)}
 						</Pie>
 						<Tooltip />
-						<Legend height={30} verticalAlign={"bottom"}/>
+						<Legend height={35} verticalAlign={"bottom"}/>
 					</PieChart>
 				</ResponsiveContainer>
 			</Box>
@@ -199,7 +199,7 @@ const TopPlayers = props =>
 
 const Matches = props =>
 {
-	const matches = ["A", "A", "A"];
+	const matches = ["A", "A", "A", "A"];
 
 	return(
 		<Paper style={{height: "100%"}}>
@@ -269,14 +269,14 @@ const BattlePass = props =>
 			</Grid>
 			<Divider />
 			<Box p={2} flexGrow={1}>
-				<Box flexGrow={1} height={"100%"} maxWidth={1000} display={"flex"} flexDirection={"column"} className={"horizontalScrollDiv"}>
+				<Box p={1} flexGrow={1} height={"100%"} maxWidth={1000} display={"flex"} flexDirection={"column"} className={"horizontalScrollDiv"}>
 					<Box display={"flex"} alignContent={"center"} alignItems={"center"}>
 						{items.map((item, index) =>
-							<Box m={3} minWidth={150} height={150} border={2} borderColor={"#222222"}/>
+							<Box m={3} minWidth={140} height={140} border={2} borderColor={"#222222"}/>
 						)}
 					</Box>
-					<Box pl={6} pr={6}>
-						<Stepper activeStep={stepCount} style={{width: 1891}}>
+					<Box pl={5} pr={5}>
+						<Stepper activeStep={stepCount} style={{width: 1800}}>
 							{items.map((label, index) =>
 								<Step key={index}>
 									<StepLabel />
