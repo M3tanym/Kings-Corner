@@ -11,7 +11,7 @@ const InProgressCard = props =>
 {
 	return (
 		<Paper>
-			<Box height={250} p={3}>
+			<Box height={300} p={3}>
 				<Grid container spacing={2}
 					  justify={"space-between"} alignItems={"center"} alignContent={"center"}
 				>

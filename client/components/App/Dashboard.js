@@ -35,13 +35,13 @@ import NavigateNextOutlinedIcon from "@material-ui/icons/NavigateNextOutlined";
 const DashBoard = props =>
 {
 	return (
-		<Box width={"100%"} height={"100%"} display={"flex"} flexDirection={"column"} flexWrap={"noWrap"}>
+		<Box width={"100%"} height={"100%"} display={"flex"} flexDirection={"column"}>
 			<Box>
 				<Grid container spacing={4}>
 					<Grid item xs style={{minWidth: 250}}>
 						<WinRate />
 					</Grid>
-					<Grid item xs={6} style={{minWidth: 500}}>
+					<Grid item xs={4} style={{minWidth: 500}}>
 						<YourRank />
 					</Grid>
 					<Grid item xs style={{minWidth: 300}}>
@@ -51,10 +51,10 @@ const DashBoard = props =>
 			</Box>
 			<Box flexGrow={1} mt={4}>
 				<Grid container spacing={4} style={{height: "100%"}}>
-					<Grid item xs={4} style={{minWidth: 400}}>
+					<Grid item xs={4} style={{minWidth: 350}}>
 						<Matches />
 					</Grid>
-					<Grid item xs style={{minWidth: 300}}>
+					<Grid item xs style={{minWidth: 250}}>
 						<BattlePass />
 					</Grid>
 				</Grid>

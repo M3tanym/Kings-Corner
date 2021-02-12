@@ -1,7 +1,8 @@
 import React from "react";
 
 import {Box, Grid} from '@material-ui/core';
-import InProgressLineCard from '../../UI/Cards/InProgressCard';
+
+import InProgressCard from '../../UI/Cards/InProgressCard';
 
 const Matches = props =>
 {
@@ -9,13 +10,15 @@ const Matches = props =>
 
 	return(
 		<Box width={"100%"} height={"100%"} className={"verticalScrollDiv"}>
-			<Grid container spacing={4}>
-				{matches.map((match, index) =>
-					<Grid item xs={4} key={index}>
-						<InProgressLineCard id={index} {...props}/>
-					</Grid>
-				)}
-			</Grid>
+			<Box pr={4} height={"80vh"}>
+				<Grid container spacing={4}>
+					{matches.map((match, index) =>
+						<Grid item xs={6} key={index}>
+							<InProgressCard id={index} {...props}/>
+						</Grid>
+					)}
+				</Grid>
+			</Box>
 		</Box>
 	)
 }
