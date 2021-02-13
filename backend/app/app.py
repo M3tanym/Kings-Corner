@@ -57,7 +57,6 @@ app.include_router(
     tags=["users"],
 )
 
-# temporary demo
 # noinspection PyTypeChecker
 s = Schema(query=schema.Query)
 
