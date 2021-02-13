@@ -1,5 +1,40 @@
-from graphene import ObjectType, String, Scalar, ID, List, Int
+import graphene
+from graphene import ObjectType, String, ID, List
+from graphene_pydantic import PydanticObjectType
 
+from database import engine
+from models import User
+
+
+class Person(PydanticObjectType):
+    class Meta:
+        model = User
+        # exclude specified fields
+        exclude_fields = ("id",)
+
+
+class Query(graphene.ObjectType):
+    people = graphene.List(Person)
+
+    @staticmethod
+    def resolve_people(parent, info):
+        users = engine.find(User)
+        return users
+
+
+schema = graphene.Schema(query=Query)
+
+if __name__ == "__main__":
+    query = """
+        query {
+          people {
+            firstName
+          }
+        }
+    """
+
+    result = schema.execute(query)
+    print(result.data['people'][0])
 
 class Name(ObjectType):
     firstName = String()
@@ -16,6 +51,7 @@ class Item(ObjectType):
     pass
 
 
+"""
 class User(ObjectType):
     id = ID()
     name = Name()
@@ -27,6 +63,7 @@ class User(ObjectType):
     invites: List(lambda: User, required=True)
     tokens: Int()
     items: List(Item, required=True)
+"""
 
 
 class BoardState(ObjectType):
