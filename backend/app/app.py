@@ -23,6 +23,7 @@ db = client["kingscorner"]
 collection = db["users"]
 
 app = FastAPI(title="Kings Corner", version='0.1')
+"""
 user_db = MongoDBUserDatabase(UserDB, collection)
 
 
@@ -44,7 +45,6 @@ app.include_router(
 def on_after_register(user: UserDB, request: Request):
     print(f"User {user.id} has registered.")
 
-
 app.include_router(
     fastapi_users.get_register_router(on_after_register),
     prefix="/auth",
@@ -56,6 +56,7 @@ app.include_router(
     prefix="/users",
     tags=["users"],
 )
+"""
 
 # noinspection PyTypeChecker
 s = Schema(query=schema.Query)

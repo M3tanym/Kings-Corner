@@ -1,9 +1,59 @@
+
+from graphene_pydantic import PydanticObjectType
+
 from graphene import Scalar, ObjectType, Field, NonNull
 from graphene import ID, Boolean, Int, Float, String, List, Date
 
+from database import engine
+from models import User
+
+
+class Person(PydanticObjectType):
+    class Meta:
+        model = User
+        # exclude specified fields
+        exclude_fields = ("id",)
+
+
+class Query(graphene.ObjectType):
+    people = graphene.List(Person)
+
+    @staticmethod
+    def resolve_people(parent, info):
+        users = engine.find(User)
+        return users
+
+
+schema = graphene.Schema(query=Query)
+
+if __name__ == "__main__":
+    query = """
+        query {
+          people {
+            firstName
+          }
+        }
+    """
+
+    result = schema.execute(query)
+    print(result.data['people'][0])
+
+class Name(ObjectType):
+    firstName = String()
+    lastName = String()
+    fullName = String()
+
+
+class LoginInformation(ObjectType):
+    username = String()
+    password = String()
+
+
+class Item(ObjectType):
+    pass
+
 
 class User(ObjectType):
-
     id = ID()
     token = String()
 
@@ -23,15 +73,7 @@ class User(ObjectType):
     items = NonNull(List(NonNull(Item())))
 
     def __init__(self):
-
         pass
-
-
-class Item(ObjectType):
-
-    pass
-
-
 class BoardState(ObjectType):
     currentTurn = User()
     state = String()
