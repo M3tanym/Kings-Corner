@@ -1,6 +1,6 @@
 import React from "react";
 
-import {Link, useLocation} from "react-router-dom";
+import {Link, useHistory, useLocation} from "react-router-dom";
 
 import {Box, Button, Grid, Typography} from "@material-ui/core";
 
@@ -10,11 +10,11 @@ import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
 import RedeemIcon from '@material-ui/icons/Redeem';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import StorefrontIcon from '@material-ui/icons/Storefront';
+import {useSnackbar} from "notistack";
+import {gql, useMutation} from "@apollo/client";
 
 const SideBar = props =>
 {
-	let location = useLocation().pathname;
-
 	let menuEntries = [
 		{ text: "Dashboard", icon: DashboardIcon },
 		{ text: "Matches", icon: SportsEsportsIcon },
@@ -22,6 +22,31 @@ const SideBar = props =>
 		{ text: "Collection", icon: LocalMallIcon, disabled: true },
 		{ text: "Shop", icon: StorefrontIcon, disabled: true },
 	];
+
+	let history = useHistory();
+	let location = useLocation();
+
+	const { enqueueSnackbar } = useSnackbar();
+
+	const CreateMatch = gql`
+		mutation CreateMatch {
+			createMatch {
+				matchID
+			}
+		}
+	`;
+
+	const [doMutation ] = useMutation(CreateMatch);
+
+	const createMatch = () => {
+		doMutation({
+			onCompleted: data => {
+				let { from } = location.state || { from: { pathname: "/app/matches/" + data.createMatch.matchID } };
+				history.replace(from);
+			},
+			onError: (err) => enqueueSnackbar(err)
+		})
+	}
 
 	return(
 		<Box width={"100%"} height={"100%"}
@@ -33,12 +58,13 @@ const SideBar = props =>
 					variant={"contained"}
 					color={"primary"}
 					style={{height: 50, borderRadius: 8, textTransform: 'none'}}
+					onClick={createMatch}
 				>
 					<Grid container spacing={3}
 						  justify={"center"} alignItems={"center"} alignContent={"center"}
 					>
 						<Grid item>
-							<Typography>Create Game</Typography>
+							<Typography>Create Match</Typography>
 						</Grid>
 						<AddIcon />
 					</Grid>
@@ -49,7 +75,7 @@ const SideBar = props =>
 					<NavMenuItem
 						key={index}
 						icon={item.icon}
-						active={location.includes(item.text.replace(" ", "-").toLowerCase())}
+						active={location.pathname.includes(item.text.replace(" ", "-").toLowerCase())}
 						disabled={item.disabled}
 					>
 						{item.text}

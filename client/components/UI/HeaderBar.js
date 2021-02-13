@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 
 import {Avatar, Box, Grid, IconButton, InputBase, Typography} from "@material-ui/core";
 
@@ -11,6 +11,10 @@ import ArrowDropDownOutlinedIcon from '@material-ui/icons/ArrowDropDownOutlined'
 import {grey} from "@material-ui/core/colors";
 
 import Logo from "../UI/Logo";
+
+import {gql, useQuery} from "@apollo/client";
+
+import {AuthContext} from "../Router";
 
 const useStyles = makeStyles((theme) => ({
 	avatar: {
@@ -82,6 +86,22 @@ const Profile = props =>
 {
 	const classes = useStyles();
 
+	let authData = useContext(AuthContext);
+
+	const GetMatches = gql`
+		query GetMatches($playerID: ID) {
+			user(playerID: $playerID) {
+				name
+				avatar
+			}
+		}
+	`;
+
+	const { loading, error, data } = useQuery(GetMatches, {variables: {playerID: authData.playerID}});
+
+	if (loading) return null;
+	if (error) return null;
+
 	const [openMenu, setOpenMenu] = useState(false);
 
 	return(
@@ -90,10 +110,10 @@ const Profile = props =>
 				  alignContent={"center"} alignItems={"center"}
 			>
 				<Grid item>
-					<Avatar alt={"Profile"} className={classes.avatar}/>
+					<Avatar alt={"Profile"} src={data.user.avatar} className={classes.avatar}/>
 				</Grid>
 				<Grid item>
-					<Typography variant={"subtitle2"}>Max Rosoff</Typography>
+					<Typography variant={"subtitle2"}>{data.user.name}</Typography>
 				</Grid>
 				<Grid item>
 					<IconButton onClick={() => setOpenMenu(!openMenu)}>

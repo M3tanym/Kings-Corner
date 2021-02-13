@@ -47,7 +47,6 @@ scalar Date
 type Query {
     user(playerID: ID, email: String, inGameName: String, phoneNumber: String): User
     friends(playerID: ID!): [User!]!
-    match(matchID: ID!): Match
     matches(matchID: ID!, userID: ID!): [Match!]!
 }
 

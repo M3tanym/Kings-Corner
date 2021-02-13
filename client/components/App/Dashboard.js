@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 
 import {
 	Avatar,
@@ -12,6 +12,10 @@ import {
 	Paper, Step, StepLabel, Stepper,
 	Typography, useTheme
 } from "@material-ui/core";
+
+import {AvatarGroup} from "@material-ui/lab";
+
+import NavigateNextOutlinedIcon from "@material-ui/icons/NavigateNextOutlined";
 
 import {Link} from "react-router-dom";
 
@@ -29,10 +33,11 @@ import {
 	YAxis
 } from "recharts";
 
-import {AvatarGroup} from "@material-ui/lab";
-import NavigateNextOutlinedIcon from "@material-ui/icons/NavigateNextOutlined";
-import {useSnackbar} from "notistack";
+
 import {gql, useQuery} from "@apollo/client";
+
+import {AuthContext} from "../Router";
+
 
 const DashBoard = props =>
 {
@@ -53,9 +58,7 @@ const DashBoard = props =>
 			</Box>
 			<Box flexGrow={1} mt={4}>
 				<Grid container spacing={4} style={{height: "100%"}}>
-					<Grid item xs={4} style={{minWidth: 350}}>
-						<Matches />
-					</Grid>
+					<Matches />
 					<Grid item xs style={{minWidth: 250}}>
 						<BattlePass />
 					</Grid>
@@ -201,11 +204,12 @@ const TopPlayers = props =>
 
 const Matches = props =>
 {
-	const { enqueueSnackbar } = useSnackbar();
+	let authData = useContext(AuthContext);
 
 	const GetMatches = gql`
 		query GetMatches($playerID: ID) {
 			user(playerID: $playerID) {
+				name
 				matches {
 					name
 					currentTurn {
@@ -219,48 +223,54 @@ const Matches = props =>
 		}
 	`;
 
-	const [{ loading, data, error }] = useQuery(GetMatches);
+	const { loading, error, data } = useQuery(GetMatches, {variables: { playerID: authData.playerID }});
+
+	if (loading) return null;
+	if (error) return null;
 
 	return(
-		<Paper style={{height: "100%"}}>
-			<Grid container
-				  justify={"space-between"} alignContent={"center"} alignItems={"center"}
-			>
-				<Grid item>
-					<Typography variant={"h6"} style={{paddingTop: 18, paddingBottom: 12, paddingLeft: 25}}>
-						Matches
-					</Typography>
+		<Grid item xs={4} style={{minWidth: 350}}>
+			<Paper style={{height: "100%"}}>
+				<Grid container
+					  justify={"space-between"} alignContent={"center"} alignItems={"center"}
+				>
+					<Grid item>
+						<Typography variant={"h6"} style={{paddingTop: 18, paddingBottom: 12, paddingLeft: 25}}>
+							Matches
+						</Typography>
+					</Grid>
+					<Grid item style={{paddingRight: 10}}>
+						<Link to={`/app/matches`}>
+							<IconButton>
+								<NavigateNextOutlinedIcon />
+							</IconButton>
+						</Link>
+					</Grid>
 				</Grid>
-				<Grid item style={{paddingRight: 10}}>
-					<Link to={`/app/matches`}>
-						<IconButton>
-							<NavigateNextOutlinedIcon />
-						</IconButton>
-					</Link>
-				</Grid>
-			</Grid>
-			<Divider />
-			<Box p={1}>
-				<List>
-					{data.user.matches.map((match, index) =>
-						<ListItem key={index}>
-							<AvatarGroup max={2} style={{paddingRight: 20}}>
-								<Avatar />
-								<Avatar />
-							</AvatarGroup>
-							<ListItemText primary={match.name} secondary="Your Turn" />
-							<ListItemSecondaryAction>
-								<Link to={"/app/matches/" + index}>
-									<IconButton>
-										<NavigateNextOutlinedIcon />
-									</IconButton>
-								</Link>
-							</ListItemSecondaryAction>
-						</ListItem>
-					)}
-				</List>
-			</Box>
-		</Paper>
+				<Divider />
+				<Box p={1}>
+					<List>
+						{data.user.matches.map((match, index) =>
+							<ListItem key={index}>
+								<AvatarGroup max={2} style={{paddingRight: 20}}>
+									{match.players.map((player, index) =>
+										<Avatar src={player.avatar} key={index}/>
+									)}
+								</AvatarGroup>
+								<ListItemText primary={match.name} secondary={"Your Turn"} />
+								<ListItemSecondaryAction>
+									<Link to={"/app/matches/" + index}>
+										<IconButton>
+											<NavigateNextOutlinedIcon />
+										</IconButton>
+									</Link>
+								</ListItemSecondaryAction>
+							</ListItem>
+						)}
+					</List>
+				</Box>
+			</Paper>
+		</Grid>
 	)
 }
 
@@ -292,7 +302,7 @@ const BattlePass = props =>
 				<Box p={1} flexGrow={1} height={"100%"} maxWidth={1000} display={"flex"} flexDirection={"column"} className={"horizontalScrollDiv"}>
 					<Box display={"flex"} alignContent={"center"} alignItems={"center"}>
 						{items.map((item, index) =>
-							<Box m={3} minWidth={140} height={140} border={2} borderColor={"#222222"}/>
+							<Box m={3} minWidth={140} height={140} border={2} borderColor={"#222222"} key={index}/>
 						)}
 					</Box>
 					<Box pl={5} pr={5}>

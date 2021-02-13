@@ -83,6 +83,7 @@ const SignInArea = props =>
 				password
 			},
 			onCompleted: data => {
+				authData.playerID = data.user.playerID;
 				authData.sessionToken = data.user.sessionToken;
 				let { from } = location.state || { from: { pathname: "/app" } };
 				history.replace(from);

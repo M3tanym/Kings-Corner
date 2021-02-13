@@ -160,7 +160,7 @@ const ProtectedRoute = props => {
 
 const AuthNeeded = props =>
 {
-	const authData = { sessionToken: undefined }
+	const authData = { playerID: undefined, sessionToken: undefined }
 
 	return (
 		<AuthContext.Provider value={authData}>
