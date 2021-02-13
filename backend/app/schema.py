@@ -54,6 +54,7 @@ class Item(ObjectType):
 
 
 class User(ObjectType):
+
     id = ID()
     token = String()
 
@@ -65,8 +66,8 @@ class User(ObjectType):
     phoneNumber = String()
     password = String()
 
-    friends = NonNull(List(NonNull(Field(User))))
-    invites = NonNull(List(NonNull(Field(User))))
+    friends = NonNull(List(NonNull(Field(lambda: User))))
+    invites = NonNull(List(NonNull(Field(lambda: User))))
     matches = NonNull(List(NonNull(Field(Match))))
 
     money = Int()
@@ -74,6 +75,7 @@ class User(ObjectType):
 
     def __init__(self):
         pass
+
 class BoardState(ObjectType):
     currentTurn = User()
     state = String()
@@ -115,12 +117,13 @@ class Tree(ObjectType):
 
 
 class Query(ObjectType):
-    # user = User()
-    # users = List(User, required=True)
-    # match = Match()
-    # matches = List(Match, required=True)
-    # friends = List(User, required=True)
-    tree = Field(Tree, name=String(), species=String())
 
-    def resolve_tree(parent, info, **kwargs):
-        return Tree(**kwargs)
+    user = Field(User, id=ID(), email=String(), username=String(), phoneNumber=String())
+    users = NonNull(List(NonNull(Field(User))))
+    match = Field(Match, id=NonNull(ID()))
+    friends = NonNull(List(Field(User, id=NonNull(ID()))))
+    matches = NonNull(List(NonNull(Field(Match, id=ID(), userID=ID()))))
+
+    def resolve_user(parent, info, **kwargs):
+
+        return User(**kwargs)
