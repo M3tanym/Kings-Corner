@@ -1,6 +1,9 @@
+
 import graphene
 from graphene import ObjectType, String, ID, List
 from graphene_pydantic import PydanticObjectType
+
+from graphene import ObjectType, String, Scalar, ID, List, Int, Field, Boolean
 
 from database import engine
 from models import User
@@ -51,7 +54,6 @@ class Item(ObjectType):
     pass
 
 
-"""
 class User(ObjectType):
     id = ID()
     name = Name()
@@ -63,7 +65,6 @@ class User(ObjectType):
     invites: List(lambda: User, required=True)
     tokens: Int()
     items: List(Item, required=True)
-"""
 
 
 class BoardState(ObjectType):
@@ -78,24 +79,41 @@ class Match(ObjectType):
     name = String()  # TODO why does this need to exist??
 
 
+class Tree(ObjectType):
+    name = String()
+    species = String()
+    deciduous = Boolean()
+    treeData = None
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.treeData = {'name': self.name, 'species': self.species, 'deciduous': self.deciduous}
+
+        if self.name == 'pine':
+            self.treeData['species'] = 'pinus pinus'
+        elif self.species == 'pinus pinus':
+            self.treeData['name'] = 'pine'
+        if self.name == 'pine':
+            self.treeData['deciduous'] = True
+
+    def resolve_name(self, info):
+        return self.treeData['name']
+
+    def resolve_species(self, info):
+        return self.treeData['species']
+
+    def resolve_deciduous(self, info):
+        return self.treeData['deciduous']
+
+
 class Query(ObjectType):
-    user = User()
-    users = List(User, required=True)
-    match = Match()
-    friends = List(User, required=True)
-    matches = List(Match, required=True)
+    # user = User()
+    # users = List(User, required=True)
+    # match = Match()
+    # matches = List(Match, required=True)
+    # friends = List(User, required=True)
+    tree = Field(Tree, name=String(), species=String())
 
-
-class DemoQuery(ObjectType):
-    # from the docs, for reference
-    # this defines a Field `hello` in our Schema with a single Argument `name`
-    hello = String(name=String(default_value="stranger"))
-    goodbye = String()
-
-    # our Resolver method takes the GraphQL context (root, info) as well as
-    # Argument (name) for the Field and returns data for the query Response
-    def resolve_hello(root, info, name):
-        return f'Hello {name}!'
-
-    def resolve_goodbye(root, info):
-        return 'See ya!'
+    def resolve_tree(parent, info, **kwargs):
+        return Tree(**kwargs)
