@@ -8,10 +8,11 @@
     "startServer": "python3 ../backend/app/app.py",
     "startElectron": "webpack-dev-server -d --config ./webpack.electron.config.js",
     "startWebsite": "webpack-dev-server -d --config ./webpack.website.config.js",
-    "start": "concurrently --kill-others-on-fail \"npm run startServer\" \"npm run startWebsite\"",
+    "start": "concurrently --kill-others-on-fail \"npm:startServer\" \"npm:startWebsite\"",
     "buildElectron": "webpack -p --config ./webpack.electron.config.js && electron-forge publish",
     "buildWebsite": "webpack -p --config ./webpack.website.config.js",
-    "build": "npm run buildWebsite && npm run buildElectron"
+    "build": "npm run buildWebsite && npm run buildElectron",
+    "deploy": "npm run build && npm run startServer"
   },
   "dependencies": {
     "@apollo/client": "^3.3.7",
