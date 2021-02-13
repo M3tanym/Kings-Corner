@@ -1,4 +1,3 @@
-
 from graphene_pydantic import PydanticObjectType
 
 from graphene import Scalar, ObjectType, Field, NonNull

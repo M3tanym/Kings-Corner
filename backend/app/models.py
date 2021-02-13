@@ -3,7 +3,7 @@ from fastapi_users import models
 #
 # Users
 #
-"""
+
 class User(models.BaseUser):
     first_name: str
 
@@ -18,4 +18,3 @@ class UserUpdate(User, models.BaseUserUpdate):
 
 class UserDB(User, models.BaseUserDB):
     pass
-"""

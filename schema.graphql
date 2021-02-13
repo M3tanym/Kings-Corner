@@ -1,7 +1,6 @@
 type User {
 
-    id: ID!
-    token: String!
+    playerID: ID!
 
     # General User Information
 
@@ -28,13 +27,19 @@ type User {
 }
 
 type Item {
-
+    itemID: ID!
+    description: String!
+    name: String!
 }
 
 type Match {
-    id: ID!
+    matchID: ID!
     players: [User!]!
-    boardState: BoardState
+    board: Board
+}
+
+type Board {
+    history: [BoardState!]
 }
 
 type BoardState {
@@ -43,8 +48,9 @@ type BoardState {
 }
 
 input Invite {
-    from: ID!
-    to: ID!
+    matchID: ID!
+    playerID: ID!
+    name: String!
 }
 
 input Move {
@@ -57,20 +63,22 @@ scalar Url
 scalar Date
 
 type Query {
-    user(id: ID, email: String, username: String, phoneNumber: String): User
-    users: [User!]!
-    match(id: ID!): Match
-    friends(id: ID!): [User!]!
-    matches(id: ID!, userID: ID!): [Match!]!
+    user(playerID: ID, email: String, inGameName: String, phoneNumber: String): User
+    friends(playerID: ID!): [User!]!
+    match(matchID: ID!): Match
+    matches(matchID: ID!, userID: ID!): [Match!]!
 }
 
 type Mutation {
     createUser(email: String!, password: String!, inGameName: String!): User
-    login(email: String, username: String, password: String!): User
-    addUserPhoneNumber(phoneNumber: String!): User
-    addUserName(name: String!): User
-    addFriendToUser(id: ID!): User
-    createMatch(playerOneID: ID!): Match
-    addPlayerToMatch(matchID: ID!, playerID: ID!): Match
-    makeMove(matchID: ID!, player: ID!, move: Move): Match
+    login(email: String, inGameName: String, password: String!): User
+    modifyUser(email: String, phoneNumber: String, name: String, password: String, inGameName: String): User
+    requestFriend(playerID: ID!): User
+    createMatch: Match
+    invitePlayer(matchID: ID!, playerID: ID!): Match
+}
+
+type Subscription {
+    makeMove(matchID: ID!, playerID: ID!, move: Move): Match
+    getMove: Match
 }
