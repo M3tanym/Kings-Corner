@@ -13,8 +13,6 @@ const ChessBoard = props =>
 {
   const [boardState, setBoardState] = useState(parseFenString("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"));
 
-  console.log(boardState);
-
   return (
       <DndProvider backend={HTML5Backend}>
         <Box className="board" boxShadow={3} display={"flex"} flexWrap={"wrap"}>
@@ -63,19 +61,13 @@ const BoardSquare = props => {
 const Piece = props =>
 {
   const [{ isDragging }, drag] = useDrag({
-    item: { type: 'knight', row: props.row, col: props.col },
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging()
-    })
+    item: { type: 'knight', row: props.row, col: props.col }
   })
 
   return(
       <Box
           ref={drag}
-          style={{
-            opacity: isDragging ? 0.8 : 1,
-            cursor: 'move'
-          }}
+          style={{cursor: 'move'}}
           className={`piece ${props.type} ${props.color}`}
       />
   )
