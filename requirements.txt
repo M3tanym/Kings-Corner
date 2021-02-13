@@ -19,3 +19,4 @@ python-multipart==0.0.5
 six==1.15.0
 starlette==0.13.6
 uvicorn==0.13.3
+graphene

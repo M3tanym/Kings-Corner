@@ -23,7 +23,7 @@ type User {
 
     # Shop Information
 
-    tokens: Int
+    money: Int
     items: [Item!]!
 }
 

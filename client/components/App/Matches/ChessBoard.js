@@ -11,7 +11,8 @@ import { Chess } from 'chess.js';
 
 const ChessBoard = props =>
 {
-  const [boardState, setBoardState] = useState(parseFenString("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"));
+  const [boardState, setBoardState] = useState(parseFenString("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR".split("").reverse().join("")));
+  const playerColor = "black";
 
   return (
       <DndProvider backend={HTML5Backend}>
@@ -29,6 +30,7 @@ const ChessBoard = props =>
                     col={index % 8}
                     type={letterToName(letter)}
                     color={letterToColor(letter)}
+                    isFlipped={isFlipped(playerColor, letterToColor(letter))}
                 />
               </BoardSquare>
           )}
@@ -68,7 +70,7 @@ const Piece = props =>
       <Box
           ref={drag}
           style={{cursor: 'move'}}
-          className={`piece ${props.type} ${props.color}`}
+          className={`piece ${props.type} ${props.color} ${props.isFlipped ? "flipped" : ""}`}
       />
   )
 }
@@ -122,20 +124,14 @@ const letterToName = (letter) =>
 
 const letterToColor = (letter) =>
 {
-  if (letter === letter.toUpperCase())
-  {
-    return "white";
-  }
+  if (letter === letter.toUpperCase()) return "white";
+  else if (letter === letter.toLowerCase()) return "black"
+  else return "";
+}
 
-  else if (letter === letter.toLowerCase())
-  {
-    return "black"
-  }
-
-  else
-  {
-    return "";
-  }
+const isFlipped = (playerColor, pieceColor) =>
+{
+  return playerColor !== pieceColor;
 }
 
 export default ChessBoard;

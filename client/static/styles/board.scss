@@ -42,30 +42,36 @@
   &.bishop {
     &.white {
       background-image: url('../images/pieces/staunton/White-Bishop.png');
+
+      &.flipped {
+        background-image: url('../images/pieces/staunton/White-Bishop-Flipped.png');
+      }
     }
-    &.white-flipped {
-      background-image: url('../images/pieces/staunton/White-Bishop-Flipped.png');
-    }
+
     &.black {
       background-image: url('../images/pieces/staunton/Black-Bishop.png');
-    }
-    &.black-flipped {
-      background-image: url('../images/pieces/staunton/Black-Bishop-Flipped.png');
+
+      .flipped {
+        background-image: url('../images/pieces/staunton/Black-Bishop-Flipped.png');
+      }
     }
   }
 
   &.knight {
     &.white {
       background-image: url('../images/pieces/staunton/White-Knight.png');
+
+      &.flipped {
+        background-image: url('../images/pieces/staunton/White-Knight-Flipped.png');
+      }
     }
-    &.white-flipped {
-      background-image: url('../images/pieces/staunton/White-Knight-Flipped.png');
-    }
+
     &.black {
       background-image: url('../images/pieces/staunton/Black-Knight.png');
-    }
-    &.black-flipped {
-      background-image: url('../images/pieces/staunton/Black-Knight-Flipped.png');
+
+      &.flipped {
+        background-image: url('../images/pieces/staunton/Black-Knight-Flipped.png');
+      }
     }
   }
 

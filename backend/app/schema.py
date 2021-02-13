@@ -1,32 +1,35 @@
-from graphene import ObjectType, String, Scalar, ID, List, Int, Field, Boolean
-
-
-class Name(ObjectType):
-    firstName = String()
-    lastName = String()
-    fullName = String()
-
-
-class LoginInformation(ObjectType):
-    username = String()
-    password = String()
-
-
-class Item(ObjectType):
-    pass
+from graphene import Scalar, ObjectType, Field, NonNull
+from graphene import ID, Boolean, Int, Float, String, List, Date
 
 
 class User(ObjectType):
+
     id = ID()
-    name = Name()
-    email = String(required=True)
-    phoneNumber: String()
-    loginInformation: LoginInformation()
-    avatar: Scalar()
-    friends: List(lambda: User, required=True)
-    invites: List(lambda: User, required=True)
-    tokens: Int()
-    items: List(Item, required=True)
+    token = String()
+
+    name = String()
+    avatar = Url()
+
+    email = String()
+    inGameName = String()
+    phoneNumber = String()
+    password = String()
+
+    friends = NonNull(List(NonNull(Field(User))))
+    invites = NonNull(List(NonNull(Field(User))))
+    matches = NonNull(List(NonNull(Field(Match))))
+
+    money = Int()
+    items = NonNull(List(NonNull(Item())))
+
+    def __init__(self):
+
+        pass
+
+
+class Item(ObjectType):
+
+    pass
 
 
 class BoardState(ObjectType):
