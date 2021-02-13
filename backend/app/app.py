@@ -58,10 +58,7 @@ app.include_router(
 )
 """
 
-# noinspection PyTypeChecker
-s = Schema(query=schema.Query)
-
-app.add_route("/graphql", GraphQLApp(schema=s))
+app.add_route("/graphql", GraphQLApp(schema=schema.schema))
 
 if __name__ == "__main__":
     uvicorn.run("app:app", host="0.0.0.0", port=8000, log_level="info")
