@@ -13,7 +13,7 @@ const Matches = props =>
 			<Box pr={4} height={"80vh"}>
 				<Grid container spacing={4}>
 					{matches.map((match, index) =>
-						<Grid item xs={6} key={index}>
+						<Grid item xs={4} key={index}>
 							<InProgressCard id={index} {...props}/>
 						</Grid>
 					)}

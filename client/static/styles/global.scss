@@ -41,18 +41,12 @@ a {
 
 .horizontalScrollDiv
 {
-  overflow: hidden;
-
-  &:hover {
-    overflow-x: auto;
-  }
+  overflow-y: hidden;
+  overflow-x: auto;
 }
 
 .verticalScrollDiv
 {
-  overflow: hidden;
-
-  &:hover {
-    overflow-y: auto;
-  }
+  overflow-x: hidden;
+  overflow-y: auto;
 }

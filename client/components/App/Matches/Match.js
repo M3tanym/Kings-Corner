@@ -8,7 +8,7 @@ const Match = props =>
 {
 	return(
 		<Box width={"100%"} height={"100%"} display={"flex"}>
-			<Box>
+			<Box width={250} pt={2} pl={2}>
 				<Grid container direction={"column"} spacing={4}>
 					<Grid item xs>
 						<Paper>
@@ -33,10 +33,8 @@ const Match = props =>
 					</Grid>
 				</Grid>
 			</Box>
-			<Box flexGrow={1}>
-				<Paper>
-					<ChessBoard />
-				</Paper>
+			<Box ml={4} flexGrow={1} p={2} display={"flex"} alignItems={"center"} alignContent={"center"}>
+				<ChessBoard />
 			</Box>
 		</Box>
 	)

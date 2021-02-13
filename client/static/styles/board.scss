@@ -1,0 +1,101 @@
+.board {
+  width: 100%;
+  height: 100%;
+
+  position: static;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url('../images/board/woodi.1024.png');
+}
+
+.board-square {
+  width: 12.5%;
+  height: 12%;
+
+  overflow: visible;
+}
+
+.piece {
+
+  width: 100%;
+  height: 150%;
+
+  margin-top: -40%;
+  padding-top: 40%;
+
+  position: relative;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  &.pawn {
+    &.white {
+      background-image: url('../images/pieces/staunton/White-Pawn.png');
+    }
+    &.black {
+      background-image: url('../images/pieces/staunton/Black-Pawn.png');
+    }
+  }
+
+  &.bishop {
+    &.white {
+      background-image: url('../images/pieces/staunton/White-Bishop.png');
+    }
+    &.white-flipped {
+      background-image: url('../images/pieces/staunton/White-Bishop-Flipped.png');
+    }
+    &.black {
+      background-image: url('../images/pieces/staunton/Black-Bishop.png');
+    }
+    &.black-flipped {
+      background-image: url('../images/pieces/staunton/Black-Bishop-Flipped.png');
+    }
+  }
+
+  &.knight {
+    &.white {
+      background-image: url('../images/pieces/staunton/White-Knight.png');
+    }
+    &.white-flipped {
+      background-image: url('../images/pieces/staunton/White-Knight-Flipped.png');
+    }
+    &.black {
+      background-image: url('../images/pieces/staunton/Black-Knight.png');
+    }
+    &.black-flipped {
+      background-image: url('../images/pieces/staunton/Black-Knight-Flipped.png');
+    }
+  }
+
+  &.rook {
+    &.white {
+      background-image: url('../images/pieces/staunton/White-Rook.png');
+    }
+    &.black {
+      background-image: url('../images/pieces/staunton/Black-Rook.png');
+    }
+  }
+
+  &.queen {
+    &.white {
+      background-image: url('../images/pieces/staunton/White-Queen.png');
+    }
+    &.black {
+      background-image: url('../images/pieces/staunton/Black-Queen.png');
+    }
+  }
+
+  &.king {
+    &.white {
+      background-image: url('../images/pieces/staunton/White-King.png');
+    }
+    &.black {
+      background-image: url('../images/pieces/staunton/Black-King.png');
+    }
+  }
+}
+
+
+

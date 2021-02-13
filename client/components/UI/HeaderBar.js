@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 const HeaderBar = props =>
 {
 	return(
-		<Box display={"flex"} flexWrap={"nowrap"}>
+		<Box display={"flex"} flexWrap={"nowrap"} style={{height: "100%"}}>
 			<LogoHeader />
 			<Search />
 			<Notifications />
@@ -36,8 +36,7 @@ const LogoHeader = props =>
 	return(
 		<Box p={2} minWidth={280}>
 			<Grid item container
-				  justify={"center"} alignItems={"center"} alignContent={"center"}
-			>
+				  justify={"center"} alignItems={"center"} alignContent={"center"}>
 				<Grid item>
 					<Logo height={50}/>
 				</Grid>
@@ -50,14 +49,14 @@ const Search = props =>
 {
 	return(
 		<Box p={2} minWidth={250} flexGrow={1} bgcolor={grey[100]}>
-			<Grid container spacing={2} style={{height: "100%"}}
-				  alignItems={"center"} alignContent={"center"}
-			>
-				<SearchOutlinedIcon style={{marginLeft: 20}}/>
-				<Grid item style={{marginLeft: 10}}>
-					<InputBase />
-				</Grid>
-			</Grid>
+			<Box display={"flex"} alignItems={"center"} alignContent={"center"} style={{height: "100%"}}>
+				<Box mt={"4px"} ml={2}>
+					<SearchOutlinedIcon/>
+				</Box>
+				<Box flexGrow={1} ml={2} mr={2}>
+					<InputBase fullWidth/>
+				</Box>
+			</Box>
 		</Box>
 	)
 }
