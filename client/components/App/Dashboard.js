@@ -31,6 +31,8 @@ import {
 
 import {AvatarGroup} from "@material-ui/lab";
 import NavigateNextOutlinedIcon from "@material-ui/icons/NavigateNextOutlined";
+import {useSnackbar} from "notistack";
+import {gql, useQuery} from "@apollo/client";
 
 const DashBoard = props =>
 {
@@ -199,7 +201,25 @@ const TopPlayers = props =>
 
 const Matches = props =>
 {
-	const matches = ["A", "A", "A", "A"];
+	const { enqueueSnackbar } = useSnackbar();
+
+	const GetMatches = gql`
+		query GetMatches($playerID: ID) {
+			user(playerID: $playerID) {
+				matches {
+					name
+					currentTurn {
+						name
+					}
+					players {
+						avatar
+					}
+				}
+			}
+		}
+	`;
+
+	const [{ loading, data, error }] = useQuery(GetMatches);
 
 	return(
 		<Paper style={{height: "100%"}}>
@@ -222,13 +242,13 @@ const Matches = props =>
 			<Divider />
 			<Box p={1}>
 				<List>
-					{matches.map((match, index) =>
+					{data.user.matches.map((match, index) =>
 						<ListItem key={index}>
 							<AvatarGroup max={2} style={{paddingRight: 20}}>
 								<Avatar />
 								<Avatar />
 							</AvatarGroup>
-							<ListItemText primary={"Match Name"} secondary="Your Turn" />
+							<ListItemText primary={match.name} secondary="Your Turn" />
 							<ListItemSecondaryAction>
 								<Link to={"/app/matches/" + index}>
 									<IconButton>

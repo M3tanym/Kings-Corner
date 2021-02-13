@@ -151,7 +151,7 @@ const ProtectedRoute = props => {
 	return (
 		<Route {...props}>
 			{
-				authData.token ? props.children :
+				authData.sessionToken ? props.children :
 					<Redirect to={{ pathname: "/login", state: { from: props.location }}}/>
 			}
 		</Route>
@@ -160,7 +160,7 @@ const ProtectedRoute = props => {
 
 const AuthNeeded = props =>
 {
-	const authData = { token: undefined }
+	const authData = { sessionToken: undefined }
 
 	return (
 		<AuthContext.Provider value={authData}>
