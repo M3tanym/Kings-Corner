@@ -1,27 +1,15 @@
 type User {
 
     playerID: ID!
-
-    # General User Information
-
     name: String
     avatar: Url
-
-    # Login Information
-
     email: String!
     inGameName: String!
     phoneNumber: String
     password: String!
-
-    # Game Information
-
     friends: [User!]!
     invites: [User!]!
     matches: [Match!]!
-
-    # Shop Information
-
     money: Int
     items: [Item!]!
 }
@@ -35,16 +23,9 @@ type Item {
 type Match {
     matchID: ID!
     players: [User!]!
-    board: Board
-}
-
-type Board {
-    history: [BoardState!]
-}
-
-type BoardState {
+    history: [String!]!
     currentTurn: User!
-    state: String!
+    currentState: String!
 }
 
 input Invite {

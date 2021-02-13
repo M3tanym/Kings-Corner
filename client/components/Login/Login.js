@@ -51,7 +51,7 @@ const Login = props =>
 
 const SignInArea = props =>
 {
-	const [username, setUsername] = useState("");
+	const [idField, setIdField] = useState("");
 	const [password, setPassword] = useState("");
 
 	let authData = useContext(AuthContext);
@@ -62,32 +62,32 @@ const SignInArea = props =>
 	const { enqueueSnackbar } = useSnackbar();
 
 	const Login = gql`
-		mutation Login($username: String!, $password: String!) {
-			login(username: $username, password: $password) {
-				token
+		mutation Login($email: String, $inGameName: String, $password: String!) {
+			login(email: $email, inGameName: $inGameName, password: $password) {
+				playerID
 			}
 		}
 	`;
 
 	const [doMutation, { loading }] = useMutation(Login);
 
-	/*
-	const login = () => doMutation({
-		variables: { username, password },
-		onCompleted: data => {
-			authData.token = data.user.token;
-
-			let { from } = location.state || { from: { pathname: "/app" } };
-			history.replace(from);
-		},
-		onError: (err) => enqueueSnackbar(err)
-	})
-	 */
+	const validateEmail = text => (/\S+@\S+\.\S+/).test(text);
 
 	const login = () => {
-		authData.token = "Hello World";
-		let { from } = location.state || { from: { pathname: "/app" } };
-		history.replace(from);
+		const isEmail = validateEmail(idField);
+		doMutation({
+			variables: {
+				email: isEmail ? idField : undefined,
+				inGameName: isEmail ? undefined : idField,
+				password
+			},
+			onCompleted: data => {
+				authData.sessionToken = data.user.sessionToken;
+				let { from } = location.state || { from: { pathname: "/app" } };
+				history.replace(from);
+			},
+			onError: (err) => enqueueSnackbar(err)
+		})
 	}
 
 	return (
@@ -96,7 +96,7 @@ const SignInArea = props =>
 		>
 			<Grid item style={{width: "100%"}}>
 				<LoginFields
-					username={username} setUsername={setUsername}
+					idField={idField} setIdField={setIdField}
 					password={password} setPassword={setPassword}
 					login={login} {...props}
 				/>

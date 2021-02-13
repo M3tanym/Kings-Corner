@@ -104,7 +104,7 @@ const SignInAreaPageTwo = props =>
 	const CreateUser = gql`
 		mutation CreateUser($email: String!, $password: String!, $inGameName: String!) {
 			createUser(email: $email, password: $password, inGameName: $inGameName) {
-				token
+				playerID
 			}
 		}
 	`;
@@ -112,9 +112,9 @@ const SignInAreaPageTwo = props =>
 	const [doMutation, { loading }] = useMutation(CreateUser);
 
 	const createUser = () => doMutation({
-		variables: { email: props.email, password: props.password },
+		variables: { email: props.email, password: props.password, inGameName },
 		onCompleted: data => {
-			authData.token = data.user.token;
+			authData.sessionToken = data.user.sessionToken;
 
 			let { from } = location.state || { from: { pathname: "/app" } };
 			history.replace(from);
