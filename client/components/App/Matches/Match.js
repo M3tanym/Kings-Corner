@@ -21,7 +21,7 @@ const Match = props =>
 {
 	return(
 		<Box width={"100%"} height={"100%"} display={"flex"}>
-			<Box width={250} pt={2} pl={2} display={"flex"} flexDirection={"column"}>
+			<Box minWidth={250} pt={2} pl={2} display={"flex"} flexDirection={"column"}>
 				<Box>
 					<Paper>
 						<Box p={3} width={"100%"}>
