@@ -67,11 +67,9 @@ const Piece = props =>
   })
 
   return(
-      <Box
-          ref={drag}
-          style={{cursor: 'move'}}
-          className={`piece ${props.type} ${props.color} ${props.isFlipped ? "flipped" : ""}`}
-      />
+      <Box className={`piece ${props.type} ${props.color} ${props.isFlipped ? "flipped" : ""}`}>
+        <Box width={"100%"} height={"100%"} style={{cursor: 'move'}} ref={drag} />
+      </Box>
   )
 }
 
