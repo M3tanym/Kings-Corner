@@ -2,7 +2,7 @@ type User {
 
     playerID: ID!
     name: String
-    avatar: Url
+    avatar: String
     email: String!
     inGameName: String!
     phoneNumber: String
@@ -41,13 +41,11 @@ input Move {
     to: String!
 }
 
-scalar Url
 scalar Date
 
 type Query {
     user(playerID: ID, email: String, inGameName: String, phoneNumber: String): User
-    friends(playerID: ID!): [User!]!
-    matches(matchID: ID!, userID: ID!): [Match!]!
+    match(matchID: ID!): [Match!]!
 }
 
 type Mutation {
