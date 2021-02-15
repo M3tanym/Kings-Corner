@@ -1,5 +1,4 @@
 type User {
-
     playerID: ID!
     name: String
     avatar: String

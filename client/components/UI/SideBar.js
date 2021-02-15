@@ -19,7 +19,7 @@ const SideBar = props =>
 		{ text: "Dashboard", icon: DashboardIcon },
 		{ text: "Matches", icon: SportsEsportsIcon },
 		{ text: "Battle Pass", icon: RedeemIcon, disabled: true },
-		{ text: "Collection", icon: LocalMallIcon, disabled: true },
+		{ text: "Collection", icon: LocalMallIcon },
 		{ text: "Shop", icon: StorefrontIcon, disabled: true },
 	];
 
