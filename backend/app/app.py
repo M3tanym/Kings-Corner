@@ -4,6 +4,7 @@ import motor
 import uvicorn as uvicorn
 from fastapi import FastAPI
 from fastapi_users.db import MongoDBUserDatabase
+from fastapi.middleware.cors import CORSMiddleware
 from starlette.requests import Request
 from starlette.graphql import GraphQLApp
 
@@ -23,6 +24,13 @@ db = client["kingscorner"]
 collection = db["users"]
 
 app = FastAPI(title="Kings Corner", version='0.1')
+
+# TODO temporary CORS override - do not deploy to prod
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*']
+)
+
 """
 user_db = MongoDBUserDatabase(UserDB, collection)
 
