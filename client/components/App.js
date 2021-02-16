@@ -9,18 +9,16 @@ import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui
 import { SnackbarProvider } from 'notistack';
 
 import Router from "./Router";
+import {grey} from "@material-ui/core/colors";
 
 const App = () =>
 {
     let theme = createMuiTheme({
         palette: {
             type: "light",
-            primary: {
-                main: '#653D23',
-            },
-            secondary: {
-                main: '#E2AF6E',
-            },
+            primary: { main: '#653D23' },
+            secondary: { main: '#E2AF6E' },
+            neutral: { main: '#FFFFFF', light: grey[100], dark: grey[200] },
         },
     })
     theme = responsiveFontSizes(theme);

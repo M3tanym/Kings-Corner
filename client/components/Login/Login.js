@@ -207,7 +207,7 @@ const OAuthArea = props =>
 							});
 					}}
 					render={props =>
-						<OAuthButton onClick={props.onClick} disabled={props.disabled} icon={<GoogleIcon />}>
+						<OAuthButton onClick={props.onClick} disabled={props.disabled} icon={<AppleIcon />}>
 							Sign in with Apple
 						</OAuthButton>
 					}
@@ -239,10 +239,21 @@ const OAuthArea = props =>
 	)
 }
 
+const AppleIcon = props =>
+{
+	return (
+		<Box m={-1} style={{marginRight: -10, paddingTop: 4}}>
+			<svg width="40" height="40" viewBox="0 0 560 400" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd">
+				<path d="M291.813 84.366c18.398-24.248 43.974-24.366 43.974-24.366s3.804 22.797-14.472 44.758c-19.515 23.45-41.697 19.613-41.697 19.613s-4.165-18.442 12.195-40.005zm-9.855 55.974c9.465 0 27.03-13.01 49.894-13.01 39.357 0 54.84 28.005 54.84 28.005s-30.282 15.482-30.282 53.049c0 42.379 37.723 56.985 37.723 56.985s-26.37 74.22-61.988 74.22c-16.359 0-29.077-11.024-46.314-11.024-17.565 0-34.996 11.435-46.35 11.435-32.524.001-73.614-70.405-73.614-126.999 0-55.681 34.78-84.891 67.402-84.891 21.207 0 37.664 12.23 48.689 12.23z" fill="#737373"/>
+			</svg>
+		</Box>
+	)
+}
+
 const GoogleIcon = props =>
 {
 	return (
-		<Box style={{paddingTop: 6}}>
+		<Box style={{paddingTop: 7}}>
 			<svg width="18" height="18" xmlns="http://www.w3.org/2000/svg">
 				<g fill="#000" fillRule="evenodd">
 					<path
