@@ -13,7 +13,7 @@ import {
 	Typography
 } from "@material-ui/core";
 
-import Image from "../../static/images/carousel/carousel1.jpg"
+import Image from "../../../static/images/carousel/carousel1.jpg"
 import MaskedInput from "react-text-mask";
 import {Link} from "react-router-dom";
 import NavigateNextOutlinedIcon from "@material-ui/icons/NavigateNextOutlined";

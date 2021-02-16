@@ -11,14 +11,14 @@ import ForgotPassword from "./Login/ForgotPassword";
 
 import AppLayout from "./App/AppLayout";
 
-import DashBoard from "./App/Dashboard";
-import Matches from "./App/Matches/Matches";
-import Match from './App/Matches/Match';
-import BattlePass from "./App/BattlePass";
-import Collection from "./App/Collection";
-import Shop from "./App/Shop";
+import DashBoard from "./App/Pages/Dashboard";
+import Matches from "./App/Pages/Matches";
+import Match from './App/Match/Match';
+import BattlePass from "./App/Pages/BattlePass";
+import Collection from "./App/Pages/Collection";
+import Shop from "./App/Pages/Shop";
 
-import Profile from "./App/Profile";
+import Profile from "./App/Pages/Profile";
 import NotFound from "./NotFound";
 
 export const AuthContext = createContext();

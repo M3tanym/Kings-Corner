@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 
 import {Box, Checkbox, FormControlLabel, FormGroup, Grid, Tab, Tabs} from "@material-ui/core";
-import ItemCard from "../UI/Cards/ItemCard";
+import Item from "../../UI/Item";
 
 const Collection = props =>
 {
@@ -105,12 +105,12 @@ const PieceSkins = props =>
 		<Grid container spacing={4}>
 			{props.filters.showOwned ? ownedItems.map((item, index)  =>
 				<Grid item key={index}>
-					<ItemCard name={item.name} description={item.description}/>
+					<Item name={item.name} description={item.description}/>
 				</Grid>
 			) : null}
 			{props.filters.showUnowned ? unownedItems.map((item, index)  =>
 				<Grid item key={index}>
-					<ItemCard name={item.name} description={item.description}/>
+					<Item name={item.name} description={item.description}/>
 				</Grid>
 			) : null}
 		</Grid>
@@ -156,12 +156,12 @@ const BoardSkins = props =>
 		<Grid container spacing={4}>
 			{props.filters.showOwned ? ownedItems.map((item, index)  =>
 				<Grid item key={index}>
-					<ItemCard name={item.name} description={item.description}/>
+					<Item name={item.name} description={item.description}/>
 				</Grid>
 			) : null}
 			{props.filters.showUnowned ? unownedItems.map((item, index)  =>
 				<Grid item key={index}>
-					<ItemCard name={item.name} description={item.description}/>
+					<Item name={item.name} description={item.description}/>
 				</Grid>
 			) : null}
 		</Grid>

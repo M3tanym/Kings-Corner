@@ -2,8 +2,8 @@ import React from "react";
 
 import {Box} from "@material-ui/core";
 
-import SideBar from "../UI/SideBar";
-import HeaderBar from "../UI/HeaderBar";
+import SideBar from "./SideBar";
+import HeaderBar from "./HeaderBar";
 
 const AppLayout = props =>
 {

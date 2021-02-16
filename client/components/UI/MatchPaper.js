@@ -7,7 +7,7 @@ import {AvatarGroup} from '@material-ui/lab';
 
 import {Link} from "react-router-dom";
 
-const InProgressCard = props =>
+const MatchPaper = props =>
 {
 	return (
 		<Paper>
@@ -44,4 +44,4 @@ const InProgressCard = props =>
 	);
 }
 
-export default InProgressCard;
+export default MatchPaper;

@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Box, Grid, Paper, Typography} from '@material-ui/core';
 
-const ItemCard = props =>
+const Item = props =>
 {
 	return (
 		<Paper>
@@ -29,4 +29,4 @@ const ItemCard = props =>
 	);
 }
 
-export default ItemCard;
+export default Item;

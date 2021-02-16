@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 
 import {Box, Grid} from '@material-ui/core';
 
-import InProgressCard from '../../UI/Cards/InProgressCard';
+import MatchPaper from '../../UI/MatchPaper';
 
 import {gql, useQuery} from "@apollo/client";
 
@@ -32,14 +32,14 @@ const Matches = props =>
 	const { loading, error, data } = useQuery(GetMatches, {variables: {playerID: authData.playerID}});
 
 	if (loading) return null;
-	if (error) return <InProgressCard />;
+	if (error) return <MatchPaper />;
 
 	return(
-		<Box width={"100%"} height={"100%"} height={500} className={"verticalScrollDiv"}>
+		<Box width={"100%"} height={500} className={"verticalScrollDiv"}>
 			<Grid container spacing={4}>
 				{data.user.matches.map((match, index) =>
 					<Grid item xs={4} key={index}>
-						<InProgressCard id={index}/>
+						<MatchPaper id={index}/>
 					</Grid>
 				)}
 			</Grid>
