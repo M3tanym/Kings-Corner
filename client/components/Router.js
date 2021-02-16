@@ -36,7 +36,6 @@ const Router = props =>
 
 const Routes = props =>
 {
-
 	return(
 		<Switch>
 			<Route exact path={"/"}>
