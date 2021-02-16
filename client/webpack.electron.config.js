@@ -20,7 +20,7 @@ module.exports = {
 				}
 		  	]
 		},
-		proxy: { "/api/*": "http://localhost:8000" },
+		proxy: { "/graphql": "http://localhost:8000" },
 		stats: { colors: true, chunks: false, children: false},
 		before() {
 			spawn('electron', ['.'], { shell: true, env: process.env, stdio: 'inherit' })

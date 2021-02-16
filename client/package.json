@@ -5,7 +5,7 @@
   "license": "MIT",
   "main": "main.js",
   "scripts": {
-    "startServer": "python3 ../backend/app/app.py",
+    "startServer": ". ../venv/bin/activate && python3 ../backend/app/app.py",
     "startElectron": "webpack-dev-server -d --config ./webpack.electron.config.js",
     "startWebsite": "webpack-dev-server -d --config ./webpack.website.config.js",
     "start": "concurrently --kill-others-on-fail \"npm:startServer\" \"npm:startWebsite\"",

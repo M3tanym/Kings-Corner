@@ -22,7 +22,7 @@ module.exports = {
 				}
 		  	]
 		},
-		proxy: { "/api/*": "http://localhost:8000" }
+		proxy: { "/graphql": "http://localhost:8000" }
 	},
 	devtool: 'eval-source-map',
 	module: {
