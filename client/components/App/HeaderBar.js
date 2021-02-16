@@ -8,8 +8,6 @@ import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import NotificationsOutlinedIcon from '@material-ui/icons/NotificationsOutlined';
 import ArrowDropDownOutlinedIcon from '@material-ui/icons/ArrowDropDownOutlined';
 
-import {grey} from "@material-ui/core/colors";
-
 import Logo from "../UI/Logo";
 
 import {gql, useQuery} from "@apollo/client";
@@ -52,7 +50,7 @@ const LogoHeader = props =>
 const Search = props =>
 {
 	return(
-		<Box p={2} minWidth={250} flexGrow={1} bgcolor={grey[100]}>
+		<Box p={2} minWidth={250} flexGrow={1} bgcolor={"neutral.light"}>
 			<Box display={"flex"} alignItems={"center"} alignContent={"center"} style={{height: "100%"}}>
 				<Box mt={"4px"} ml={2}>
 					<SearchOutlinedIcon/>
