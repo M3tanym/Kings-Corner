@@ -1,60 +1,100 @@
 import React, {useState} from "react";
 
-import {Box, Card, Grid, Paper, Typography} from "@material-ui/core";
-
-import DoneAllIcon from '@material-ui/icons/DoneAll';
-import ClearIcon from '@material-ui/icons/Clear';
+import {
+	Avatar,
+	Box, Button,
+	Divider,
+	Grid,
+	IconButton,
+	List,
+	ListItem, ListItemAvatar, ListItemSecondaryAction,
+	ListItemText,
+	Paper, TextField,
+	Typography
+} from "@material-ui/core";
 
 import Image from "../../static/images/carousel/carousel1.jpg"
 import MaskedInput from "react-text-mask";
+import {Link} from "react-router-dom";
+import NavigateNextOutlinedIcon from "@material-ui/icons/NavigateNextOutlined";
 
 const Profile = props =>
 {
 	return (
-		<Grid container spacing={4} style={{height: "100%"}}
-			  justify={"center"} alignItems={"center"} alignContent={"center"}
-		>
-			<Grid item xs={6} style={{height: "100%"}}>
-				<Stats />
-			</Grid>
-			<Grid item xs={6} style={{height: "100%"}}>
+		<Box display={"flex"}>
+			<Box>
+				<UserDetails />
+			</Box>
+			<Box ml={4} flexGrow={1}>
 				<MatchHistory />
-			</Grid>
-		</Grid>
+			</Box>
+		</Box>
 	);
 }
 
-const Stats = props =>
+const UserDetails = props =>
 {
 	return(
-		<Grid container spacing={6} style={{height: "100%"}}
-			  alignContent={"center"} alignItems={"center"}
-		>
-			<Grid item>
-				<img alt={"User Profile"} src={Image} style={{width: 200, height: 200, borderRadius: "50%"}} />
-			</Grid>
-			<Grid item>
-				<Grid container spacing={2}
-					  alignContent={"center"} alignItems={"center"}
-				>
-					<Grid item xs={12}>
-						<Typography variant={"h2"}>mrosoff</Typography>
-					</Grid>
-					<Grid item>
-						<DoneAllIcon />
-					</Grid>
-					<Grid item>
-						<Typography variant={"h6"}>10 Wins</Typography>
-					</Grid>
-					<Grid item>
-						<ClearIcon />
-					</Grid>
-					<Grid item>
-						<Typography variant={"h6"}>100 Losses</Typography>
-					</Grid>
-				</Grid>
-			</Grid>
-		</Grid>
+		<Box display={"flex"} flexDirection={"column"}>
+			<Paper>
+				<Box p={4} display={"flex"} alignContent={"center"} alignItems={"center"}>
+					<Box>
+						<img alt={"User Profile"} src={Image} style={{width: 100, height: 100, borderRadius: "50%"}} />
+					</Box>
+					<Box ml={4} flexGrow={1}>
+						<Typography variant={"h4"}>InGameName</Typography>
+						<Typography variant={"h6"}>Gold III</Typography>
+					</Box>
+				</Box>
+			</Paper>
+			<Box mt={4} flexGrow={1}>
+				<EditUserInfo />
+			</Box>
+		</Box>
+	)
+}
+
+const EditUserInfo = props =>
+{
+	return(
+		<Paper>
+			<Box p={4} display={"flex"} flexDirection={"column"}>
+				<Field
+					name={"Email"}
+					input={<TextField />}
+				/>
+				<Field
+					mt={2}
+					name={"Phone Number"}
+					input={<PhoneNumberInput />}
+				/>
+				<Field
+					mt={2}
+					name={"Password"}
+					input={<TextField />}
+				/>
+			</Box>
+		</Paper>
+	)
+}
+
+const Field = props =>
+{
+	const [editField, setEditField] = useState(false);
+
+	return(
+		<Box mt={props.mt} display={"flex"} justifyContent={editField ? undefined : "space-between"}>
+			<Typography variant={"h6"}>{props.name}</Typography>
+			{
+				editField ?
+					<Box ml={2}>
+						{props.input}
+					</Box> :
+					<Button variant={"contained"} color={"secondary"} onClick={() => setEditField(true)}>
+						Edit
+					</Button>
+			}
+		</Box>
 	)
 }
 
@@ -63,17 +103,43 @@ const MatchHistory = props =>
 	const matches = [];
 
 	return(
-		<Paper style={{width: "100%", height: "100%", overflow: "hidden"}}>
-			<Grid container spacing={2} style={{overflow: "auto"}}>
+		<Paper style={{height: "100%"}}>
+			<Grid container
+				  justify={"space-between"} alignContent={"center"} alignItems={"center"}
+			>
 				<Grid item>
-					<Typography>Match History</Typography>
+					<Typography variant={"h6"} style={{paddingTop: 18, paddingBottom: 12, paddingLeft: 25}}>
+						Match History
+					</Typography>
 				</Grid>
-				{matches.map(match =>
-					<Grid item>
-						<Match match={match}/>
-					</Grid>
-				)}
+				<Grid item style={{paddingRight: 10}}>
+					<Link to={`/app/match-history`}>
+						<IconButton>
+							<NavigateNextOutlinedIcon />
+						</IconButton>
+					</Link>
+				</Grid>
 			</Grid>
+			<Divider />
+			<Box p={1}>
+				<List>
+					{[0, 0, 0, 0, 0, 0].map((match, index) =>
+						<ListItem key={index}>
+							<ListItemAvatar>
+								<Avatar />
+							</ListItemAvatar>
+							<ListItemText primary={"Match Name"} secondary={"Your Turn"} />
+							<ListItemSecondaryAction>
+								<Link to={"/app/matches/" + index}>
+									<IconButton>
+										<NavigateNextOutlinedIcon />
+									</IconButton>
+								</Link>
+							</ListItemSecondaryAction>
+						</ListItem>
+					)}
+				</List>
+			</Box>
 		</Paper>
 	)
 }
@@ -83,21 +149,11 @@ const PhoneNumberInput = props =>
 	return (
 		<MaskedInput
 			{...other}
-			ref={ref => inputRef(ref ? ref.inputElement : null)}
 			mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
 			placeholderChar={'\u2000'}
 			showMask
 		/>
 	);
-}
-const Match = props =>
-{
-	return(
-		<Card>
-
-		</Card>
-	)
-
 }
 
 export default Profile;

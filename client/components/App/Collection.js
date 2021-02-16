@@ -59,7 +59,7 @@ const Collection = props =>
 					</FormGroup>
 				</Grid>
 			</Grid>
-			<Box mt={4} flexGrow={1}>
+			<Box mt={4} flexGrow={1} height={500} className={"verticalScrollDiv"}>
 				{getSelectedTabContent()}
 			</Box>
 		</Box>

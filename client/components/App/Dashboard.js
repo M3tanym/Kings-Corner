@@ -42,7 +42,7 @@ import {AuthContext} from "../Router";
 const DashBoard = props =>
 {
 	return (
-		<Box width={"100%"} height={"100%"} display={"flex"} flexDirection={"column"}>
+		<Box width={"100%"} display={"flex"} flexDirection={"column"}>
 			<Box>
 				<Grid container spacing={4}>
 					<Grid item xs style={{minWidth: 250}}>
@@ -298,11 +298,11 @@ const BattlePass = props =>
 				</Grid>
 			</Grid>
 			<Divider />
-			<Box p={2} flexGrow={1}>
-				<Box p={1} flexGrow={1} height={"100%"} maxWidth={1000} display={"flex"} flexDirection={"column"} className={"horizontalScrollDiv"}>
-					<Box display={"flex"} alignContent={"center"} alignItems={"center"}>
+			<Box p={4} flexGrow={1} display={"flex"}>
+				<Box p={1} flexGrow={1} height={"100%"} width={500} display={"flex"} flexDirection={"column"} className={"horizontalScrollDiv"}>
+					<Box mb={2} display={"flex"} alignContent={"center"} alignItems={"center"}>
 						{items.map((item, index) =>
-							<Box m={3} minWidth={140} height={140} border={2} borderColor={"#222222"} key={index}/>
+							<Box ml={3} mr={3} minWidth={140} height={140} border={2} borderColor={"#222222"} key={index}/>
 						)}
 					</Box>
 					<Box pl={5} pr={5}>

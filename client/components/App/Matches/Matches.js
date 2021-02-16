@@ -35,16 +35,14 @@ const Matches = props =>
 	if (error) return <InProgressCard />;
 
 	return(
-		<Box width={"100%"} height={"100%"} className={"verticalScrollDiv"}>
-			<Box pr={4} height={"80vh"}>
-				<Grid container spacing={4}>
-					{data.user.matches.map((match, index) =>
-						<Grid item xs={4} key={index}>
-							<InProgressCard id={index}/>
-						</Grid>
-					)}
-				</Grid>
-			</Box>
+		<Box width={"100%"} height={"100%"} height={500} className={"verticalScrollDiv"}>
+			<Grid container spacing={4}>
+				{data.user.matches.map((match, index) =>
+					<Grid item xs={4} key={index}>
+						<InProgressCard id={index}/>
+					</Grid>
+				)}
+			</Grid>
 		</Box>
 	)
 }

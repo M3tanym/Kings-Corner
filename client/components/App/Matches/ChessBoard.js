@@ -34,7 +34,7 @@ const ChessBoard = props =>
 
   return (
       <DndProvider backend={HTML5Backend}>
-        <Box width={"100%"} height={"100%"} boxShadow={3} style={{position: "relative"}}>
+        <Box width={"100%"} height={"100%"} boxShadow={5} style={{position: "relative"}}>
           <img style={{width: "100%", height: "100%", position: "absolute"}} src={BoardImage} />
           <Board boardState={boardState} setBoardState={setBoardState}>
             {[].concat(...boardState).map((letter, index) =>

@@ -139,7 +139,7 @@ const LoginFields = props =>
 				<Grid item style={{width: '100%'}}>
 					<TextField
 						fullWidth autoComplete={"username"} size={"medium"}
-						label={"Username or Email"} value={props.username} onChange={(e) => props.setUsername(e.target.value)}
+						label={"Username or Email"} value={props.idField} onChange={(e) => props.setIdField(e.target.value)}
 						onKeyDown={(e) =>
 						{
 							if(e.key === 'Enter') moveDown(0);
