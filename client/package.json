@@ -16,7 +16,7 @@
     "deploy": "npm run build && npm run startServer"
   },
   "config": {
-    "forge": "client/forge.js"
+    "forge": "./forge.js"
   },
   "dependencies": {
     "@apollo/client": "^3.3.11",
