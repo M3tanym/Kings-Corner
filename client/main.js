@@ -95,7 +95,7 @@ function createWindow() {
 
 	else
 	{
-		indexPath = url.format({protocol: 'file:', pathname: path.join(__dirname, 'dist', 'index.html'), slashes: true})
+		indexPath = url.format({protocol: 'file:', pathname: path.join(__dirname, 'dist/website', 'index.html'), slashes: true})
 	}
 
 	mainWindow.loadURL(indexPath);
