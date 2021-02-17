@@ -27,6 +27,7 @@ jobs:
           if [ "$RUNNER_OS" == "Windows" ]; then
           npm config set cache C:\tmp\nodejs\npm-cache --global
           fi
+        shell: bash
 
       - name: "Install Node Modules"
         run: npm install --prefix client
