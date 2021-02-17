@@ -23,7 +23,9 @@ jobs:
           persist-credentials: false
 
       - name: Install Node Modules
-        run: npm install --prefix client --cwd client
+        run: |
+             npm install -g node-gyp
+             npm install --prefix client --cwd client
 
       - name: Package App
         env:
