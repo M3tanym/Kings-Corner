@@ -27,7 +27,6 @@ jobs:
         run: |
              npm install -g node-gyp
              npm install --global --production windows-build-tools
-             node-gyp configure --python C:\Users\pcq158.windows-build-tools\python27\python.exe
              npm config set msvs_version 2017 --global
 
       - name: Install Node Modules
