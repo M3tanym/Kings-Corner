@@ -34,7 +34,8 @@ const Matches = props =>
 	// if (loading) return null;
 	// if (error) return null;
 
-	const data = { user: { matches: ["a", "a", "a", "a", "a", "a"]}}
+	const data = { user: { matches: ["a", "a", "a", "a", "a", "a"]}};
+
 	return(
 		<Box height={"100%"} display={"flex"} flexDirection={"column"}>
 			<Box pr={4} flexGrow={1} height={500} className={"verticalScrollDiv"}>
@@ -47,7 +48,7 @@ const Matches = props =>
 				</Grid>
 			</Box>
 		</Box>
-	)
+	);
 }
 
 export default Matches;
