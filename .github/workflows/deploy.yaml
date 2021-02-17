@@ -24,7 +24,9 @@ jobs:
 
       - name: Windows Garbage
         if: runner.os == 'Windows'
-        run: npm install -g node-gyp
+        run: |
+             npm config set msvs_version 2017
+             npm i -g node-gyp
 
       - name: Install Node Modules
         run: npm install --prefix client --cwd client
