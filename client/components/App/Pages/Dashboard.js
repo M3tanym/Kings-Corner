@@ -42,24 +42,20 @@ import {AuthContext} from "../../Router";
 const DashBoard = props =>
 {
 	return (
-		<Box width={"100%"} display={"flex"} flexDirection={"column"}>
-			<Box>
+		<Box height={"100%"} display={"flex"} flexDirection={"column"}>
+			<Box pr={4} flexGrow={1} height={500} className={"verticalScrollDiv"}>
 				<Grid container spacing={4}>
-					<Grid item xs style={{minWidth: 250}}>
+					<Grid item xs style={{minWidth: 300}}>
 						<WinRate />
 					</Grid>
-					<Grid item xs={4} style={{minWidth: 500}}>
+					<Grid item xs style={{minWidth: 550}}>
 						<YourRank />
 					</Grid>
-					<Grid item xs style={{minWidth: 300}}>
+					<Grid item xs style={{minWidth: 350}}>
 						<TopPlayers />
 					</Grid>
-				</Grid>
-			</Box>
-			<Box flexGrow={1} mt={4}>
-				<Grid container spacing={4} style={{height: "100%"}}>
 					<Matches />
-					<Grid item xs style={{minWidth: 250}}>
+					<Grid item xs style={{minWidth: 500}}>
 						<BattlePass />
 					</Grid>
 				</Grid>
@@ -229,7 +225,7 @@ const Matches = props =>
 	if (error) return null;
 
 	return(
-		<Grid item xs={4} style={{minWidth: 350}}>
+		<Grid item xs style={{minWidth: 400}}>
 			<Paper style={{height: "100%"}}>
 				<Grid container
 					  justify={"space-between"} alignContent={"center"} alignItems={"center"}

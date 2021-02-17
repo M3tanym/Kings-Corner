@@ -79,8 +79,8 @@ if (process.defaultApp || /[\\/]electron-prebuilt[\\/]/.test(process.execPath) |
 function createWindow() {
 
 	mainWindow = new BrowserWindow({
-		width: 1400, height: 850,
-		center: true,
+		width: 1400, height: 850, center: true,
+		minWidth: 965, minHeight: 815,
 		icon: path.join(__dirname, './src/template/icon.png'),
 		webPreferences: { nodeIntegration: true }}
 	);
