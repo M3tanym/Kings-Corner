@@ -10,8 +10,8 @@ import {Link} from "react-router-dom";
 const MatchPaper = props =>
 {
 	return (
-		<Paper>
-			<Box height={300} p={3}>
+		<Paper style={{width: 400, height: 300}}>
+			<Box p={3}>
 				<Grid container spacing={2}
 					  justify={"space-between"} alignItems={"center"} alignContent={"center"}
 				>

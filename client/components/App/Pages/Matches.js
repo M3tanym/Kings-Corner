@@ -29,20 +29,23 @@ const Matches = props =>
 		}
 	`;
 
-	const { loading, error, data } = useQuery(GetMatches, {variables: {playerID: authData.playerID}});
+	/// const { loading, error, data } = useQuery(GetMatches, {variables: {playerID: authData.playerID}});
 
-	if (loading) return null;
-	if (error) return <MatchPaper />;
+	// if (loading) return null;
+	// if (error) return null;
 
+	const data = { user: { matches: ["a", "a", "a", "a", "a", "a"]}}
 	return(
-		<Box width={"100%"} height={500} className={"verticalScrollDiv"}>
-			<Grid container spacing={4}>
-				{data.user.matches.map((match, index) =>
-					<Grid item xs={4} key={index}>
-						<MatchPaper id={index}/>
-					</Grid>
-				)}
-			</Grid>
+		<Box height={"100%"} display={"flex"} flexDirection={"column"}>
+			<Box pr={4} flexGrow={1} height={500} className={"verticalScrollDiv"}>
+				<Grid container spacing={4}>
+					{data.user.matches.map((match, index) =>
+						<Grid item key={index}>
+							<MatchPaper id={index}/>
+						</Grid>
+					)}
+				</Grid>
+			</Box>
 		</Box>
 	)
 }
