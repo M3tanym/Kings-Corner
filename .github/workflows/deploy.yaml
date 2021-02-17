@@ -22,12 +22,12 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Windows Garbage
+        if: runner.os == 'Windows'
+        run: runas npm install -g node-gyp
+
       - name: Install Node Modules
-        run: |
-             if [ "$RUNNER_OS" == "Windows" ]; then
-                  runas npm install -g node-gyp
-             fi
-             npm install --prefix client --cwd client
+        run: npm install --prefix client --cwd client
 
       - name: Package App
         env:
