@@ -38,7 +38,6 @@ import {gql, useQuery} from "@apollo/client";
 
 import {AuthContext} from "../../Router";
 
-
 const DashBoard = props =>
 {
 	return (

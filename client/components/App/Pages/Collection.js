@@ -1,24 +1,13 @@
 import React, {useState} from "react";
 
 import {Box, Checkbox, FormControlLabel, FormGroup, Grid, Tab, Tabs} from "@material-ui/core";
+
 import Item from "../../UI/Item";
 
 const Collection = props =>
 {
 	const [selectedTab, setSelectedTab] = useState(0);
 	const [filters, setFilters] = useState({showOwned: true, showUnowned: false});
-
-	const getSelectedTabContent = () =>
-	{
-		switch (selectedTab) {
-			case 0:
-				return <PieceSkins filters={filters}/>;
-			case 1:
-				return <BoardSkins filters={filters}/>;
-			default:
-				return null;
-		}
-	}
 
 	return (
 		<Box height={"100%"} display={"flex"} flexDirection={"column"}>
@@ -60,10 +49,22 @@ const Collection = props =>
 				</Grid>
 			</Grid>
 			<Box mt={4} pr={4} flexGrow={1} height={500} className={"verticalScrollDiv"}>
-				{getSelectedTabContent()}
+				<SelectedTab selectedTab={selectedTab} filters={filters}/>
 			</Box>
 		</Box>
 	);
+}
+
+const SelectedTab = props =>
+{
+	switch (props.selectedTab) {
+		case 0:
+			return <PieceSkins filters={props.filters}/>;
+		case 1:
+			return <BoardSkins filters={props.filters}/>;
+		default:
+			return null;
+	}
 }
 
 const PieceSkins = props =>
