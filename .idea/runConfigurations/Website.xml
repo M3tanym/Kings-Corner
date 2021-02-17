@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Website" type="js.build_tools.npm">
-    <package-json value="$PROJECT_DIR$/package.json" />
+    <package-json value="$PROJECT_DIR$/client/package.json" />
     <command value="start" />
     <arguments value="--scripts-prepend-node-path" />
     <node-interpreter value="project" />
