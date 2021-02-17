@@ -43,7 +43,7 @@ module.exports = {
 					[
 						{loader: 'style-loader'},
 						{loader: 'css-loader'},
-						{loader: 'postcss-loader', options: {postcssOptions: {plugins: ['autoprefixer']}}},
+						{loader: 'postcss-loader', options: {postcssOptions: {plugins: ['postcss-preset-env', 'autoprefixer']}}},
 						{loader: 'sass-loader'}
 					]
 			},
