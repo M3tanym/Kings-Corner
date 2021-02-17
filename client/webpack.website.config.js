@@ -6,7 +6,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const outputDirectory = "dist/website";
 
 module.exports = {
-	entry: ["@babel/polyfill", "./index.js"],
+	entry: ["@babel/polyfill", "./client/index.js"],
 	devServer: {
 		port: 3000,
 		open: true,
@@ -50,8 +50,8 @@ module.exports = {
 	plugins: [
 		new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({
-			template: "./static/template/index.html",
-			favicon: "./static/template/favicon.ico",
+			template: "client/static/template/index.html",
+			favicon: "client/static/template/favicon.ico",
 			title: 'Kings Corner'
 		}),
 		new webpack.HotModuleReplacementPlugin()

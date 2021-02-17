@@ -3,20 +3,20 @@
   "version": "1.0.0",
   "description": "A Modern Chess Web App",
   "license": "MIT",
-  "main": "main.js",
+  "main": "client/main.js",
   "scripts": {
-    "startServer": ". ../venv/bin/activate && python3 ../backend/app/app.py",
-    "startServerMac": ". ~/.virtualenvs/Kings-Corner/bin/activate && python3 ../backend/app/app.py",
-    "startElectron": "webpack serve --mode development --config ./webpack.electron.config.js",
-    "startWebsite": "webpack serve --mode development --config ./webpack.website.config.js",
+    "startServer": ". venv/bin/activate && python3 backend/app/app.py",
+    "startServerMac": ". ~/.virtualenvs/Kings-Corner/bin/activate && python3 backend/app/app.py",
+    "startElectron": "webpack serve --mode development --config client/webpack.electron.config.js",
+    "startWebsite": "webpack serve --mode development --config client/webpack.website.config.js",
     "start": "concurrently --kill-others-on-fail \"npm:startServer\" \"npm:startWebsite\"",
-    "buildElectron": "webpack --mode production --config ./webpack.electron.config.js && electron-forge publish",
-    "buildWebsite": "webpack --mode production --config ./webpack.website.config.js",
+    "buildElectron": "webpack --mode production --config client/webpack.electron.config.js && electron-forge publish",
+    "buildWebsite": "webpack --mode production --config client/webpack.website.config.js",
     "build": "npm run buildWebsite && npm run buildElectron",
     "deploy": "npm run build && npm run startServer"
   },
   "config": {
-    "forge": "./forge.js"
+    "forge": "client/forge.js"
   },
   "dependencies": {
     "@apollo/client": "^3.3.11",

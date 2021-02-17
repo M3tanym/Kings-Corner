@@ -6,7 +6,7 @@ const { spawn } = require('child_process');
 const output = 'dist/electron'
 
 module.exports = {
-	entry: ['@babel/polyfill', './index.js'],
+	entry: ['@babel/polyfill', './client/index.js'],
 	devServer: {
 		contentBase: path.resolve(__dirname, output),
 		port: 3000, open: false, hot: true, historyApiFallback: {
@@ -52,7 +52,7 @@ module.exports = {
 	},
 	output: { filename: 'bundle.js', path: path.resolve(__dirname, output) },
 	plugins: [
-		new HtmlWebpackPlugin({template: './static/template/index.html', title: 'Kings Corner'}),
+		new HtmlWebpackPlugin({template: 'client/static/template/index.html', title: 'Kings Corner'}),
 		new webpack.HotModuleReplacementPlugin(),
 	],
 	target: 'electron-renderer',

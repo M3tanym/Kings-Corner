@@ -80,7 +80,6 @@ function createWindow() {
 
 	mainWindow = new BrowserWindow({
 		width: 1400, height: 850,
-		minWidth: 1400, minHeight: 850,
 		center: true,
 		icon: path.join(__dirname, './src/template/icon.png'),
 		webPreferences: { nodeIntegration: true }}
