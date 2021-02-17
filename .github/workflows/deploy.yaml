@@ -23,7 +23,7 @@ jobs:
           persist-credentials: false
 
       - name: "Fix Garbage"
-        run: npm cache verify
+        run: npm config set cache C:\tmp\nodejs\npm-cache --global
 
       - name: "Install Node Modules"
         run: npm install --prefix client
