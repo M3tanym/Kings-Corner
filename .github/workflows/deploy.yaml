@@ -25,8 +25,11 @@ jobs:
       - name: Windows Garbage
         if: runner.os == 'Windows'
         run: |
-             npm config set msvs_version 2017
-             npm i -g node-gyp
+             npm install -g node-gyp
+             npm install --global --production windows-build-tools
+             node-gyp configure --python C:\Users\pcq158.windows-build-tools\python27\python.exe
+             npm config set msvs_version 2017 --global
+             npm install
 
       - name: Install Node Modules
         run: npm install --prefix client --cwd client
