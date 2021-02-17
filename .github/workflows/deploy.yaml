@@ -26,6 +26,7 @@ jobs:
         run: |
              if [ "$RUNNER_OS" == "Windows" ]; then
                   runas npm install -g node-gyp
+             fi
              npm install --prefix client --cwd client
 
       - name: Package App
