@@ -33,7 +33,7 @@ jobs:
       - name: Package App
         env:
           GITHUB_TOKEN: ${{ secrets.PUSH_KEY }}
-        run: npm run buildElectron --prefix client --cwd client
+        run: echo $GITHUB_TOKEN && npm run buildElectron --prefix client --cwd client
 
   website:
 
