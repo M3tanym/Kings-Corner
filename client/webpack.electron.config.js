@@ -6,7 +6,7 @@ const { spawn } = require('child_process');
 const output = 'dist/electron'
 
 module.exports = {
-	entry: ['@babel/polyfill', './index.js'],
+	entry: './index.js',
 	devServer: {
 		contentBase: path.resolve(__dirname, output),
 		port: 3000, open: false, hot: true, historyApiFallback: {
@@ -43,7 +43,7 @@ module.exports = {
 					[
 						{loader: 'style-loader'},
 						{loader: 'css-loader'},
-						{loader: 'postcss-loader', options: {postcssOptions: {plugins: ['autoprefixer', 'precss']}}},
+						{loader: 'postcss-loader', options: {postcssOptions: {plugins: ['autoprefixer']}}},
 						{loader: 'sass-loader'}
 					]
 			},

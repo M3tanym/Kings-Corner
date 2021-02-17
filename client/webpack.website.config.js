@@ -6,7 +6,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const outputDirectory = "dist/website";
 
 module.exports = {
-	entry: ["@babel/polyfill", "./index.js"],
+	entry: './index.js',
 	devServer: {
 		port: 3000,
 		open: true,
@@ -31,7 +31,7 @@ module.exports = {
 				test: /\.jsx?$/,
 				exclude: /node_modules/,
 				loader: 'babel-loader',
-				options: {presets: ['@babel/preset-env', '@babel/react']}
+				options: {presets: ['@babel/react']}
 			},
 			{test: /\.css$/i, use: ['style-loader', 'css-loader']},
 			{
@@ -39,7 +39,7 @@ module.exports = {
 					[
 						{loader: 'style-loader'},
 						{loader: 'css-loader'},
-						{loader: 'postcss-loader', options: {postcssOptions: {plugins: ['autoprefixer', 'precss']}}},
+						{loader: 'postcss-loader', options: {postcssOptions: {plugins: ['autoprefixer']}}},
 						{loader: 'sass-loader'}
 					]
 			},
