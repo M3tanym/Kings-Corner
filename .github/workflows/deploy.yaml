@@ -25,7 +25,7 @@ jobs:
       - name: "Fix Garbage"
         run: |
           if [ "$RUNNER_OS" == "Windows" ]; then
-               npm config set cache C:\tmp\nodejs\npm-cache --global
+               npm -g install npm@4.2.0
           fi
         shell: bash
 
