@@ -23,11 +23,8 @@ jobs:
           persist-credentials: false
 
       - name: "Fix Garbage"
-        run: |
-          if [ "$RUNNER_OS" == "Windows" ]; then
-               npm -g install npm@4.2.0
-          fi
-        shell: bash
+        run: npm config set cache C:\tmp\nodejs\npm-cache --global
+        if: matrix.os == 'windows-latest'
 
       - name: "Install Node Modules"
         run: npm install --prefix client
