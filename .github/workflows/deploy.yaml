@@ -23,9 +23,9 @@ jobs:
           persist-credentials: false
 
       - name: "Fix Garbage"
-        run:
+        run: |
           if [ "$RUNNER_OS" == "Windows" ]; then
-          npm config set cache C:\tmp\nodejs\npm-cache --global
+               npm config set cache C:\tmp\nodejs\npm-cache --global
           fi
         shell: bash
 
