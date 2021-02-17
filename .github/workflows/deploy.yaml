@@ -24,8 +24,7 @@ jobs:
 
       - name: Windows Garbage
         if: runner.os == 'Windows'
-        run: |
-             npm install node-pre-gyp -g
+        run: npm install node-pre-gyp -g
 
       - name: Install Node Modules
         run: npm install --prefix client --cwd client
@@ -33,7 +32,7 @@ jobs:
       - name: Package App
         env:
           GITHUB_TOKEN: ${{ secrets.PUSH_KEY }}
-        run: echo $GITHUB_TOKEN && npm run buildElectron --prefix client --cwd client
+        run: npm run buildElectron --prefix client --cwd client
 
   website:
 
