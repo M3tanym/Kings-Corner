@@ -22,14 +22,8 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Set Up Node
-        uses: actions/setup-node@v1
-        with:
-          node-version: '14.15.4'
-        if: matrix.os == 'windows-latest'
-
       - name: Install Node Modules
-        run: npm install --prefix client
+        run: npm install --prefix "./client"
 
       - name: Package App
         env:
