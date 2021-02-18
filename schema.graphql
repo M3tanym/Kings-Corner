@@ -44,7 +44,7 @@ scalar Date
 
 type Query {
     user(playerID: ID, email: String, inGameName: String, phoneNumber: String): User
-    match(matchID: ID!): [Match!]!
+    match(matchID: ID!): Match
 }
 
 type Mutation {

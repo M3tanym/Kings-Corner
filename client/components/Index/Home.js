@@ -44,8 +44,9 @@ const AppOptions = props =>
 						<Button
 							variant={"contained"}
 							size={"large"}
+							onClick={() => console.log("Test")}
 						>
-							Download For MacOS
+							Download For Mac
 						</Button>
 					</Grid>
 					<Grid item>

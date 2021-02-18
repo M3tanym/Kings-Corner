@@ -4,7 +4,7 @@ module.exports = {
 	makers: [
 		{
 			name: '@electron-forge/maker-squirrel',
-			config: { setupExe: "kings-corner" }
+			config: { setupExe: "kings-corner.exe" }
 		},
 		{
 			name: '@electron-forge/maker-zip',
@@ -12,7 +12,7 @@ module.exports = {
 		},
 		{
 			name: '@electron-forge/maker-dmg',
-			config: { name: 'King\'s Corner' }
+			config: { name: 'kings-corner' }
 		},
 		{
 			name: '@electron-forge/maker-deb',

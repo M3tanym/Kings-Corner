@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, screen } = require('electron');
 const path = require('path')
 const url = require('url');
 const cp = require('child_process');
@@ -78,10 +78,10 @@ if (process.defaultApp || /[\\/]electron-prebuilt[\\/]/.test(process.execPath) |
 
 function createWindow() {
 
+	const { width, height } = screen.getPrimaryDisplay().workAreaSize;
+
 	mainWindow = new BrowserWindow({
-		width: 1400, height: 850, center: true,
-		minWidth: 965, minHeight: 815,
-		icon: path.join(__dirname, './src/template/icon.png'),
+		width: width - 50, height: height - 50,
 		webPreferences: { nodeIntegration: true }}
 	);
 
