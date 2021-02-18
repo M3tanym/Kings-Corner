@@ -11,10 +11,11 @@
     "startElectron": "webpack serve --mode development --config webpack.electron.config.js",
     "startWebsite": "webpack serve --mode development --config webpack.website.config.js",
     "start": "concurrently --kill-others-on-fail \"npm:startServer\" \"npm:startWebsite\"",
-    "buildElectron": "webpack --mode production --config webpack.electron.config.js && electron-forge publish",
+    "buildElectron": "webpack --mode production --config webpack.electron.config.js",
     "buildWebsite": "webpack --mode production --config webpack.website.config.js",
-    "build": "npm run buildWebsite && npm run buildElectron",
-    "deploy": "npm run build && npm run startServer"
+    "build": "concurrently --kill-others-on-fail \"npm:buildElectron\" \"npm:buildWebsite\"",
+    "publishElectron": "npm run buildElectron && electron-forge publish",
+    "deploySite": "npm run buildWebsite && npm run startServer"
   },
   "config": {
     "forge": "./forge.js"
@@ -29,6 +30,7 @@
     "chess.js": "^0.11.0",
     "chessground": "^7.9.3",
     "clsx": "latest",
+    "electron-reload": "^1.5.0",
     "electron-squirrel-startup": "^1.0.0",
     "framer-motion": "^3.3.0",
     "graphql": "^15.5.0",

@@ -56,7 +56,7 @@ let handleSquirrelEvent = () =>
 
 if (handleSquirrelEvent())
 {
-	return;
+
 }
 
 else if (os.platform() !== "darwin")
