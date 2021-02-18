@@ -4,7 +4,7 @@ module.exports = {
 	makers: [
 		{
 			name: '@electron-forge/maker-squirrel',
-			config: { name: 'xgame' }
+			config: { setupExe: "kings-corner" }
 		},
 		{
 			name: '@electron-forge/maker-zip',
@@ -12,15 +12,28 @@ module.exports = {
 		},
 		{
 			name: '@electron-forge/maker-dmg',
-			config: { name: 'xgame' }
+			config: { name: 'King\'s Corner' }
 		},
 		{
 			name: '@electron-forge/maker-deb',
-			config: { options: { name: 'xgame', productName: 'xgame'  } }
+			config: { options: {
+					categories: "Game",
+					genericName: "King\'s Corner",
+					homepage: "kings-corner.com",
+					name: 'kings-corner',
+					productName: 'King\'s Corner',
+					section: "games"
+				}}
 		},
 		{
 			name: '@electron-forge/maker-rpm',
-			config: { options: { name: 'xgame', productName: 'xgame' } }
+			config: { options: {
+					categories: "Game",
+					genericName: "King\'s Corner",
+					homepage: "kings-corner.com",
+					name: 'kings-corner',
+					productName: 'King\'s Corner'
+			}}
 		}
 	],
 	publishers: [
