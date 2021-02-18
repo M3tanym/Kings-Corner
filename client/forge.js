@@ -17,7 +17,6 @@ module.exports = {
 		{
 			name: '@electron-forge/maker-deb',
 			config: { options: {
-					categories: "Game",
 					genericName: "King\'s Corner",
 					homepage: "kings-corner.com",
 					name: 'kings-corner',
@@ -28,7 +27,6 @@ module.exports = {
 		{
 			name: '@electron-forge/maker-rpm',
 			config: { options: {
-					categories: "Game",
 					genericName: "King\'s Corner",
 					homepage: "kings-corner.com",
 					name: 'kings-corner',
