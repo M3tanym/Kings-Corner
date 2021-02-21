@@ -15,8 +15,8 @@ type User {
 
 type Item {
     itemID: ID!
-    description: String!
     name: String!
+    description: String!
 }
 
 type Match {
@@ -31,13 +31,12 @@ type Match {
 input Invite {
     matchID: ID!
     playerID: ID!
-    name: String!
 }
 
 input Move {
     matchID: ID!
-    from: String!
-    to: String!
+    fromSquare: String!
+    toSquare: String!
 }
 
 scalar Date
