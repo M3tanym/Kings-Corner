@@ -109,8 +109,7 @@ class CreateUser(Mutation):
     @staticmethod
     def mutate(root, info, **kwargs):
 
-        user = User(**kwargs)
-        return CreateUser(user=user)
+        return User(**kwargs)
 
 
 class Login(Mutation):
@@ -121,9 +120,9 @@ class Login(Mutation):
 
     Output = User
 
-    def mutate(root, info):
+    def mutate(root, info, **kwargs):
 
-        return Login()
+        return User()
 
 
 class ModifyUser(Mutation):
@@ -134,9 +133,9 @@ class ModifyUser(Mutation):
 
     Output = User
 
-    def mutate(root, info):
+    def mutate(root, info, **kwargs):
 
-        return ModifyUser()
+        return User()
 
 
 class RequestFriend(Mutation):
@@ -147,9 +146,9 @@ class RequestFriend(Mutation):
 
     Output = User
 
-    def mutate(root, info):
+    def mutate(root, info, **kwargs):
 
-        return RequestFriend()
+        return User()
 
 
 class CreateMatch(Mutation):
@@ -160,9 +159,9 @@ class CreateMatch(Mutation):
 
     Output = Match
 
-    def mutate(root, info):
+    def mutate(root, info, **kwargs):
 
-        return CreateMatch()
+        return Match()
 
 
 class InvitePlayer(Mutation):
@@ -173,9 +172,9 @@ class InvitePlayer(Mutation):
 
     Output = Match
 
-    def mutate(root, info):
+    def mutate(root, info, **kwargs):
 
-        return InvitePlayer()
+        return Match()
 
 
 class Mutation(ObjectType):
