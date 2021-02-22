@@ -3,13 +3,12 @@ from graphene_pydantic import PydanticObjectType
 from graphene import Schema, Mutation, ObjectType, Field, NonNull, ID, Boolean, Int, Float, String, List, Date
 
 from pymongo import MongoClient
-import ssl
 
 from database import engine
 # from models import User
 # did we want to define user there instead?
 
-client = MongoClient("mongodb+srv://mrosoff:XZGRPxVwLqU7P5p@kings-corner.6kmun.mongodb.net/Kings-Corner?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE")
+client = MongoClient("mongodb+srv://mrosoff:uMnAALQJ378NvBKL@kings-corner.6kmun.mongodb.net/Kings-Corner?retryWrites=true&w=majority")
 users_collection = client['Kings-Corner'].Users
 matches_collection = client['Kings-Corner'].Matches
 
@@ -82,6 +81,11 @@ class User(ObjectType):
         if not is_mutation:
             # todo
             pass
+        self.playerID = "test"
+        self.friends = []
+        self.invites = []
+        self.matches = []
+        self.items = []
 
 
 class Query(ObjectType):
@@ -112,10 +116,9 @@ class CreateUser(Mutation):
 
     @staticmethod
     def mutate(root, info, **kwargs):
-        print('trying to insert')
-        playerID = users_collection.insert_one(kwargs).inserted_id
-        print(f'new user with ID {playerID}')
-        return User(**kwargs)
+
+        player_id = users_collection.insert_one(kwargs).inserted_id
+        return User(playerID=player_id, **kwargs)
 
 
 class Login(Mutation):

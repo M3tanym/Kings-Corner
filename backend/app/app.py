@@ -15,12 +15,12 @@ from graphene import Schema
 import schema
 
 
-DATABASE_URL = "mongodb://209.159.204.189:27017"
-client = motor.motor_asyncio.AsyncIOMotorClient(
-    DATABASE_URL, uuidRepresentation="standard"
-)
-db = client["kingscorner"]
-collection = db["users"]
+# DATABASE_URL = "mongodb://209.159.204.189:27017"
+# client = motor.motor_asyncio.AsyncIOMotorClient(
+#    DATABASE_URL, uuidRepresentation="standard"
+# )
+# db = client["kingscorner"]
+# collection = db["users"]
 
 app = FastAPI(title="Kings Corner", version='0.1')
 """
