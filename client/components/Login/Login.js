@@ -64,7 +64,7 @@ const SignInArea = props =>
 	const Login = gql`
 		mutation Login($email: String, $inGameName: String, $password: String!) {
 			login(email: $email, inGameName: $inGameName, password: $password) {
-				playerID
+				_id
 			}
 		}
 	`;
@@ -73,7 +73,6 @@ const SignInArea = props =>
 
 	const validateEmail = text => (/\S+@\S+\.\S+/).test(text);
 
-	/*
 	const login = () => {
 		const isEmail = validateEmail(idField);
 		doMutation({
@@ -90,12 +89,6 @@ const SignInArea = props =>
 			},
 			onError: (err) => enqueueSnackbar(err)
 		})
-	}
-	 */
-	const login = () => {
-		authData.sessionToken = "Hello World";
-		let { from } = location.state || { from: { pathname: "/app" } };
-		history.replace(from);
 	}
 
 	return (

@@ -1,5 +1,5 @@
 type User {
-    playerID: ID!
+    _id: ID!
     name: String
     avatar: String
     email: String!
@@ -14,13 +14,13 @@ type User {
 }
 
 type Item {
-    itemID: ID!
+    _id: ID!
     name: String!
     description: String!
 }
 
 type Match {
-    matchID: ID!
+    _id: ID!
     name: String
     players: [User!]!
     history: [String!]!
@@ -42,8 +42,8 @@ input Move {
 scalar Date
 
 type Query {
-    user(playerID: ID, email: String, inGameName: String, phoneNumber: String): User
-    match(matchID: ID!): Match
+    user(_id: ID, email: String, inGameName: String, phoneNumber: String): User
+    match(_id: ID!): Match
 }
 
 type Mutation {

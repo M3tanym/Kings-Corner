@@ -104,7 +104,7 @@ const SignInAreaPageTwo = props =>
 	const CreateUser = gql`
 		mutation CreateUser($email: String!, $password: String!, $inGameName: String!) {
 			createUser(email: $email, password: $password, inGameName: $inGameName) {
-				playerID
+				_id
 			}
 		}
 	`;
