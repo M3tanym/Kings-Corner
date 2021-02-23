@@ -202,8 +202,8 @@ const Matches = props =>
 	let authData = useContext(AuthContext);
 
 	const GetMatches = gql`
-		query GetMatches($playerID: ID) {
-			user(playerID: $playerID) {
+		query GetMatches($_id: ID) {
+			user(_id: $_id) {
 				name
 				matches {
 					name

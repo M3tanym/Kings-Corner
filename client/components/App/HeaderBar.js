@@ -84,23 +84,23 @@ const Profile = props =>
 {
 	const classes = useStyles();
 
+	const [openMenu, setOpenMenu] = useState(false);
+
 	let authData = useContext(AuthContext);
 
 	const GetMatches = gql`
-		query GetMatches($playerID: ID) {
-			user(playerID: $playerID) {
-				name
+		query GetMatches($_id: ID) {
+			user(_id: $_id) {
+				inGameName
 				avatar
 			}
 		}
 	`;
 
-	const { loading, error, data } = useQuery(GetMatches, {variables: {playerID: authData.playerID}});
+	const { loading, error, data } = useQuery(GetMatches, {variables: {_id: authData.playerID}});
 
 	if (loading) return null;
 	if (error) return null;
-
-	const [openMenu, setOpenMenu] = useState(false);
 
 	return(
 		<Box p={2} minWidth={220}>
@@ -111,7 +111,7 @@ const Profile = props =>
 					<Avatar alt={"Profile"} src={data.user.avatar} className={classes.avatar}/>
 				</Grid>
 				<Grid item>
-					<Typography variant={"subtitle2"}>{data.user.name}</Typography>
+					<Typography variant={"subtitle2"}>{data.user.inGameName}</Typography>
 				</Grid>
 				<Grid item>
 					<IconButton onClick={() => setOpenMenu(!openMenu)}>

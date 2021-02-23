@@ -109,17 +109,17 @@ const SignInAreaPageTwo = props =>
 		}
 	`;
 
-	const [doMutation, { loading }] = useMutation(CreateUser);
-
-	const createUser = () => doMutation({
-		variables: { email: props.email, password: props.password, inGameName },
+	const [doMutation, { loading }] = useMutation(CreateUser, {
 		onCompleted: data => {
-			authData.sessionToken = data.user.sessionToken;
+			authData.playerID = data.createUser.playerID;
 
 			let { from } = location.state || { from: { pathname: "/app" } };
 			history.replace(from);
 		},
-		onError: (err) => enqueueSnackbar(err)
+		onError: (err) => enqueueSnackbar(err)});
+
+	const createUser = () => doMutation({
+		variables: { email: props.email, password: props.password, inGameName }
 	})
 
 	return (

@@ -150,7 +150,7 @@ const ProtectedRoute = props => {
 	return (
 		<Route {...props}>
 			{
-				authData.sessionToken ? props.children :
+				authData.playerID ? props.children :
 					<Redirect to={{ pathname: "/login", state: { from: props.location }}}/>
 			}
 		</Route>

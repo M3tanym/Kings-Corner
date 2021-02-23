@@ -69,7 +69,15 @@ const SignInArea = props =>
 		}
 	`;
 
-	const [doMutation, { loading }] = useMutation(Login);
+	const [doMutation, { loading }] = useMutation(Login, {
+		onCompleted: data => {
+			authData.playerID = data.login._id;
+			// authData.sessionToken = data.login.sessionToken;
+			let { from } = location.state || { from: { pathname: "/app" } };
+			history.replace(from);
+		},
+		onError: (err) => enqueueSnackbar(err)
+	});
 
 	const validateEmail = text => (/\S+@\S+\.\S+/).test(text);
 
@@ -80,14 +88,7 @@ const SignInArea = props =>
 				email: isEmail ? idField : undefined,
 				inGameName: isEmail ? undefined : idField,
 				password
-			},
-			onCompleted: data => {
-				authData.playerID = data.user.playerID;
-				authData.sessionToken = data.user.sessionToken;
-				let { from } = location.state || { from: { pathname: "/app" } };
-				history.replace(from);
-			},
-			onError: (err) => enqueueSnackbar(err)
+			}
 		})
 	}
 

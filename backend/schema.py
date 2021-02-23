@@ -2,6 +2,8 @@ from ariadne import load_schema_from_path, make_executable_schema, snake_case_fa
 from ariadne import QueryType, MutationType
 from pymongo import MongoClient
 
+from utils import clean_kwargs
+
 client = MongoClient("mongodb+srv://mrosoff:uMnAALQJ378NvBKL@kings-corner.6kmun.mongodb.net/Kings-Corner?retryWrites=true&w=majority")
 users_collection = client['Kings-Corner'].Users
 matches_collection = client['Kings-Corner'].Matches
@@ -15,15 +17,13 @@ mutation = MutationType()
 @query.field("user")
 def resolve_user(_, info, **kwargs):
 
-    clean_kwargs = {key: kwargs[key] for key in kwargs if kwargs[key] is not None}
-    return users_collection.find_one(clean_kwargs)
+    return users_collection.find_one(clean_kwargs(kwargs))
 
 
 @query.field("match")
 def resolve_match(_, info, **kwargs):
 
-    clean_kwargs = {key: kwargs[key] for key in kwargs if kwargs[key] is not None}
-    return matches_collection.find_one(clean_kwargs)
+    return matches_collection.find_one(clean_kwargs(kwargs))
 
 
 @mutation.field("createUser")
@@ -47,7 +47,7 @@ def create_user(_, info, **kwargs):
 @mutation.field("login")
 def login(_, info, **kwargs):
 
-    pass
+    return users_collection.find_one(clean_kwargs(kwargs))
 
 
 @mutation.field("modifyUser")
