@@ -1,12 +1,13 @@
 from ariadne import load_schema_from_path, make_executable_schema, snake_case_fallback_resolvers
 from ariadne import QueryType, MutationType
-from pymongo import MongoClient
 
+from bson.objectid import ObjectId
+
+from user import user
 from utils import clean_kwargs
 
-client = MongoClient("mongodb+srv://mrosoff:uMnAALQJ378NvBKL@kings-corner.6kmun.mongodb.net/Kings-Corner?retryWrites=true&w=majority")
-users_collection = client['Kings-Corner'].Users
-matches_collection = client['Kings-Corner'].Matches
+from db import matches_collection, users_collection
+
 
 type_defs = load_schema_from_path("../schema.graphql")
 
@@ -17,7 +18,9 @@ mutation = MutationType()
 @query.field("user")
 def resolve_user(_, info, **kwargs):
 
-    return users_collection.find_one(clean_kwargs(kwargs))
+    user = users_collection.find_one(clean_kwargs(kwargs))
+    print(user)
+    return user
 
 
 @query.field("match")
@@ -53,25 +56,40 @@ def login(_, info, **kwargs):
 @mutation.field("modifyUser")
 def modify_user(_, info, **kwargs):
 
-    pass
+    return users_collection.find_one(clean_kwargs(kwargs))
 
 
 @mutation.field("requestFriend")
 def request_friend(_, info, **kwargs):
 
-    pass
+    player_id = {"_id": ObjectId(kwargs["playerID"])}
+    users_collection.update_one(player_id, {'$push': {'friends': ObjectId(kwargs["friendID"])}})
+    return users_collection.find_one(player_id)
 
 
 @mutation.field("createMatch")
-def create_match():
+def create_match(_, info, **kwargs):
 
-    pass
+    new_match = {
+        "name": None,
+        "players": [kwargs["playerID"]],
+        "history": [],
+        "currentTurn": kwargs["playerID"],
+        "currentState": ""
+    }
+    new_match["_id"] = matches_collection.insert_one(new_match).inserted_id
+    return new_match
 
 
 @mutation.field("invitePlayer")
 def invite_player(_, info, **kwargs):
 
-    pass
+    player_id = {"_id": ObjectId(kwargs["playerID"])}
+    users_collection.update_one(player_id, {'$push': {'invites': ObjectId(kwargs["friendID"])}})
+    return users_collection.find_one(player_id)
 
 
-schema = make_executable_schema(type_defs, query, mutation, snake_case_fallback_resolvers)
+schema = make_executable_schema(
+    type_defs, snake_case_fallback_resolvers,
+    query, mutation, user
+)

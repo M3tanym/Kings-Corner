@@ -30,7 +30,8 @@ type Match {
 
 input Invite {
     matchID: ID!
-    playerID: ID!
+    fromID: ID!
+    toID: ID!
 }
 
 input Move {
@@ -50,9 +51,9 @@ type Mutation {
     createUser(email: String!, password: String!, inGameName: String!): User
     login(email: String, inGameName: String, password: String!): User
     modifyUser(email: String, phoneNumber: String, name: String, password: String, inGameName: String): User
-    requestFriend(playerID: ID!): User
-    createMatch: Match
-    invitePlayer(matchID: ID!, playerID: ID!): Match
+    requestFriend(playerID: ID!, friendID: ID!): User
+    createMatch(playerID: ID!): Match
+    invitePlayer(invite: Invite): Match
 }
 
 type Subscription {
