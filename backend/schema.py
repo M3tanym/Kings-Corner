@@ -16,21 +16,19 @@ mutation = MutationType()
 
 
 @query.field("user")
-def resolve_user(_, info, **kwargs):
+async def resolve_user(_, info, **kwargs):
 
-    user = users_collection.find_one(clean_kwargs(kwargs))
-    print(user)
-    return user
+    return users_collection.find_one(clean_kwargs(kwargs))
 
 
 @query.field("match")
-def resolve_match(_, info, **kwargs):
+async def resolve_match(_, info, **kwargs):
 
     return matches_collection.find_one(clean_kwargs(kwargs))
 
 
 @mutation.field("createUser")
-def create_user(_, info, **kwargs):
+async def create_user(_, info, **kwargs):
 
     new_user = {
         **kwargs,
@@ -48,19 +46,19 @@ def create_user(_, info, **kwargs):
 
 
 @mutation.field("login")
-def login(_, info, **kwargs):
+async def login(_, info, **kwargs):
 
     return users_collection.find_one(clean_kwargs(kwargs))
 
 
 @mutation.field("modifyUser")
-def modify_user(_, info, **kwargs):
+async def modify_user(_, info, **kwargs):
 
     return users_collection.find_one(clean_kwargs(kwargs))
 
 
 @mutation.field("requestFriend")
-def request_friend(_, info, **kwargs):
+async def request_friend(_, info, **kwargs):
 
     player_id = {"_id": ObjectId(kwargs["playerID"])}
     users_collection.update_one(player_id, {'$push': {'friends': ObjectId(kwargs["friendID"])}})
@@ -68,7 +66,7 @@ def request_friend(_, info, **kwargs):
 
 
 @mutation.field("createMatch")
-def create_match(_, info, **kwargs):
+async def create_match(_, info, **kwargs):
 
     new_match = {
         "name": None,
@@ -82,7 +80,7 @@ def create_match(_, info, **kwargs):
 
 
 @mutation.field("invitePlayer")
-def invite_player(_, info, **kwargs):
+async def invite_player(_, info, **kwargs):
 
     player_id = {"_id": ObjectId(kwargs["playerID"])}
     users_collection.update_one(player_id, {'$push': {'invites': ObjectId(kwargs["friendID"])}})
