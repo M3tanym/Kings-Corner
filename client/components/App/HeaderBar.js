@@ -10,9 +10,10 @@ import ArrowDropDownOutlinedIcon from '@material-ui/icons/ArrowDropDownOutlined'
 
 import Logo from "../UI/Logo";
 
-import {gql, useQuery} from "@apollo/client";
+import {useQuery} from "@apollo/client";
 
 import {AuthContext} from "../Router";
+import {GetHeaderProfile, GetMatches} from "../../graphql/query";
 
 const useStyles = makeStyles((theme) => ({
 	avatar: {
@@ -88,16 +89,7 @@ const Profile = props =>
 
 	let authData = useContext(AuthContext);
 
-	const GetMatches = gql`
-		query GetMatches($_id: ID) {
-			user(_id: $_id) {
-				inGameName
-				avatar
-			}
-		}
-	`;
-
-	const { loading, error, data } = useQuery(GetMatches, {variables: {_id: authData.playerID}});
+	const { loading, error, data } = useQuery(GetHeaderProfile, {variables: {_id: authData.playerID}});
 
 	if (loading) return null;
 	if (error) return null;

@@ -37,6 +37,7 @@ import {
 import {gql, useQuery} from "@apollo/client";
 
 import {AuthContext} from "../../Router";
+import {GetMatches} from "../../../graphql/query";
 
 const DashBoard = props =>
 {
@@ -201,24 +202,7 @@ const Matches = props =>
 {
 	let authData = useContext(AuthContext);
 
-	const GetMatches = gql`
-		query GetMatches($_id: ID) {
-			user(_id: $_id) {
-				name
-				matches {
-					name
-					currentTurn {
-						name
-					}
-					players {
-						avatar
-					}
-				}
-			}
-		}
-	`;
-
-	const { loading, error, data } = useQuery(GetMatches, {variables: { playerID: authData.playerID }});
+	const { loading, error, data } = useQuery(GetMatches, {variables: { _id: authData.playerID }});
 
 	if (loading) return null;
 	if (error) return null;
@@ -252,9 +236,9 @@ const Matches = props =>
 										<Avatar src={player.avatar} key={index}/>
 									)}
 								</AvatarGroup>
-								<ListItemText primary={match.name} secondary={"Your Turn"} />
+								<ListItemText primary={match.name} secondary={authData.playerID === match.currentTurn._id ? "Your Turn" : "Their Turn"} />
 								<ListItemSecondaryAction>
-									<Link to={"/app/matches/" + index}>
+									<Link to={"/app/matches/" + match._id}>
 										<IconButton>
 											<NavigateNextOutlinedIcon />
 										</IconButton>

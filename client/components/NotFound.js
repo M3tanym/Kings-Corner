@@ -1,6 +1,6 @@
 import React from "react";
 
-import {Grid, Typography} from "@material-ui/core";
+import {Box, Grid, Typography} from "@material-ui/core";
 
 import {Link} from "react-router-dom";
 
@@ -9,7 +9,7 @@ import Logo from './UI/Logo';
 const NotFound = props =>
 {
 	return(
-		<Grid container spacing={6}
+		<Grid container spacing={6} style={{height: "100vh"}}
 			  direction={"column"} justify={"center"} alignItems={"center"} alignContent={"center"}
 		>
 			<Grid item>

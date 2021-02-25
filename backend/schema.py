@@ -4,6 +4,7 @@ from ariadne import QueryType, MutationType
 from bson.objectid import ObjectId
 
 from user import user
+from match import match
 from utils import clean_kwargs, dict_to_snake_case
 
 from db import matches_collection, users_collection
@@ -68,14 +69,16 @@ async def request_friend(_, info, **kwargs):
 @mutation.field("createMatch")
 async def create_match(_, info, **kwargs):
 
+    player_id = {"_id": ObjectId(kwargs["playerID"])}
     new_match = {
         "name": None,
-        "players": [kwargs["playerID"]],
+        "players": [player_id["_id"]],
         "history": [],
-        "currentTurn": kwargs["playerID"],
+        "currentTurn": player_id["_id"],
         "currentState": ""
     }
     new_match["_id"] = matches_collection.insert_one(new_match).inserted_id
+    users_collection.update_one(player_id, {'$push': {'matches': new_match["_id"]}})
     return new_match
 
 
@@ -89,5 +92,5 @@ async def invite_player(_, info, **kwargs):
 
 schema = make_executable_schema(
     type_defs, snake_case_fallback_resolvers,
-    query, mutation, user
+    query, mutation, user, match
 )

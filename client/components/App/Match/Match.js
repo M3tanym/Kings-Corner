@@ -1,24 +1,25 @@
-import React from "react";
+import React, {useContext} from "react";
 
-import {
-	Avatar,
-	Box,
-	Divider,
-	Grid,
-	List,
-	ListItem,
-	ListItemAvatar,
-	ListItemText,
-	Paper,
-	Typography
-} from "@material-ui/core";
+import {Avatar, Box, Divider, Grid, List, ListItem, ListItemAvatar, ListItemText, Paper, Typography} from "@material-ui/core";
 
 import CallMissedOutgoingIcon from '@material-ui/icons/CallMissedOutgoing';
 
 import ChessBoard from "./ChessBoard";
 
+import {useQuery} from "@apollo/client";
+
+import {AuthContext} from "../../Router";
+import {GetMatchData} from "../../../graphql/query";
+
 const Match = props =>
 {
+	let authData = useContext(AuthContext);
+
+	const { loading, error, data } = useQuery(GetMatchData, {variables: {_id: authData.playerID}});
+
+	if (loading) return null;
+	if (error) return null;
+
 	return(
 		<Box width={"100%"} height={"100%"} display={"flex"}>
 			<Box minWidth={250} pt={2} pl={2} display={"flex"} flexDirection={"column"}>

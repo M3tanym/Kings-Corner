@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 
 import {Link, useHistory, useLocation} from "react-router-dom";
 
@@ -10,8 +10,12 @@ import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
 import RedeemIcon from '@material-ui/icons/Redeem';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import StorefrontIcon from '@material-ui/icons/Storefront';
+
 import {useSnackbar} from "notistack";
-import {gql, useMutation} from "@apollo/client";
+import {useMutation} from "@apollo/client";
+
+import {AuthContext} from "../Router";
+import {CreateMatch} from "../../graphql/mutation";
 
 const SideBar = props =>
 {
@@ -23,30 +27,24 @@ const SideBar = props =>
 		{ text: "Shop", icon: StorefrontIcon, disabled: true },
 	];
 
+	let authData = useContext(AuthContext);
+
 	let history = useHistory();
 	let location = useLocation();
 
 	const { enqueueSnackbar } = useSnackbar();
 
-	const CreateMatch = gql`
-		mutation CreateMatch {
-			createMatch {
-				matchID
-			}
-		}
-	`;
+	const [doMutation ] = useMutation(CreateMatch, {
+		onCompleted: data => {
+			let { from } = location.state || { from: { pathname: "/app/matches/" + data.createMatch._id } };
+			history.replace(from);
+		},
+		onError: (err) => enqueueSnackbar(err)
+	});
 
-	const [doMutation ] = useMutation(CreateMatch);
-
-	const createMatch = () => {
-		doMutation({
-			onCompleted: data => {
-				let { from } = location.state || { from: { pathname: "/app/matches/" + data.createMatch.matchID } };
-				history.replace(from);
-			},
-			onError: (err) => enqueueSnackbar(err)
-		})
-	}
+	const createMatch = () => doMutation({
+		variables: { playerID: authData.playerID }
+	})
 
 	return(
 		<Box width={"100%"} height={"100%"}
