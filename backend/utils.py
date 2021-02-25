@@ -1,5 +1,5 @@
 from bson.objectid import ObjectId
-import re
+from stringcase import snakecase
 
 
 def clean_kwargs(kwargs):
@@ -13,17 +13,6 @@ def clean_kwargs(kwargs):
     return clean_args
 
 
-def fix_return_dict(dictionary):
+def dict_to_snake_case(dictionary):
 
-    new_dict = {}
-
-    for key in dictionary:
-
-        new_dict[to_snake_case(key)] = dictionary[key]
-
-    return new_dict
-
-
-def to_snake_case(variable):
-
-    return re.sub(r'(?<!^)(?=[A-Z])', '_', variable).lower()
+    return {snakecase(key): dictionary[key] for key in dictionary}

@@ -4,7 +4,7 @@ from ariadne import QueryType, MutationType
 from bson.objectid import ObjectId
 
 from user import user
-from utils import clean_kwargs, fix_return_dict
+from utils import clean_kwargs, dict_to_snake_case
 
 from db import matches_collection, users_collection
 
@@ -17,13 +17,13 @@ mutation = MutationType()
 @query.field("user")
 async def resolve_user(_, info, **kwargs):
 
-    return fix_return_dict(users_collection.find_one(clean_kwargs(kwargs)))
+    return dict_to_snake_case(users_collection.find_one(clean_kwargs(kwargs)))
 
 
 @query.field("match")
 async def resolve_match(_, info, **kwargs):
 
-    return fix_return_dict(matches_collection.find_one(clean_kwargs(kwargs)))
+    return dict_to_snake_case(matches_collection.find_one(clean_kwargs(kwargs)))
 
 
 @mutation.field("createUser")
@@ -53,7 +53,8 @@ async def login(_, info, **kwargs):
 @mutation.field("modifyUser")
 async def modify_user(_, info, **kwargs):
 
-    return users_collection.find_one(clean_kwargs(kwargs))
+    player_id = {"_id": ObjectId(kwargs["playerID"])}
+    return users_collection.update_one(player_id, {'$set': clean_kwargs(kwargs)})
 
 
 @mutation.field("requestFriend")
