@@ -26,6 +26,8 @@ type Match {
     history: [String!]!
     currentTurn: User!
     currentState: String!
+    white: User!
+    black: User!
 }
 
 input Invite {

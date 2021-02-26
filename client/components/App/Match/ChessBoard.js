@@ -29,7 +29,7 @@ import WhiteRook from "../../../static/images/pieces/staunton/White-Rook.png";
 
 const ChessBoard = props =>
 {
-  const [boardState, setBoardState] = useState(parseFenString("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"));
+  const [boardState, setBoardState] = useState(parseFenString(props.initialFen));
   const playerColor = "white";
 
   return (

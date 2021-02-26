@@ -8,16 +8,16 @@ import NavigateNextOutlinedIcon from '@material-ui/icons/NavigateNextOutlined';
 import {Link} from "react-router-dom";
 
 import {useQuery} from "@apollo/client";
+import {GetMatchesOverview} from "../../../graphql/query";
 
 import {AuthContext} from "../../Router";
-import {GetMatches} from "../../../graphql/query";
 
 
 const Matches = props =>
 {
 	let authData = useContext(AuthContext);
 
-	const { loading, error, data } = useQuery(GetMatches, {variables: { _id: authData.playerID }});
+	const { loading, error, data } = useQuery(GetMatchesOverview, {variables: { _id: authData.playerID }});
 
 	if (loading) return null;
 	if (error) return null;

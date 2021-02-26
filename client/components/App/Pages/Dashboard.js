@@ -33,11 +33,10 @@ import {
 	YAxis
 } from "recharts";
 
-
-import {gql, useQuery} from "@apollo/client";
+import {useQuery} from "@apollo/client";
+import {GetMatchesOverview} from "../../../graphql/query";
 
 import {AuthContext} from "../../Router";
-import {GetMatches} from "../../../graphql/query";
 
 const DashBoard = props =>
 {
@@ -202,7 +201,7 @@ const Matches = props =>
 {
 	let authData = useContext(AuthContext);
 
-	const { loading, error, data } = useQuery(GetMatches, {variables: { _id: authData.playerID }});
+	const { loading, error, data } = useQuery(GetMatchesOverview, {variables: { _id: authData.playerID }});
 
 	if (loading) return null;
 	if (error) return null;

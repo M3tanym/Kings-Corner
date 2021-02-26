@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React from "react";
 
 import {Avatar, Box, Divider, Grid, List, ListItem, ListItemAvatar, ListItemText, Paper, Typography} from "@material-ui/core";
 
@@ -7,15 +7,15 @@ import CallMissedOutgoingIcon from '@material-ui/icons/CallMissedOutgoing';
 import ChessBoard from "./ChessBoard";
 
 import {useQuery} from "@apollo/client";
-
-import {AuthContext} from "../../Router";
 import {GetMatchData} from "../../../graphql/query";
+
+import {useLocation} from "react-router-dom";
+
 
 const Match = props =>
 {
-	let authData = useContext(AuthContext);
-
-	const { loading, error, data } = useQuery(GetMatchData, {variables: {_id: authData.playerID}});
+	const matchID = useLocation().pathname.split("/").slice(-1).join();
+	const { loading, error, data } = useQuery(GetMatchData, {variables: {_id: matchID}});
 
 	if (loading) return null;
 	if (error) return null;
@@ -73,7 +73,7 @@ const Match = props =>
 				</Box>
 			</Box>
 			<Box ml={4} flexGrow={1} p={2} display={"flex"} alignItems={"center"} alignContent={"center"}>
-				<ChessBoard />
+				<ChessBoard initialFen={data.match.currentState} initialTurn={}/>
 			</Box>
 		</Box>
 	)

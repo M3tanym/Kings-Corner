@@ -11,9 +11,9 @@ import ArrowDropDownOutlinedIcon from '@material-ui/icons/ArrowDropDownOutlined'
 import Logo from "../UI/Logo";
 
 import {useQuery} from "@apollo/client";
+import {GetHeaderProfile} from "../../graphql/query";
 
 import {AuthContext} from "../Router";
-import {GetHeaderProfile, GetMatches} from "../../graphql/query";
 
 const useStyles = makeStyles((theme) => ({
 	avatar: {
