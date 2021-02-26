@@ -1,7 +1,7 @@
 from ariadne import ObjectType
 
-from utils import dict_to_snake_case
-from db import users_collection, matches_collection, items_collection
+from ..utils import dict_to_snake_case
+from ..db import users_collection, matches_collection, items_collection
 
 user = ObjectType("User")
 

@@ -1,8 +1,7 @@
 from ariadne import ObjectType
-from bson import ObjectId
 
-from utils import dict_to_snake_case
-from db import users_collection
+from ..utils import dict_to_snake_case
+from ..db import users_collection
 
 match = ObjectType("Match")
 
