@@ -1,11 +1,24 @@
 import {gql} from "@apollo/client";
 
 export const GetInfoFromSearch = gql`
-	query GetInfoFromSearch($email: String) {
-		user(email: $email) {
-			name
-			avatar
+	query GetInfoFromSearch($query: String!) {
+		...user(name: $query) {
+			userData
 		}
+		...user(inGameName: $query) {
+			userData
+		}
+		...user(email: $query) {
+			userData
+		}
+		...match(name: $query) {
+			__typename
+		}
+	}
+	fragment userData() {
+		__typename
+		name
+		avatar
 	}
 `;
 

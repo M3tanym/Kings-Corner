@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react";
 
 import {Box, Grid, Hidden, Paper} from "@material-ui/core";
-import {grey} from "@material-ui/core/colors";
-
 import { makeStyles } from '@material-ui/core/styles';
+import {grey} from "@material-ui/core/colors";
 
 import { motion } from "framer-motion"
 

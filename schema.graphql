@@ -1,10 +1,10 @@
 type User {
-
     _id: ID!
     name: String
-    avatar: String
-    email: String!
     inGameName: String!
+    avatar: String
+
+    email: String!
     phoneNumber: String
     password: String!
 
@@ -19,12 +19,15 @@ type User {
 type Match {
     _id: ID!
     name: String
-    players: [User!]!
-    history: [String!]!
-    currentTurn: User!
-    currentState: String!
+
     white: User!
     black: User!
+    players: [User!]!
+
+    currentTurn: User!
+    currentState: String!
+
+    history: [String!]!
 }
 
 type Item {
@@ -46,7 +49,7 @@ input Move {
 scalar Date
 
 type Query {
-    user(_id: ID, email: String, inGameName: String, phoneNumber: String): User
+    user(_id: ID, name: String, inGameName: String, email: String, phoneNumber: String): User
     match(_id: ID!): Match
 }
 

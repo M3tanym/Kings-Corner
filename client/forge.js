@@ -1,5 +1,4 @@
 module.exports = {
-
 	packagerConfig: { asar: true, overwrite: true },
 	makers: [
 		{

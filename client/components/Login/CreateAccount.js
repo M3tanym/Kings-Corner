@@ -1,20 +1,22 @@
 import React, {useContext, useState} from "react";
 
-import {CircularProgress, Grid, InputAdornment, TextField, Typography} from "@material-ui/core";
+import {Link, useHistory, useLocation} from "react-router-dom";
 
+import {CircularProgress, Grid, InputAdornment, TextField, Typography} from "@material-ui/core";
 import EmailIcon from '@material-ui/icons/Email';
 import LockIcon from '@material-ui/icons/Lock';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
-import {Link, useHistory, useLocation} from "react-router-dom";
+import {useMutation} from "@apollo/client";
+import {CreateUser} from "../../graphql/mutation";
+
+import {useSnackbar} from "notistack";
+
+import {AuthContext} from "../Router";
 
 import {SignInButton} from "../UI/Buttons";
 import Logo from "../UI/Logo";
-
-import {useSnackbar} from "notistack";
-import {gql, useMutation} from "@apollo/client";
-import {AuthContext} from "../Router";
 
 const CreateAccount = props =>
 {
@@ -100,14 +102,6 @@ const SignInAreaPageTwo = props =>
 	let location = useLocation();
 
 	const { enqueueSnackbar } = useSnackbar();
-
-	const CreateUser = gql`
-		mutation CreateUser($email: String!, $password: String!, $inGameName: String!) {
-			createUser(email: $email, password: $password, inGameName: $inGameName) {
-				_id
-			}
-		}
-	`;
 
 	const [doMutation, { loading }] = useMutation(CreateUser, {
 		onCompleted: data => {

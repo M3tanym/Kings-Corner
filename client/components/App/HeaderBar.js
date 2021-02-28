@@ -1,19 +1,17 @@
 import React, {useContext, useState} from "react";
 
 import {Avatar, Box, Grid, IconButton, InputBase, Typography} from "@material-ui/core";
-
 import { makeStyles } from '@material-ui/core/styles';
-
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import NotificationsOutlinedIcon from '@material-ui/icons/NotificationsOutlined';
 import ArrowDropDownOutlinedIcon from '@material-ui/icons/ArrowDropDownOutlined';
 
-import Logo from "../UI/Logo";
-
-import {useQuery} from "@apollo/client";
+import {useLazyQuery, useQuery} from "@apollo/client";
 import {GetHeaderProfile} from "../../graphql/query";
 
 import {AuthContext} from "../Router";
+
+import Logo from "../UI/Logo";
 
 const useStyles = makeStyles((theme) => ({
 	avatar: {
@@ -50,6 +48,13 @@ const LogoHeader = props =>
 
 const Search = props =>
 {
+	const { loading, error, data } = useLazyQuery(GetHeaderProfile, {
+		variables: {_id: authData.playerID}
+	});
+
+	if (loading) return null;
+	if (error) return null;
+
 	return(
 		<Box p={2} minWidth={250} flexGrow={1} bgcolor={"neutral.light"}>
 			<Box display={"flex"} alignItems={"center"} alignContent={"center"} style={{height: "100%"}}>
@@ -89,7 +94,9 @@ const Profile = props =>
 
 	let authData = useContext(AuthContext);
 
-	const { loading, error, data } = useQuery(GetHeaderProfile, {variables: {_id: authData.playerID}});
+	const { loading, error, data } = useQuery(GetHeaderProfile, {
+		variables: {_id: authData.playerID}
+	});
 
 	if (loading) return null;
 	if (error) return null;

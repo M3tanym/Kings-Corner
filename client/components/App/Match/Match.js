@@ -1,16 +1,14 @@
 import React from "react";
 
+import {useLocation} from "react-router-dom";
+
 import {Avatar, Box, Divider, Grid, List, ListItem, ListItemAvatar, ListItemText, Paper, Typography} from "@material-ui/core";
-
 import CallMissedOutgoingIcon from '@material-ui/icons/CallMissedOutgoing';
-
-import ChessBoard from "./ChessBoard";
 
 import {useQuery} from "@apollo/client";
 import {GetMatchData} from "../../../graphql/query";
 
-import {useLocation} from "react-router-dom";
-
+import ChessBoard from "./ChessBoard";
 
 const Match = props =>
 {

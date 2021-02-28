@@ -1,37 +1,12 @@
 import React, {useContext} from "react";
 
-import {
-	Avatar,
-	Box,
-	Divider,
-	Grid, IconButton,
-	List,
-	ListItem,
-	ListItemAvatar, ListItemSecondaryAction,
-	ListItemText,
-	Paper, Step, StepLabel, Stepper,
-	Typography, useTheme
-} from "@material-ui/core";
-
-import {AvatarGroup} from "@material-ui/lab";
-
-import NavigateNextOutlinedIcon from "@material-ui/icons/NavigateNextOutlined";
-
 import {Link} from "react-router-dom";
 
-import {
-	CartesianGrid,
-	Cell,
-	Legend,
-	Line,
-	LineChart,
-	Pie,
-	PieChart,
-	ResponsiveContainer,
-	Tooltip,
-	XAxis,
-	YAxis
-} from "recharts";
+import {Avatar, Box, Divider, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText, Paper, Step, StepLabel, Stepper, Typography, useTheme} from "@material-ui/core";
+import {AvatarGroup} from "@material-ui/lab";
+import NavigateNextOutlinedIcon from "@material-ui/icons/NavigateNextOutlined";
+
+import {CartesianGrid, Cell, Legend, Line, LineChart, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 
 import {useQuery} from "@apollo/client";
 import {GetMatchesOverview} from "../../../graphql/query";
@@ -201,7 +176,9 @@ const Matches = props =>
 {
 	let authData = useContext(AuthContext);
 
-	const { loading, error, data } = useQuery(GetMatchesOverview, {variables: { _id: authData.playerID }});
+	const { loading, error, data } = useQuery(GetMatchesOverview, {
+		variables: { _id: authData.playerID }
+	});
 
 	if (loading) return null;
 	if (error) return null;

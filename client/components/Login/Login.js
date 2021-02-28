@@ -1,20 +1,23 @@
 import React, {useContext, useState} from "react";
 
+import {Link, useHistory, useLocation} from "react-router-dom";
+
 import {Box, CircularProgress, Divider, Grid, TextField, Typography} from "@material-ui/core";
 import {grey} from "@material-ui/core/colors";
 
-import {Link, useHistory, useLocation} from "react-router-dom";
+import {useMutation} from '@apollo/client';
+import {Login as LoginMutation} from "../../graphql/mutation";
 
-import {OAuthButton, SignInButton} from "../UI/Buttons";
+import {useSnackbar} from "notistack";
+
+import {AuthContext} from "../Router";
+
 import Logo from "../UI/Logo";
+import {OAuthButton, SignInButton} from "../UI/Buttons";
 
 import {GoogleLogin} from 'react-google-login';
 const GoogleClientID = '779071993156-iec5nqbmgqr4t3524psqlbep08aasvrs.apps.googleusercontent.com';
 
-import {AuthContext} from "../Router";
-import {gql, useMutation} from '@apollo/client';
-
-import {useSnackbar} from "notistack";
 
 const Login = props =>
 {
@@ -61,15 +64,7 @@ const SignInArea = props =>
 
 	const { enqueueSnackbar } = useSnackbar();
 
-	const Login = gql`
-		mutation Login($email: String, $inGameName: String, $password: String!) {
-			login(email: $email, inGameName: $inGameName, password: $password) {
-				_id
-			}
-		}
-	`;
-
-	const [doMutation, { loading }] = useMutation(Login, {
+	const [doMutation, { loading }] = useMutation(LoginMutation, {
 		onCompleted: data => {
 			authData.playerID = data.login._id;
 			// authData.sessionToken = data.login.sessionToken;
@@ -84,11 +79,7 @@ const SignInArea = props =>
 	const login = () => {
 		const isEmail = validateEmail(idField);
 		doMutation({
-			variables: {
-				email: isEmail ? idField : undefined,
-				inGameName: isEmail ? undefined : idField,
-				password
-			}
+			variables: { email: isEmail ? idField : undefined, inGameName: isEmail ? undefined : idField, password }
 		})
 	}
 

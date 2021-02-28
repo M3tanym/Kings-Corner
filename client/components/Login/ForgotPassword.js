@@ -1,16 +1,15 @@
 import React, {useState} from "react";
 
-import {Grid, InputAdornment, TextField, Typography} from "@material-ui/core";
+import {Link} from "react-router-dom";
 
+import {Grid, InputAdornment, TextField, Typography} from "@material-ui/core";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import PhoneIcon from '@material-ui/icons/Phone';
 
-import {Link} from "react-router-dom";
+import MaskedInput from 'react-text-mask';
 
 import {SignInButton} from "../UI/Buttons";
 import Logo from "../UI/Logo";
-
-import MaskedInput from 'react-text-mask';
 
 const ForgotPassword = props =>
 {
@@ -53,11 +52,7 @@ const SignInArea = props =>
 
 	const resetAccount = () =>
 	{
-		post("login", {username: username, password: password})
-		.then(res =>
-		{
 
-		})
 	};
 
 	return (

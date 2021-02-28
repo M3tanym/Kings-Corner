@@ -1,15 +1,14 @@
 import React from "react";
 
-import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
-
 import {CssBaseline} from "@material-ui/core";
-
 import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
+import {grey} from "@material-ui/core/colors";
+
+import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
 
 import { SnackbarProvider } from 'notistack';
 
 import Router from "./Router";
-import {grey} from "@material-ui/core/colors";
 
 const App = () =>
 {
@@ -24,6 +23,11 @@ const App = () =>
     theme = responsiveFontSizes(theme);
 
     const client = new ApolloClient({
+        uri: 'http://localhost:8000/graphql',
+        cache: new InMemoryCache()
+    });
+
+    const subscriptionService = new ApolloClient({
         uri: 'http://localhost:8000/graphql',
         cache: new InMemoryCache()
     });

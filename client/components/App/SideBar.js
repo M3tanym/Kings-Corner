@@ -3,7 +3,6 @@ import React, {useContext} from "react";
 import {Link, useHistory, useLocation} from "react-router-dom";
 
 import {Box, Button, Grid, Typography} from "@material-ui/core";
-
 import AddIcon from '@material-ui/icons/Add';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
@@ -11,11 +10,12 @@ import RedeemIcon from '@material-ui/icons/Redeem';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import StorefrontIcon from '@material-ui/icons/Storefront';
 
-import {useSnackbar} from "notistack";
 import {useMutation} from "@apollo/client";
+import {CreateMatch} from "../../graphql/mutation";
+
+import {useSnackbar} from "notistack";
 
 import {AuthContext} from "../Router";
-import {CreateMatch} from "../../graphql/mutation";
 
 const SideBar = props =>
 {

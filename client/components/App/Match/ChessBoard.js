@@ -2,10 +2,8 @@ import React, {useEffect, useState} from "react"
 
 import {Box} from "@material-ui/core";
 
-import {DndProvider, useDragLayer, useDrop} from 'react-dnd'
+import {DndProvider, useDrag, useDragLayer, useDrop} from 'react-dnd'
 import {getEmptyImage, HTML5Backend} from 'react-dnd-html5-backend'
-
-import { useDrag } from 'react-dnd'
 
 import { Chess } from 'chess.js';
 
