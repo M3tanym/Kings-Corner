@@ -1,5 +1,6 @@
 import {gql} from "@apollo/client";
 
+/*
 export const GetInfoFromSearch = gql`
 	query GetInfoFromSearch($query: String!) {
 		...user(name: $query) {
@@ -21,8 +22,18 @@ export const GetInfoFromSearch = gql`
 		avatar
 	}
 `;
+ */
 
 export const GetHeaderProfile = gql`
+	query GetHeaderProfile($_id: ID) {
+		user(_id: $_id) {
+			inGameName
+			avatar
+		}
+	}
+`;
+
+export const GetTraditionalProfile = gql`
 	query GetHeaderProfile($_id: ID) {
 		user(_id: $_id) {
 			inGameName
@@ -34,7 +45,7 @@ export const GetHeaderProfile = gql`
 export const GetMatchesOverview = gql`
 	query GetMatches($_id: ID!) {
 		user(_id: $_id) {
-			matches {
+			activeMatches {
 				_id
 				name
 				currentTurn {
@@ -58,6 +69,31 @@ export const GetMatchData = gql`
 				name
 			}
 			history
+		}
+	}
+`;
+
+export const GetMatchHistory = gql`
+	query GetMatchHistory($_id: ID!) {
+		user(_id: $_id) {
+			finishedMatches {
+				_id
+				name
+				players {
+					avatar
+				}
+			}
+		}
+	}
+`;
+
+export const GetOwnedItems = gql`
+	query GetOwnedItems($_id: ID!) {
+		user(_id: $_id) {
+			items {
+				name
+				description
+			}
 		}
 	}
 `;

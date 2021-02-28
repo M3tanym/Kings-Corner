@@ -31,6 +31,17 @@ const useStyles = makeStyles(theme =>
 		},
 	}));
 
+export const HomePageButton = props =>
+{
+	const classes = useStyles();
+
+	return (
+		<Button className={classes.signIn} {...props}>
+			{props.children}
+		</Button>
+	);
+}
+
 export const SignInButton = props =>
 {
 	const classes = useStyles();

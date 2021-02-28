@@ -1,8 +1,12 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 
 import {Box, Checkbox, FormControlLabel, FormGroup, Grid, Tab, Tabs} from "@material-ui/core";
 
+import {useQuery} from "@apollo/client";
+import {GetOwnedItems} from "../../../graphql/query";
+
 import Item from "../../UI/Item";
+import {AuthContext} from "../../Router";
 
 const Collection = props =>
 {
@@ -69,25 +73,12 @@ const SelectedTab = props =>
 
 const PieceSkins = props =>
 {
-	const ownedItems = [{
-		name: "Item Name",
-		description: "Item Description"
-	}, {
-		name: "Item Name",
-		description: "Item Description"
-	}, {
-		name: "Item Name",
-		description: "Item Description"
-	}, {
-		name: "Item Name",
-		description: "Item Description"
-	}, {
-		name: "Item Name",
-		description: "Item Description"
-	}, {
-		name: "Item Name",
-		description: "Item Description"
-	}]
+	let authData = useContext(AuthContext);
+
+	const [loadingUsersItems, errorUserItems, dataUserItems ] = useQuery(GetOwnedItems, {
+		variables: { _id: authData.playerID }
+	});
+
 	const unownedItems = [{
 		name: "Item Name",
 		description: "Item Description"
@@ -102,9 +93,12 @@ const PieceSkins = props =>
 		description: "Item Description"
 	}]
 
+	if (loadingUsersItems) return null;
+	if (errorUserItems) return null;
+
 	return(
 		<Grid container spacing={4}>
-			{props.filters.showOwned ? ownedItems.map((item, index)  =>
+			{props.filters.showOwned ? dataUserItems.user.items.map((item, index)  =>
 				<Grid item key={index}>
 					<Item name={item.name} description={item.description}/>
 				</Grid>

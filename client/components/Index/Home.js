@@ -1,8 +1,10 @@
 import React from "react";
 
-import {Box, Button, Grid, Typography} from "@material-ui/core";
+import {Box, Grid, Typography} from "@material-ui/core";
 
 import NavBar from "./NavBar";
+
+import {HomePageButton} from "../UI/Buttons";
 
 const Home = props =>
 {
@@ -41,21 +43,21 @@ const AppOptions = props =>
 			<Grid item>
 				<Grid container spacing={8}>
 					<Grid item>
-						<Button
+						<HomePageButton
 							variant={"contained"}
 							size={"large"}
 							onClick={() => console.log("Test")}
 						>
 							Download For Mac
-						</Button>
+						</HomePageButton>
 					</Grid>
 					<Grid item>
-						<Button
+						<HomePageButton
 							variant={"contained"}
 							size={"large"}
 						>
 							Open In Browser
-						</Button>
+						</HomePageButton>
 					</Grid>
 				</Grid>
 			</Grid>

@@ -62,8 +62,8 @@ async def create_match(_, info, **kwargs):
     return new_match
 
 
-@mutation.field("invitePlayer")
-async def invite_player(_, info, **kwargs):
+@mutation.field("inviteFriend")
+async def invite_friend(_, info, **kwargs):
 
     player_id = {"_id": ObjectId(kwargs["playerID"])}
     users_collection.update_one(player_id, {'$push': {'invites': ObjectId(kwargs["friendID"])}})

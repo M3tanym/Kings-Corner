@@ -1,22 +1,16 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 
-import {
-	Avatar,
-	Box, Button,
-	Divider,
-	Grid,
-	IconButton,
-	List,
-	ListItem, ListItemAvatar, ListItemSecondaryAction,
-	ListItemText,
-	Paper, TextField,
-	Typography
-} from "@material-ui/core";
-
-import Image from "../../../static/images/carousel/carousel1.jpg"
-import MaskedInput from "react-text-mask";
 import {Link} from "react-router-dom";
+
+import {Avatar, Box, Button, Divider, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText, Paper, TextField, Typography} from "@material-ui/core";
 import NavigateNextOutlinedIcon from "@material-ui/icons/NavigateNextOutlined";
+
+import MaskedInput from "react-text-mask";
+
+import {useQuery} from "@apollo/client";
+import {GetMatchHistory, GetTraditionalProfile} from "../../../graphql/query";
+
+import {AuthContext} from "../../Router";
 
 const Profile = props =>
 {
@@ -34,15 +28,21 @@ const Profile = props =>
 
 const UserDetails = props =>
 {
+	let authData = useContext(AuthContext);
+
+	const { loading, error, data } = useQuery(GetTraditionalProfile, {
+		variables: { _id: authData.playerID }
+	});
+
 	return(
 		<Box display={"flex"} flexDirection={"column"}>
 			<Paper>
 				<Box p={4} display={"flex"} alignContent={"center"} alignItems={"center"}>
 					<Box>
-						<img alt={"User Profile"} src={Image} style={{width: 100, height: 100, borderRadius: "50%"}} />
+						<img alt={"User Profile"} src={data.user.avatar} style={{width: 100, height: 100, borderRadius: "50%"}} />
 					</Box>
 					<Box ml={4} flexGrow={1}>
-						<Typography variant={"h4"}>InGameName</Typography>
+						<Typography variant={"h4"}>{data.user.inGameName}</Typography>
 						<Typography variant={"h6"}>Gold III</Typography>
 					</Box>
 				</Box>
@@ -98,9 +98,26 @@ const Field = props =>
 	)
 }
 
+const PhoneNumberInput = props =>
+{
+	const { inputRef, ...other } = props;
+	return (
+		<MaskedInput
+			{...other}
+			mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+			placeholderChar={'\u2000'}
+			showMask
+		/>
+	);
+}
+
 const MatchHistory = props =>
 {
-	const matches = [];
+	let authData = useContext(AuthContext);
+
+	const { loading, error, data } = useQuery(GetMatchHistory, {
+		variables: { _id: authData.playerID }
+	});
 
 	return(
 		<Paper style={{height: "100%"}}>
@@ -123,7 +140,7 @@ const MatchHistory = props =>
 			<Divider />
 			<Box p={1}>
 				<List>
-					{[0, 0, 0, 0, 0, 0].map((match, index) =>
+					{data.user.finishedMatches.map((match, index) =>
 						<ListItem key={index}>
 							<ListItemAvatar>
 								<Avatar />
@@ -142,18 +159,6 @@ const MatchHistory = props =>
 			</Box>
 		</Paper>
 	)
-}
-const PhoneNumberInput = props =>
-{
-	const { inputRef, ...other } = props;
-	return (
-		<MaskedInput
-			{...other}
-			mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
-			placeholderChar={'\u2000'}
-			showMask
-		/>
-	);
 }
 
 export default Profile;

@@ -10,7 +10,8 @@ type User {
 
     friends: [User!]!
     invites: [User!]!
-    matches: [Match!]!
+    activeMatches: [Match!]!
+    finishedMatches: [Match!]!
 
     money: Int
     items: [Item!]!

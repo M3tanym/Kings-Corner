@@ -71,7 +71,7 @@ const Match = props =>
 				</Box>
 			</Box>
 			<Box ml={4} flexGrow={1} p={2} display={"flex"} alignItems={"center"} alignContent={"center"}>
-				<ChessBoard initialFen={data.match.currentState} initialTurn={}/>
+				<ChessBoard initialFen={data.match.currentState} initialTurn={data.match.currentTurn.name}/>
 			</Box>
 		</Box>
 	)
