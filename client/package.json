@@ -6,8 +6,8 @@
   "license": "MIT",
   "main": "main.js",
   "scripts": {
-    "startServer": ". ../venv/bin/activate && python3 ../backend/app.py",
-    "startServerMac": ". ~/.virtualenvs/Kings-Corner/bin/activate && python3 ../backend/app.py",
+    "startServer": ". ../venv/bin/activate && python3 ../app.py",
+    "startServerMac": ". ~/.virtualenvs/Kings-Corner/bin/activate && python3 ../app.py",
     "startElectron": "webpack serve --mode development --config webpack.electron.config.js",
     "startWebsite": "webpack serve --mode development --config webpack.website.config.js",
     "start": "concurrently --kill-others-on-fail \"npm:startServer\" \"npm:startWebsite\"",

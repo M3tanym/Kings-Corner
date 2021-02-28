@@ -1,8 +1,8 @@
 from ariadne import load_schema_from_path, make_executable_schema, snake_case_fallback_resolvers
 
-from .types.query import query
-from .types.mutation import mutation
-from .types.subscription import subscription
+from .gql_types.query import query
+from .gql_types.mutation import mutation
+from .gql_types.subscription import subscription
 
 from .fields.user import user
 from .fields.match import match

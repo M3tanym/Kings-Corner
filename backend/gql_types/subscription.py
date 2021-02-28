@@ -5,15 +5,12 @@ from ariadne import SubscriptionType
 subscription = SubscriptionType()
 
 
-@subscription.source("counter")
-async def counter_generator(obj, info):
+@subscription.source("getMatchUpdates")
+async def counter_generator(obj, info, **kwargs):
+
+    # addToHash.push(**kwargs["playerID"])
 
     for i in range(5):
 
         await asyncio.sleep(1)
         yield i
-
-
-@subscription.field("counter")
-def counter_resolver(count, info):
-    return count + 1

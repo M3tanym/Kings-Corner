@@ -18,4 +18,3 @@ async def resolve_current_turn(obj, info, **kwargs):
 
     player_id = obj["current_turn"]
     return dict_to_snake_case(users_collection.find_one(player_id))
-

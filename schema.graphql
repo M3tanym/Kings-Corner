@@ -1,4 +1,5 @@
 type User {
+
     _id: ID!
     name: String
     avatar: String
@@ -6,17 +7,13 @@ type User {
     inGameName: String!
     phoneNumber: String
     password: String!
+
     friends: [User!]!
     invites: [User!]!
     matches: [Match!]!
+
     money: Int
     items: [Item!]!
-}
-
-type Item {
-    _id: ID!
-    name: String!
-    description: String!
 }
 
 type Match {
@@ -30,14 +27,18 @@ type Match {
     black: User!
 }
 
+type Item {
+    _id: ID!
+    name: String!
+    description: String!
+}
+
 input Invite {
-    matchID: ID!
     fromID: ID!
     toID: ID!
 }
 
 input Move {
-    matchID: ID!
     fromSquare: String!
     toSquare: String!
 }
@@ -55,10 +56,10 @@ type Mutation {
     modifyUser(playerID: ID!, email: String, phoneNumber: String, name: String, password: String, inGameName: String): User
     requestFriend(playerID: ID!, friendID: ID!): User
     createMatch(playerID: ID!): Match
-    invitePlayer(invite: Invite): Match
+    inviteFriend(playerID: ID!, matchID: ID!, invite: Invite): Match
+    makeMove(playerID: ID!, matchID: ID!, move: Move): Match
 }
 
 type Subscription {
-    makeMove(matchID: ID!, playerID: ID!, move: Move): Match
-    getMove: Match
+    getMatchUpdates(playerID: ID!, matchID: ID!): Match
 }

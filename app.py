@@ -4,7 +4,7 @@ from starlette.middleware import Middleware
 from starlette.middleware.cors import CORSMiddleware
 
 from ariadne.asgi import GraphQL
-from schema import schema
+from backend.schema import schema
 
 middleware = [
     Middleware(CORSMiddleware, allow_origins=['*'], allow_methods=['*'])
