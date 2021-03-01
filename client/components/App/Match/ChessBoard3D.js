@@ -25,7 +25,7 @@ import WhitePawn from "../../../static/images/pieces/staunton/White-Pawn.png";
 import WhiteQueen from "../../../static/images/pieces/staunton/White-Queen.png";
 import WhiteRook from "../../../static/images/pieces/staunton/White-Rook.png";
 
-const ChessBoard = props =>
+const ChessBoard3D = props =>
 {
   const [boardState, setBoardState] = useState(parseFenString(props.initialFen));
   const playerColor = "white";
@@ -184,4 +184,4 @@ const fenLetterToImage = (letter, playerColor) =>
   }
 }
 
-export default ChessBoard;
+export default ChessBoard3D;

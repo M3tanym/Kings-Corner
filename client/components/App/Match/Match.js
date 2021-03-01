@@ -8,7 +8,7 @@ import CallMissedOutgoingIcon from '@material-ui/icons/CallMissedOutgoing';
 import {useQuery} from "@apollo/client";
 import {GetMatchData} from "../../../graphql/query";
 
-import ChessBoard from "./ChessBoard";
+import ChessBoard3D from "./ChessBoard3D";
 
 const Match = props =>
 {
@@ -20,7 +20,7 @@ const Match = props =>
 
 	return(
 		<Box width={"100%"} height={"100%"} display={"flex"}>
-			<Box minWidth={250} pt={2} pl={2} display={"flex"} flexDirection={"column"}>
+			<Box minWidth={300} pt={2} pl={2} display={"flex"} flexDirection={"column"}>
 				<Box>
 					<Paper>
 						<Box p={3} width={"100%"}>
@@ -71,7 +71,7 @@ const Match = props =>
 				</Box>
 			</Box>
 			<Box ml={4} flexGrow={1} p={2} display={"flex"} alignItems={"center"} alignContent={"center"}>
-				<ChessBoard initialFen={data.match.currentState} initialTurn={data.match.currentTurn.name}/>
+				<ChessBoard3D initialFen={data.match.currentState} initialTurn={data.match.currentTurn.name}/>
 			</Box>
 		</Box>
 	)

@@ -26,7 +26,7 @@ const Matches = props =>
 		<Box height={"100%"} display={"flex"} flexDirection={"column"}>
 			<Box pr={4} flexGrow={1} height={500} className={"verticalScrollDiv"}>
 				<Grid container spacing={4}>
-					{data.user.matches.map((match, index) =>
+					{data.user.activeMatches.map((match, index) =>
 						<Grid item key={index}>
 							<MatchPaper match={match}/>
 						</Grid>

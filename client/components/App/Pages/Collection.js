@@ -75,7 +75,7 @@ const PieceSkins = props =>
 {
 	let authData = useContext(AuthContext);
 
-	const [loadingUsersItems, errorUserItems, dataUserItems ] = useQuery(GetOwnedItems, {
+	const { loading, error, data } = useQuery(GetOwnedItems, {
 		variables: { _id: authData.playerID }
 	});
 
@@ -93,12 +93,12 @@ const PieceSkins = props =>
 		description: "Item Description"
 	}]
 
-	if (loadingUsersItems) return null;
-	if (errorUserItems) return null;
+	if (loading) return null;
+	if (error) return null;
 
 	return(
 		<Grid container spacing={4}>
-			{props.filters.showOwned ? dataUserItems.user.items.map((item, index)  =>
+			{props.filters.showOwned ? data.user.items.map((item, index)  =>
 				<Grid item key={index}>
 					<Item name={item.name} description={item.description}/>
 				</Grid>

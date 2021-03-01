@@ -8,8 +8,6 @@ import {grey} from "@material-ui/core/colors";
 import {useMutation} from '@apollo/client';
 import {Login as LoginMutation} from "../../graphql/mutation";
 
-import {useSnackbar} from "notistack";
-
 import {AuthContext} from "../Router";
 
 import Logo from "../UI/Logo";
@@ -62,8 +60,6 @@ const SignInArea = props =>
 	let history = useHistory();
 	let location = useLocation();
 
-	const { enqueueSnackbar } = useSnackbar();
-
 	const [doMutation, { loading }] = useMutation(LoginMutation, {
 		onCompleted: data => {
 			authData.playerID = data.login._id;
@@ -71,7 +67,7 @@ const SignInArea = props =>
 			let { from } = location.state || { from: { pathname: "/app" } };
 			history.replace(from);
 		},
-		onError: (err) => enqueueSnackbar(err)
+		onError: (err) => console.error(err)
 	});
 
 	const validateEmail = text => (/\S+@\S+\.\S+/).test(text);

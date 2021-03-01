@@ -1,23 +1,33 @@
 import React from 'react';
 
 import {Button, Hidden, Grid} from "@material-ui/core";
-
 import { makeStyles } from '@material-ui/core/styles';
+import clsx from "clsx";
 
 const useStyles = makeStyles(theme =>
 	({
-		signIn: {
+		bold: {
 			width: 250,
 			height: 50,
 			borderRadius: 200,
 			fontSize: 22,
 			color: "white",
-			backgroundColor: theme.palette.primary.main,
 			boxShadow: 'none',
 			textTransform: 'none',
 			'&:hover': {
-				backgroundColor: theme.palette.primary.main,
 				boxShadow: 'none',
+			}
+		},
+		signIn: {
+			backgroundColor: theme.palette.primary.main,
+			'&:hover': {
+				backgroundColor: theme.palette.primary.main,
+			}
+		},
+		download: {
+			backgroundColor: theme.palette.secondary.main,
+			'&:hover': {
+				backgroundColor: theme.palette.secondary.main,
 			}
 		},
 		OAuth: {
@@ -36,7 +46,7 @@ export const HomePageButton = props =>
 	const classes = useStyles();
 
 	return (
-		<Button className={classes.signIn} {...props}>
+		<Button className={clsx(classes.bold, classes.download)} {...props}>
 			{props.children}
 		</Button>
 	);
@@ -47,7 +57,7 @@ export const SignInButton = props =>
 	const classes = useStyles();
 
 	return (
-		<Button className={classes.signIn} {...props}>
+		<Button className={clsx(classes.bold, classes.signIn)} {...props}>
 			{props.children}
 		</Button>
 	);

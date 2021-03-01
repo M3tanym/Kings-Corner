@@ -20,10 +20,10 @@ async def resolve_invites(obj, info, **kwargs):
     return [dict_to_snake_case(invite) for invite in invites_list]
 
 
-@user.field("matches")
-async def resolve_matches(obj, info, **kwargs):
+@user.field("activeMatches")
+async def resolve_active_matches(obj, info, **kwargs):
 
-    matches_list = matches_collection.find({"_id": {"$in": obj["matches"]}})
+    matches_list = matches_collection.find({"_id": {"$in": obj["active_matches"]}})
     return [dict_to_snake_case(match) for match in matches_list]
 
 

@@ -15,10 +15,11 @@ async def create_user(_, info, **kwargs):
         "name": None,
         "avatar": None,
         "phoneNumber": None,
-        "money": None,
         "friends": [],
         "invites": [],
-        "matches": [],
+        "activeMatches": [],
+        "finishedMatches": [],
+        "money": None,
         "items": []
     }
     new_user["_id"] = users_collection.insert_one(new_user).inserted_id
@@ -55,10 +56,10 @@ async def create_match(_, info, **kwargs):
         "players": [player_id["_id"]],
         "history": [],
         "currentTurn": player_id["_id"],
-        "currentState": ""
+        "currentState": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
     }
     new_match["_id"] = matches_collection.insert_one(new_match).inserted_id
-    users_collection.update_one(player_id, {'$push': {'matches': new_match["_id"]}})
+    users_collection.update_one(player_id, {'$push': {'activeMatches': new_match["_id"]}})
     return new_match
 
 

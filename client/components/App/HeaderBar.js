@@ -48,6 +48,8 @@ const LogoHeader = props =>
 
 const Search = props =>
 {
+	const authData = useContext(AuthContext);
+
 	const { loading, error, data } = useLazyQuery(GetHeaderProfile, {
 		variables: {_id: authData.playerID}
 	});

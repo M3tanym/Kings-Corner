@@ -205,7 +205,7 @@ const Matches = props =>
 				<Divider />
 				<Box p={1}>
 					<List>
-						{data.user.matches.map((match, index) =>
+						{data.user.activeMatches.map((match, index) =>
 							<ListItem key={index}>
 								<AvatarGroup max={2} style={{paddingRight: 20}}>
 									{match.players.map((player, index) =>
