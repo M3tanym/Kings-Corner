@@ -69,3 +69,22 @@ async def invite_friend(_, info, **kwargs):
     player_id = {"_id": ObjectId(kwargs["playerID"])}
     users_collection.update_one(player_id, {'$push': {'invites': ObjectId(kwargs["friendID"])}})
     return users_collection.find_one(player_id)
+
+
+@mutation.field("makeMove")
+async def make_move(_, info, **kwargs):
+
+    match_id = {"_id": ObjectId(kwargs["matchID"])}
+    match = matches_collection.find_one(match_id)
+    current_state = match["currentState"]
+
+    # resolve move === kwargs["move"]["fromSquare"] => kwargs["move"]["toSquare"]
+
+    new_state = current_state
+
+    matches_collection.update_one(match_id, {'$push': {'history': current_state}})
+    matches_collection.update_one(match_id, {'$set': {'currentState': new_state}})
+
+    # Add Move To Lookup Table For Subscriptions
+
+    return users_collection.find_one(match_id)
